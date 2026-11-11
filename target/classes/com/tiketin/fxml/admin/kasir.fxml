@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="16" styleClass="halaman" stylesheets="@../../css/global.css, @../../css/admin.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.admin.KasirAkunController">
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <TextField fx:id="cariField" promptText="Cari nama atau username" styleClass="field" HBox.hgrow="ALWAYS" />
+        <Button mnemonicParsing="false" onAction="#tampilkanFormBaru" styleClass="tombol-utama" text="Tambah" />
+        <Button fx:id="tombolUbah" mnemonicParsing="false" onAction="#tampilkanFormUbah" styleClass="tombol-netral" text="Ubah" />
+        <Button fx:id="tombolHapus" mnemonicParsing="false" onAction="#hapus" styleClass="tombol-bahaya" text="Hapus" />
+    </HBox>
+    <VBox fx:id="panelForm" managed="false" spacing="10" styleClass="kartu" visible="false">
+        <Label fx:id="judulForm" styleClass="judul-form" text="Tambah kasir" />
+        <HBox spacing="10">
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Nama" />
+                <TextField fx:id="namaField" styleClass="field" />
+            </VBox>
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Username" />
+                <TextField fx:id="usernameField" styleClass="field" />
+            </VBox>
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Password" />
+                <PasswordField fx:id="passwordField" styleClass="field" />
+            </VBox>
+        </HBox>
+        <Label fx:id="bantuanPassword" styleClass="bantuan" text="Minimal 6 karakter." />
+        <Label fx:id="errorForm" styleClass="error" />
+        <HBox spacing="10">
+            <Button mnemonicParsing="false" onAction="#simpan" styleClass="tombol-utama" text="Simpan" />
+            <Button mnemonicParsing="false" onAction="#batal" styleClass="tombol-netral" text="Batal" />
+        </HBox>
+    </VBox>
+    <TableView fx:id="tabel" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="kolomId" prefWidth="80" text="ID" />
+            <TableColumn fx:id="kolomNama" prefWidth="240" text="Nama" />
+            <TableColumn fx:id="kolomUsername" prefWidth="200" text="Username" />
+        </columns>
+    </TableView>
+</VBox>

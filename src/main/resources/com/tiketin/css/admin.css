@@ -1,0 +1,437 @@
+.login-latar {
+    -fx-background-color: -cine-navy;
+}
+
+.kartu-login {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-padding: 32 32 28 32;
+    -fx-spacing: 12;
+    -fx-max-width: 420;
+    -fx-effect: dropshadow(gaussian, rgba(26, 44, 80, 0.28), 28, 0, 0, 10);
+}
+
+.aksen {
+    -fx-background-color: -cine-yellow;
+    -fx-background-radius: 4;
+    -fx-min-height: 6;
+    -fx-max-height: 6;
+    -fx-pref-height: 6;
+}
+
+.merek-login {
+    -fx-font-size: 32px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -cine-navy;
+}
+
+.subjudul {
+    -fx-text-fill: -cine-muted;
+    -fx-font-size: 14px;
+}
+
+.contoh-akun {
+    -fx-text-fill: -cine-muted;
+    -fx-font-size: 12px;
+}
+
+.shell {
+    -fx-background-color: -cine-bg;
+}
+
+.sidebar {
+    -fx-background-color: -cine-navy;
+    -fx-padding: 22 14 16 14;
+    -fx-spacing: 8;
+}
+
+.merek {
+    -fx-text-fill: -cine-yellow;
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-padding: 0 8 0 8;
+}
+
+.peran-kecil, .nama-admin {
+    -fx-text-fill: rgba(255, 255, 255, 0.78);
+    -fx-font-size: 12px;
+    -fx-padding: 0 8 8 8;
+}
+
+.nama-admin {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: white;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+    -fx-background-radius: 8;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-padding: 10 14;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.10);
+}
+
+.nav-button.aktif, .nav-button.aktif:hover {
+    -fx-background-color: -cine-yellow;
+    -fx-text-fill: -cine-navy;
+}
+
+.kepala {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent -cine-line transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 18 24 18 24;
+}
+
+.judul-halaman {
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -cine-navy;
+}
+
+.konten {
+    -fx-background-color: -cine-bg;
+    -fx-padding: 20;
+}
+
+.halaman {
+    -fx-spacing: 16;
+    -fx-background-color: transparent;
+}
+
+.toolbar {
+    -fx-spacing: 10;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.field {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: -cine-line;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 8 12;
+    -fx-prompt-text-fill: #8B97A8;
+}
+
+.field:focused {
+    -fx-border-color: -cine-blue;
+}
+
+.kartu {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-color: -cine-line;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-padding: 16;
+    -fx-spacing: 8;
+}
+
+.stat-label, .bantuan {
+    -fx-text-fill: -cine-muted;
+    -fx-font-size: 13px;
+}
+
+.stat-angka {
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -cine-navy;
+}
+
+.sapaan {
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+}
+
+.tombol-utama, .tombol-netral, .tombol-bahaya {
+    -fx-background-radius: 8;
+    -fx-font-weight: 600;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.tombol-utama {
+    -fx-background-color: -cine-blue;
+    -fx-text-fill: white;
+}
+
+.tombol-utama:hover {
+    -fx-background-color: #0C7AD0;
+}
+
+.tombol-netral {
+    -fx-background-color: white;
+    -fx-text-fill: -cine-navy;
+    -fx-border-color: -cine-line;
+    -fx-border-radius: 8;
+}
+
+.tombol-bahaya {
+    -fx-background-color: -cine-pink;
+    -fx-text-fill: -cine-navy;
+}
+
+.tombol-lebar {
+    -fx-max-width: infinity;
+}
+
+.error {
+    -fx-text-fill: #8E4450;
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+}
+
+.judul-form, .judul-detail {
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+}
+
+.poster {
+    -fx-background-color: -cine-navy;
+    -fx-background-radius: 12;
+    -fx-min-width: 220;
+    -fx-min-height: 140;
+    -fx-alignment: CENTER;
+}
+
+.inisial {
+    -fx-text-fill: -cine-yellow;
+    -fx-font-size: 48px;
+    -fx-font-weight: 700;
+}
+
+.sinopsis {
+    -fx-wrap-text: true;
+    -fx-text-fill: -cine-navy;
+}
+
+.area {
+    -fx-pref-row-count: 3;
+}
+
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-color: -cine-line;
+    -fx-border-radius: 12;
+    -fx-padding: 4;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -cine-navy;
+    -fx-background-radius: 8 8 0 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 36;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #E7F3FD;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: -cine-navy;
+}
+
+.chip {
+    -fx-background-radius: 999;
+    -fx-padding: 2 8;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+}
+
+.chip.aktif {
+    -fx-background-color: #E7F3FD;
+    -fx-text-fill: -cine-blue;
+}
+
+.chip.batal {
+    -fx-background-color: #F8E8EB;
+    -fx-text-fill: #8E4450;
+}
+
+.chip.berhasil {
+    -fx-background-color: #E8EDF6;
+    -fx-text-fill: -cine-navy;
+}
+
+.chip.tunggu {
+    -fx-background-color: #FFF4D4;
+    -fx-text-fill: #7A5B10;
+}
+
+.chart {
+    -fx-background-color: transparent;
+    -fx-padding: 8 0 0 0;
+}
+
+.chart-plot-background {
+    -fx-background-color: #F7F9FC;
+}
+
+.chart-vertical-grid-lines, .chart-horizontal-grid-lines {
+    -fx-stroke: -cine-line;
+}
+
+.default-color0.chart-bar {
+    -fx-bar-fill: -cine-blue;
+}
+
+.axis-label, .chart-title {
+    -fx-text-fill: -cine-navy;
+}
+
+.axis {
+    -fx-tick-label-fill: -cine-muted;
+}
+
+.kartu-detail {
+    -fx-min-width: 240;
+    -fx-pref-width: 260;
+    -fx-max-width: 280;
+}
+
+.halaman-dashboard {
+    -fx-spacing: 20;
+    -fx-background-color: #F4F6F8;
+}
+
+.kartu-stat, .kartu-grafik {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-color: #C5CEDA;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(26, 44, 80, 0.16), 14, 0, 0, 3);
+}
+
+.kartu-stat {
+    -fx-padding: 20 20 18 20;
+    -fx-spacing: 12;
+}
+
+.ikon-lingkar {
+    -fx-background-color: #E7F3FD;
+    -fx-background-radius: 20;
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
+    -fx-max-width: 40;
+    -fx-max-height: 40;
+    -fx-alignment: center;
+}
+
+.ikon-lingkar.film {
+    -fx-background-color: #E7F3FD;
+}
+
+.ikon-lingkar.jadwal {
+    -fx-background-color: #E8EDF6;
+}
+
+.ikon-lingkar.transaksi {
+    -fx-background-color: #F8E8EB;
+}
+
+.ikon-lingkar.uang {
+    -fx-background-color: #FFF4D4;
+}
+
+.ikon-glyph {
+    -fx-font-family: "Segoe MDL2 Assets";
+    -fx-font-size: 16px;
+}
+
+.ikon-lingkar.film .ikon-glyph {
+    -fx-text-fill: -cine-blue;
+}
+
+.ikon-lingkar.jadwal .ikon-glyph {
+    -fx-text-fill: -cine-navy;
+}
+
+.ikon-lingkar.transaksi .ikon-glyph {
+    -fx-text-fill: #8E4450;
+}
+
+.ikon-lingkar.uang .ikon-glyph {
+    -fx-text-fill: #7A5B10;
+}
+
+.baris-stat {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 8;
+}
+
+.kartu-grafik {
+    -fx-spacing: 6;
+    -fx-padding: 18 16 10 16;
+}
+
+.default-color0.chart-series-area-line {
+    -fx-stroke: #0F8EED;
+    -fx-stroke-width: 2px;
+}
+
+.default-color0.chart-series-area-fill {
+    -fx-fill: rgba(15, 142, 237, 0.18);
+}
+
+.default-color0.chart-area-symbol {
+    -fx-background-color: #0F8EED, white;
+    -fx-background-insets: 0, 2px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.default-color0.chart-bar {
+    -fx-bar-fill: #1A2C50;
+}
+
+.catatan-kosong {
+    -fx-text-fill: -cine-muted;
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+}
+
+.tombol-profil {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #C5CEDA;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 6 12 6 6;
+    -fx-cursor: hand;
+}
+
+.tombol-profil:hover {
+    -fx-border-color: -cine-blue;
+}
+
+.nama-kepala {
+    -fx-text-fill: -cine-navy;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+}
+
+.peran-kepala {
+    -fx-text-fill: -cine-muted;
+    -fx-font-size: 12px;
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefHeight="760.0" prefWidth="1200.0" styleClass="login-latar" stylesheets="@../css/global.css, @../css/admin.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.LoginController">
+    <VBox alignment="TOP_LEFT" maxWidth="420.0" spacing="12" styleClass="kartu-login">
+        <Region styleClass="aksen" />
+        <Label styleClass="merek-login" text="Tiketin" />
+        <Label styleClass="subjudul" text="Masuk untuk mengelola data bioskop." wrapText="true" />
+        <VBox spacing="6">
+            <Label text="Username" />
+            <TextField fx:id="usernameField" promptText="Username" styleClass="field" />
+        </VBox>
+        <VBox spacing="6">
+            <Label text="Password" />
+            <PasswordField fx:id="passwordField" onAction="#masuk" promptText="Password" styleClass="field" />
+        </VBox>
+        <Label fx:id="errorLabel" minHeight="36.0" styleClass="error" wrapText="true" />
+        <Button defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#masuk" styleClass="tombol-utama, tombol-lebar" text="Masuk" />
+        <Label styleClass="contoh-akun" text="Akun contoh admin: admin / admin123" />
+    </VBox>
+</StackPane>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="16" styleClass="halaman" stylesheets="@../../css/global.css, @../../css/admin.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.admin.FilmController">
+    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="toolbar">
+        <TextField fx:id="cariField" promptText="Cari judul atau genre" styleClass="field" HBox.hgrow="ALWAYS" />
+        <Button mnemonicParsing="false" onAction="#tampilkanFormBaru" styleClass="tombol-utama" text="Tambah" />
+        <Button fx:id="tombolUbah" mnemonicParsing="false" onAction="#tampilkanFormUbah" styleClass="tombol-netral" text="Ubah" />
+        <Button fx:id="tombolHapus" mnemonicParsing="false" onAction="#hapus" styleClass="tombol-bahaya" text="Hapus" />
+    </HBox>
+    <VBox fx:id="panelForm" managed="false" spacing="10" styleClass="kartu" visible="false">
+        <Label fx:id="judulForm" styleClass="judul-form" text="Tambah film" />
+        <HBox spacing="10">
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Judul" />
+                <TextField fx:id="judulField" styleClass="field" />
+            </VBox>
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Genre" />
+                <TextField fx:id="genreField" styleClass="field" />
+            </VBox>
+            <VBox spacing="6" prefWidth="140">
+                <Label text="Durasi (menit)" />
+                <TextField fx:id="durasiField" styleClass="field" />
+            </VBox>
+        </HBox>
+        <VBox spacing="6">
+            <Label text="Sinopsis" />
+            <TextArea fx:id="sinopsisField" prefRowCount="3" styleClass="field" wrapText="true" />
+        </VBox>
+        <Label fx:id="errorForm" styleClass="error" />
+        <HBox spacing="10">
+            <Button mnemonicParsing="false" onAction="#simpan" styleClass="tombol-utama" text="Simpan" />
+            <Button mnemonicParsing="false" onAction="#batal" styleClass="tombol-netral" text="Batal" />
+        </HBox>
+    </VBox>
+    <HBox spacing="16" VBox.vgrow="ALWAYS">
+        <TableView fx:id="tabel" HBox.hgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="kolomId" prefWidth="60" text="ID" />
+                <TableColumn fx:id="kolomJudul" prefWidth="220" text="Judul" />
+                <TableColumn fx:id="kolomGenre" prefWidth="140" text="Genre" />
+                <TableColumn fx:id="kolomDurasi" prefWidth="120" text="Durasi" />
+            </columns>
+        </TableView>
+        <VBox spacing="12" styleClass="kartu, kartu-detail">
+            <StackPane styleClass="poster">
+                <Label fx:id="inisialLabel" styleClass="inisial" text="?" />
+            </StackPane>
+            <Label fx:id="detailJudul" styleClass="judul-detail" text="Pilih film" wrapText="true" />
+            <Label fx:id="detailMeta" styleClass="bantuan" wrapText="true" />
+            <Label fx:id="detailSinopsis" styleClass="sinopsis" wrapText="true" />
+        </VBox>
+    </HBox>
+</VBox>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="16" styleClass="halaman" stylesheets="@../../css/global.css, @../../css/admin.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.admin.JadwalController">
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <TextField fx:id="cariField" promptText="Cari film atau studio" styleClass="field" HBox.hgrow="ALWAYS" />
+        <Button mnemonicParsing="false" onAction="#tampilkanFormBaru" styleClass="tombol-utama" text="Tambah" />
+        <Button fx:id="tombolUbah" mnemonicParsing="false" onAction="#tampilkanFormUbah" styleClass="tombol-netral" text="Ubah" />
+        <Button fx:id="tombolHapus" mnemonicParsing="false" onAction="#hapus" styleClass="tombol-bahaya" text="Hapus" />
+    </HBox>
+    <VBox fx:id="panelForm" managed="false" spacing="10" styleClass="kartu" visible="false">
+        <Label fx:id="judulForm" styleClass="judul-form" text="Tambah jadwal" />
+        <HBox spacing="10">
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Film" />
+                <ComboBox fx:id="filmField" maxWidth="1.7976931348623157E308" promptText="Pilih film" styleClass="field" />
+            </VBox>
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Studio" />
+                <ComboBox fx:id="studioField" maxWidth="1.7976931348623157E308" promptText="Pilih studio" styleClass="field" />
+            </VBox>
+        </HBox>
+        <HBox spacing="10">
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Tanggal" />
+                <DatePicker fx:id="tanggalField" maxWidth="1.7976931348623157E308" />
+            </VBox>
+            <VBox spacing="6" prefWidth="140">
+                <Label text="Jam" />
+                <ComboBox fx:id="jamField" maxWidth="1.7976931348623157E308" styleClass="field" />
+            </VBox>
+            <VBox spacing="6" prefWidth="160">
+                <Label text="Harga tiket" />
+                <TextField fx:id="hargaField" styleClass="field" />
+            </VBox>
+            <VBox spacing="6" prefWidth="180">
+                <Label text="Status" />
+                <ComboBox fx:id="statusField" maxWidth="1.7976931348623157E308" styleClass="field" />
+            </VBox>
+        </HBox>
+        <Label styleClass="bantuan" text="Jadwal dibatalkan tidak untuk pesanan baru. Jadwal yang sudah punya pemesanan tidak dihapus." wrapText="true" />
+        <Label fx:id="errorForm" styleClass="error" />
+        <HBox spacing="10">
+            <Button mnemonicParsing="false" onAction="#simpan" styleClass="tombol-utama" text="Simpan" />
+            <Button mnemonicParsing="false" onAction="#batal" styleClass="tombol-netral" text="Batal" />
+        </HBox>
+    </VBox>
+    <TableView fx:id="tabel" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="kolomId" prefWidth="60" text="ID" />
+            <TableColumn fx:id="kolomFilm" prefWidth="180" text="Film" />
+            <TableColumn fx:id="kolomStudio" prefWidth="120" text="Studio" />
+            <TableColumn fx:id="kolomWaktu" prefWidth="170" text="Waktu tayang" />
+            <TableColumn fx:id="kolomHarga" prefWidth="130" text="Harga" />
+            <TableColumn fx:id="kolomStatus" prefWidth="120" text="Status" />
+        </columns>
+    </TableView>
+</VBox>

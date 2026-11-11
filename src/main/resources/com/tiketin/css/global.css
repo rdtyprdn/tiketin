@@ -1,0 +1,16 @@
+.root, .shell, .login-latar, .halaman {
+    -cine-navy: #1A2C50;
+    -cine-yellow: #FBC436;
+    -cine-pink: #E39098;
+    -cine-blue: #0F8EED;
+    -cine-bg: #F4F6F8;
+    -cine-card: #FFFFFF;
+    -cine-line: #E4E8EF;
+    -cine-muted: #5C6B82;
+    -fx-font-family: "Inter", "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.label {
+    -fx-text-fill: -cine-navy;
+}
