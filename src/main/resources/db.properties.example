@@ -1,0 +1,3 @@
+db.url=jdbc:mysql://localhost:3306/tiketin
+db.user=root
+db.password= (nanti isi password db kalian)
