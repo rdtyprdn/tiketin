@@ -1,6 +1,6 @@
 package com.tiketin.payment;
 
-import com.tiketin.model.DataPembayaran;;
+import com.tiketin.model.DataPembayaran;
 
 public interface Pembayaran {
     String getMetode();
