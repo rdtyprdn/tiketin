@@ -5,7 +5,7 @@ module com.tiketin {
     
     
     opens com.tiketin to javafx.fxml;
-    opens com.tiketin.controller to javafx.fxml;
+   // opens com.tiketin.controller to javafx.fxml;
     opens com.tiketin.model to javafx.base;
     exports com.tiketin;
     exports com.tiketin.component;
