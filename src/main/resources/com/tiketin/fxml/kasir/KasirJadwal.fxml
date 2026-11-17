@@ -50,7 +50,7 @@
                               <Font name="Inter 18pt SemiBold" size="18.0" />
                            </font>
                         </Label>
-                        <Label text="KS001" textFill="WHITE">
+                        <Label fx:id="lblIdKasir" text="KS001" textFill="WHITE">
                            <font>
                               <Font name="Inter 28pt Regular" size="14.0" />
                            </font>
@@ -64,7 +64,7 @@
                   <Blend />
                </effect>
             </Separator>
-            <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #FFFFFF; -fx-border-width: 1.5; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8, 18, 8, 18;" text="Keluar" textFill="WHITE">
+            <Button fx:id="btnKeluar" mnemonicParsing="false" prefHeight="45.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #FFFFFF; -fx-border-width: 1.5; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8, 18, 8, 18;" text="Keluar" textFill="WHITE">
                <font>
                   <Font name="Inter 28pt SemiBold" size="16.0" />
                </font>
@@ -84,7 +84,7 @@
 
               <VBox prefHeight="344.0" prefWidth="1018.0" spacing="12.0">
             <children>
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-cursor: hand;" text="Kembali" textFill="#1a2c50">
+            <Button fx:id="btnKembali" mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-cursor: hand;" text="Kembali" textFill="#1a2c50">
                <font>
                   <Font name="Inter 28pt Regular" size="14.0" />
                </font>
@@ -117,24 +117,24 @@
                   <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                </padding>
                <children>
-                  <ImageView fitHeight="130.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgPosterFilm" fitHeight="130.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/Zootopia.jpg" />
                      </image>
                   </ImageView>
                   <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="10.0">
                      <children>
-                        <Label text="Zootopia 2" textFill="#1a2c50">
+                        <Label fx:id="lblJudulFilm" text="Zootopia 2" textFill="#1a2c50">
                            <font>
                               <Font name="Inter 28pt Bold" size="22.0" />
                            </font>
                         </Label>
-                        <Label text="Animasi · 108 menit" textFill="#64748b">
+                        <Label fx:id="lblGenreDurasi" text="Animasi · 108 menit" textFill="#64748b">
                            <font>
                               <Font name="Inter 28pt Regular" size="12.0" />
                            </font>
                         </Label>
-                        <Label maxWidth="450.0" prefWidth="450.0" text="Kemitraan polisi Judy Hopps dan Nick Wilde diuji saat mereka ditugaskan melacak Gary De'Snake, seekor ular piton misterius yang memicu kekacauan besar di Zootopia." textAlignment="JUSTIFY" textFill="#1a2c50" wrapText="true">
+                        <Label fx:id="lblSinopsis" maxWidth="450.0" prefWidth="450.0" text="Kemitraan polisi Judy Hopps dan Nick Wilde diuji saat mereka ditugaskan melacak Gary De'Snake, seekor ular piton misterius yang memicu kekacauan besar di Zootopia." textAlignment="JUSTIFY" textFill="#1a2c50" wrapText="true">
                            <font>
                               <Font name="Inter 28pt Regular" size="12.0" />
                            </font>
@@ -162,7 +162,7 @@
                               </Label>
                            </children>
                         </HBox>
-                        <Label style="-fx-background-color: #FFF0CC; -fx-background-radius: 12; -fx-padding: 12, 32, 12, 32; -fx-text-fill: #1A2C50;" text="Rp 50.000">
+                        <Label fx:id="lblHargaTiket" style="-fx-background-color: #FFF0CC; -fx-background-radius: 12; -fx-padding: 12, 32, 12, 32; -fx-text-fill: #1A2C50;" text="Rp 50.000">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="20.0" />
                            </font>
@@ -198,9 +198,9 @@
                         <Insets top="-15.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="851.0" spacing="16.0">
+                  <HBox fx:id="containerTanggal" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="851.0" spacing="16.0">
                      <children>
-                        <Button graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #1A2C50; -fx-background-radius: 10; -fx-border-color: #FBC436; -fx-border-width: 1.5; -fx-border-radius: 10; -fx-text-fill: #FFFFFF; -fx-cursor: hand;" text="Min, 15 Nov 2026" textFill="WHITE">
+                        <Button fx:id="btnTanggal1" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #1A2C50; -fx-background-radius: 10; -fx-border-color: #FBC436; -fx-border-width: 1.5; -fx-border-radius: 10; -fx-text-fill: #FFFFFF; -fx-cursor: hand;" text="Min, 15 Nov 2026" textFill="WHITE">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="14.0" />
                            </font>
@@ -212,7 +212,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Sen, 16 Nov 2026" textFill="WHITE">
+                        <Button fx:id="btnTanggal2" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Sen, 16 Nov 2026" textFill="WHITE">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="14.0" />
                            </font>
@@ -224,7 +224,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Sel, 17 Nov 2026" textFill="WHITE">
+                        <Button fx:id="btnTanggal3" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Sel, 17 Nov 2026" textFill="WHITE">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="14.0" />
                            </font>
@@ -236,7 +236,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Rab, 18 Nov 2026" textFill="WHITE">
+                        <Button fx:id="btnTanggal4" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Rab, 18 Nov 2026" textFill="WHITE">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="14.0" />
                            </font>
@@ -248,7 +248,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Kam, 19 Nov 2026" textFill="WHITE">
+                        <Button fx:id="btnTanggal5" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Kam, 19 Nov 2026" textFill="WHITE">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="14.0" />
                            </font>
@@ -291,9 +291,9 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="16.0">
+                  <HBox fx:id="containerJadwal" alignment="CENTER_LEFT" spacing="16.0">
                      <children>
-                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;" HBox.hgrow="ALWAYS">
+                        <VBox fx:id="cardJadwal1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;" HBox.hgrow="ALWAYS">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -324,7 +324,7 @@
                               <Insets top="-1.0" />
                            </HBox.margin>
                         </VBox>
-                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
+                        <VBox fx:id="cardJadwal2" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -352,7 +352,7 @@
                               <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 52 Kursi" textFill="#1a2c50" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
+                        <VBox fx:id="cardJadwal3" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -380,7 +380,7 @@
                               <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 46 Kursi" textFill="#1a2c50" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
+                        <VBox fx:id="cardJadwal4" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -408,7 +408,7 @@
                               <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 60 Kursi" textFill="#1a2c50" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
+                        <VBox fx:id="cardJadwal5" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -445,7 +445,7 @@
             </VBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="120.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50;; -fx-cursor: hand;" text="Lanjut" textFill="#1a2c50" HBox.hgrow="NEVER">
+                  <Button fx:id="btnLanjut" alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="120.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50;; -fx-cursor: hand;" text="Lanjut" textFill="#1a2c50" HBox.hgrow="NEVER">
                      <font>
                         <Font name="Inter 28pt SemiBold" size="14.0" />
                      </font>
