@@ -15,7 +15,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="650.0" prefWidth="1018.0" spacing="20" style="-fx-background-color: #F3F5F8;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="650.0" prefWidth="1018.0" spacing="20" style="-fx-background-color: #F3F5F8;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.kasir.KasirHomeController">
 
     <children>
 
@@ -234,12 +234,12 @@
                               <Font name="Inter 28pt Regular" size="14.0" />
                            </font>
                         </Label>
-                                <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" prefHeight="42.0" prefWidth="540.0" style="-fx-background-color: #FBC436; -fx-background-radius: 15; -fx-text-fill: #1A2C50;" text="Mulai Transaksi" VBox.vgrow="ALWAYS">
+                                <Button fx:id="btnMulaiTransaksi" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" onAction="#mulaiTransaksi" prefHeight="42.0" prefWidth="540.0" style="-fx-background-color: #FBC436; -fx-background-radius: 15; -fx-text-fill: #1A2C50;" text="Mulai Transaksi" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="15.0" />
                            </font>
                            <graphic>
-                              <ImageView fx:id="btnMulaiTransaksi" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../images/Bold%20Right-Pointing%20Arrow-1.png" />
                                  </image>
@@ -270,7 +270,7 @@
                            <font>
                               <Font name="Inter 28pt Regular" size="14.0" />
                            </font></Label>
-                                <Button fx:id="btnLihatRiwayat" contentDisplay="RIGHT" prefHeight="42.0" prefWidth="540.0" style="-fx-background-color: #1A2C50; -fx-background-radius: 15; -fx-text-fill: #FFFFFF;" text="Lihat Riwayat" VBox.vgrow="ALWAYS">
+                                <Button fx:id="btnLihatRiwayat" contentDisplay="RIGHT" onAction="#lihatRiwayat" prefHeight="42.0" prefWidth="540.0" style="-fx-background-color: #1A2C50; -fx-background-radius: 15; -fx-text-fill: #FFFFFF;" text="Lihat Riwayat" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="15.0" />
                            </font>

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="650.0" prefWidth="1018.0" spacing="20" style="-fx-background-color: #F3F5F8;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="650.0" prefWidth="1018.0" spacing="20" style="-fx-background-color: #F3F5F8;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.kasir.KasirFilmController">
 
     <children>
 
@@ -84,7 +84,7 @@
 
               <VBox prefHeight="733.0" prefWidth="995.0" spacing="15">
             <children>
-            <Button fx:id="btnKembali" mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-cursor: hand;" text="Kembali" textFill="#1a2c50">
+            <Button fx:id="btnKembali" mnemonicParsing="false" onAction="#kembali" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-cursor: hand;" text="Kembali" textFill="#1a2c50">
                <font>
                   <Font name="Inter 28pt Regular" size="14.0" />
                </font>
@@ -136,7 +136,7 @@
                                           <Font name="Inter 28pt Regular" size="12.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="btnZootopia" mnemonicParsing="false" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
+                                    <Button fx:id="btnZootopia" mnemonicParsing="false" onAction="#pilihFilm" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
                                        <font>
                                           <Font name="Inter 28pt SemiBold" size="14.0" />
                                        </font>
@@ -160,7 +160,7 @@
                                           <Font name="Inter 28pt Regular" size="12.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="btnRanggaCinta" mnemonicParsing="false" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
+                                    <Button fx:id="btnRanggaCinta" mnemonicParsing="false" onAction="#pilihFilm" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
                                        <font>
                                           <Font name="Inter 28pt SemiBold" size="14.0" />
                                        </font>
@@ -184,7 +184,7 @@
                                           <Font name="Inter 28pt Regular" size="12.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="btnGhost" mnemonicParsing="false" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
+                                    <Button fx:id="btnGhost" mnemonicParsing="false" onAction="#pilihFilm" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
                                        <font>
                                           <Font name="Inter 28pt SemiBold" size="14.0" />
                                        </font>
@@ -208,7 +208,7 @@
                                           <Font name="Inter 28pt Regular" size="12.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="btnWicked" mnemonicParsing="false" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
+                                    <Button fx:id="btnWicked" mnemonicParsing="false" onAction="#pilihFilm" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
                                        <font>
                                           <Font name="Inter 28pt SemiBold" size="14.0" />
                                        </font>
@@ -232,7 +232,7 @@
                                           <Font name="Inter 28pt Regular" size="12.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="btnMissionImpossible" mnemonicParsing="false" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
+                                    <Button fx:id="btnMissionImpossible" mnemonicParsing="false" onAction="#pilihFilm" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
                                        <font>
                                           <Font name="Inter 28pt SemiBold" size="14.0" />
                                        </font>

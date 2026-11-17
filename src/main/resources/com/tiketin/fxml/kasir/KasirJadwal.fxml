@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="650.0" prefWidth="1018.0" spacing="20" style="-fx-background-color: #F3F5F8;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="650.0" prefWidth="1018.0" spacing="20" style="-fx-background-color: #F3F5F8;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.kasir.KasirJadwalController">
 
     <children>
 
@@ -84,7 +85,7 @@
 
               <VBox prefHeight="344.0" prefWidth="1018.0" spacing="12.0">
             <children>
-            <Button fx:id="btnKembali" mnemonicParsing="false" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-cursor: hand;" text="Kembali" textFill="#1a2c50">
+            <Button fx:id="btnKembali" mnemonicParsing="false" onAction="#kembali" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-cursor: hand;" text="Kembali" textFill="#1a2c50">
                <font>
                   <Font name="Inter 28pt Regular" size="14.0" />
                </font>
@@ -200,7 +201,7 @@
                   </HBox>
                   <HBox fx:id="containerTanggal" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="851.0" spacing="16.0">
                      <children>
-                        <Button fx:id="btnTanggal1" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #1A2C50; -fx-background-radius: 10; -fx-border-color: #FBC436; -fx-border-width: 1.5; -fx-border-radius: 10; -fx-text-fill: #FFFFFF; -fx-cursor: hand;" text="Min, 15 Nov 2026" textFill="WHITE">
+                        <Button fx:id="btnTanggal1" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#pilihTanggal" prefWidth="220.0" style="-fx-background-color: #1A2C50; -fx-background-radius: 10; -fx-border-color: #FBC436; -fx-border-width: 1.5; -fx-border-radius: 10; -fx-text-fill: #FFFFFF; -fx-cursor: hand;" text="Min, 15 Nov 2026" textFill="WHITE">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="14.0" />
                            </font>
@@ -212,7 +213,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnTanggal2" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Sen, 16 Nov 2026" textFill="WHITE">
+                        <Button fx:id="btnTanggal2" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#pilihTanggal" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Sen, 16 Nov 2026" textFill="WHITE">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="14.0" />
                            </font>
@@ -224,7 +225,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnTanggal3" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Sel, 17 Nov 2026" textFill="WHITE">
+                        <Button fx:id="btnTanggal3" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#pilihTanggal" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Sel, 17 Nov 2026" textFill="WHITE">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="14.0" />
                            </font>
@@ -236,7 +237,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnTanggal4" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Rab, 18 Nov 2026" textFill="WHITE">
+                        <Button fx:id="btnTanggal4" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#pilihTanggal" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Rab, 18 Nov 2026" textFill="WHITE">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="14.0" />
                            </font>
@@ -248,7 +249,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnTanggal5" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Kam, 19 Nov 2026" textFill="WHITE">
+                        <Button fx:id="btnTanggal5" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#pilihTanggal" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Kam, 19 Nov 2026" textFill="WHITE">
                            <font>
                               <Font name="Inter 28pt SemiBold" size="14.0" />
                            </font>
@@ -293,7 +294,7 @@
                   </HBox>
                   <HBox fx:id="containerJadwal" alignment="CENTER_LEFT" spacing="16.0">
                      <children>
-                        <VBox fx:id="cardJadwal1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;" HBox.hgrow="ALWAYS">
+                        <VBox fx:id="cardJadwal1" alignment="CENTER" onMouseClicked="#pilihJadwal">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -323,8 +324,11 @@
                            <HBox.margin>
                               <Insets top="-1.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </VBox>
-                        <VBox fx:id="cardJadwal2" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
+                        <VBox fx:id="cardJadwal2" alignment="CENTER" onMouseClicked="#pilihJadwal">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -351,8 +355,11 @@
                               </Label>
                               <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 52 Kursi" textFill="#1a2c50" />
                            </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </VBox>
-                        <VBox fx:id="cardJadwal3" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
+                        <VBox fx:id="cardJadwal3" alignment="CENTER" onMouseClicked="#pilihJadwal">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -379,8 +386,11 @@
                               </Label>
                               <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 46 Kursi" textFill="#1a2c50" />
                            </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </VBox>
-                        <VBox fx:id="cardJadwal4" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
+                         <VBox fx:id="cardJadwal4" alignment="CENTER" onMouseClicked="#pilihJadwal">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -400,15 +410,18 @@
                                     </ImageView>
                                  </graphic>
                               </Label>
-                              <Label text="18.45" textFill="#1a2c50">
+                             <Label text="18.45" textFill="#1a2c50">
                                  <font>
                                     <Font name="Inter 28pt Bold" size="22.0" />
                                  </font>
                               </Label>
                               <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 60 Kursi" textFill="#1a2c50" />
                            </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </VBox>
-                        <VBox fx:id="cardJadwal5" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="220.0" spacing="5.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #E2E8F0; -fx-border-width: 1; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 8, 0, 0, 2);;">
+                        <VBox fx:id="cardJadwal5" alignment="CENTER" onMouseClicked="#pilihJadwal">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -435,6 +448,9 @@
                               </Label>
                               <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 58 Kursi" textFill="#1a2c50" />
                            </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </VBox>
                      </children>
                      <VBox.margin>
@@ -445,7 +461,7 @@
             </VBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnLanjut" alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="120.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50;; -fx-cursor: hand;" text="Lanjut" textFill="#1a2c50" HBox.hgrow="NEVER">
+                  <Button fx:id="btnLanjut" alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#lanjut" prefHeight="44.0" prefWidth="120.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50;; -fx-cursor: hand;" text="Lanjut" textFill="#1a2c50" HBox.hgrow="NEVER">
                      <font>
                         <Font name="Inter 28pt SemiBold" size="14.0" />
                      </font>
