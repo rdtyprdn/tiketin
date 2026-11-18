@@ -2,7 +2,7 @@ package com.tiketin.enums;
 
 public enum StatusPemesanan {
     MENUNGGU_PEMBAYARAN("Menunggu pembayaran"),
-    BERHASIL("Berhasil"),
+    LUNAS("Lunas"),
     DIBATALKAN("Dibatalkan");
 
     private final String label;

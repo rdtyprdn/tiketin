@@ -7,10 +7,12 @@ public class Kursi {
     private String tipeKursi;
     private int idAdmin;
 
-    public Kursi() {
+    public Kursi(){
+
     }
 
-    public Kursi(int idKursi, int idStudio, String nomorKursi, String tipeKursi, int idAdmin) {
+
+    public Kursi(int idKursi, int idStudio, String nomorKursi, String tipeKursi, int idAdmin){
         this.idKursi = idKursi;
         this.idStudio = idStudio;
         this.nomorKursi = nomorKursi;

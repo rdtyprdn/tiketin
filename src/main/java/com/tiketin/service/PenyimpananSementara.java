@@ -255,15 +255,15 @@ public final class PenyimpananSementara {
         JadwalTayang pulauLalu = simpanJadwal(new JadwalTayang(0, pulau.getIdFilm(), studio2.getIdStudio(),
                 LocalDateTime.of(hariIni.minusDays(3), LocalTime.of(21, 0)), 45000, StatusJadwal.AKTIF, admin.getIdAdmin()));
 
-        pesan(senjaLalu, kasir.getIdKasir(), KanalPemesanan.LOKET, StatusPemesanan.BERHASIL,
+        pesan(senjaLalu, kasir.getIdKasir(), KanalPemesanan.KASIR, StatusPemesanan.LUNAS,
                 hariIni.minusDays(2).atTime(19, 20), 50000, a2);
-        pesan(pulauLalu, null, KanalPemesanan.KIOSK, StatusPemesanan.BERHASIL,
+        pesan(pulauLalu, null, KanalPemesanan.KIOSK, StatusPemesanan.LUNAS,
                 hariIni.minusDays(3).atTime(21, 10), 90000, c1, c2);
         pesan(tayangBesok, null, KanalPemesanan.KIOSK, StatusPemesanan.MENUNGGU_PEMBAYARAN,
                 LocalDateTime.now().minusHours(1), 50000, b1);
         pesan(tayangBesok, null, KanalPemesanan.KIOSK, StatusPemesanan.DIBATALKAN,
                 LocalDateTime.now().minusHours(3), 50000, a1);
-        pesan(pulauBesok, kasir.getIdKasir(), KanalPemesanan.LOKET, StatusPemesanan.BERHASIL,
+        pesan(pulauBesok, kasir.getIdKasir(), KanalPemesanan.KASIR, StatusPemesanan.LUNAS,
                 LocalDateTime.now().minusMinutes(30), 45000, c1);
     }
 

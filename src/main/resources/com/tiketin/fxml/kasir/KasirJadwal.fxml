@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="650.0" prefWidth="1018.0" spacing="20" style="-fx-background-color: #F3F5F8;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.kasir.KasirJadwalController">
+
+    <children>
+
+              <HBox alignment="CENTER_LEFT" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" spacing="10.0" style="-fx-background-color: #1A2C50;">
+            <children>
+            <VBox prefHeight="90.0" prefWidth="340.0" spacing="4.0">
+               <children>
+                      <Label text="tiketin" textFill="#fbc436">
+                     <font>
+                        <Font name="Inter 28pt Bold" size="32.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="18.0" prefWidth="335.0" text="Cinema Ticket Booking System" textFill="WHITE">
+                     <font>
+                        <Font name="Inter 18pt Regular" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="14.0" left="32.0" right="32.0" top="14.0" />
+               </padding>
+            </VBox>
+            <Region prefHeight="90.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/Minimalist%20White%20Profile%20Avatar%20Icon.png" />
+                     </image>
+                  </ImageView>
+                  <VBox alignment="CENTER_LEFT" spacing="4.0">
+                     <children>
+                        <Label text="Kasir" textFill="WHITE">
+                           <font>
+                              <Font name="Inter 18pt SemiBold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblIdKasir" text="KS001" textFill="WHITE">
+                           <font>
+                              <Font name="Inter 28pt Regular" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Separator maxHeight="36.0" maxWidth="36.0" minHeight="36.0" orientation="VERTICAL" prefHeight="36.0" prefWidth="1.0" style="-fx-border-color: #FFFFFF; -fx-border-width: 0,0,0,1;">
+               <effect>
+                  <Blend />
+               </effect>
+            </Separator>
+            <Button fx:id="btnKeluar" mnemonicParsing="false" prefHeight="45.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #FFFFFF; -fx-border-width: 1.5; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8, 18, 8, 18;" text="Keluar" textFill="WHITE">
+               <font>
+                  <Font name="Inter 28pt SemiBold" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" opacity="0.79" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/Rounded%20Exit%20Arrow%20Icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            </children>
+         <padding>
+            <Insets bottom="20.0" left="32.0" right="32.0" top="20.0" />
+         </padding>
+        </HBox>
+
+              <VBox prefHeight="344.0" prefWidth="1018.0" spacing="12.0">
+            <children>
+            <Button fx:id="btnKembali" mnemonicParsing="false" onAction="#kembali" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-cursor: hand;" text="Kembali" textFill="#1a2c50">
+               <font>
+                  <Font name="Inter 28pt Regular" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                     <image>
+                        <Image url="@../../images/Bold%20Right-Pointing%20Arrow-1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="-15.0" />
+               </VBox.margin>
+            </Button>
+                <Label text="Pilih Jadwal Tayang" textFill="#1a2c50">
+               <font>
+                  <Font name="Inter 28pt Bold" size="22.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-10.0" />
+               </VBox.margin>
+            </Label>
+                <Label text="Pilih tanggal dan jadwal tayang yang akan dipesan pelanggan." textFill="#64748b">
+               <font>
+                  <Font name="Inter 28pt Regular" size="12.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="160.0" prefWidth="180.0" spacing="24.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 10, 0, 0, 3);;">
+               <padding>
+                  <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+               </padding>
+               <children>
+                  <ImageView fx:id="imgPosterFilm" fitHeight="130.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/Zootopia.jpg" />
+                     </image>
+                  </ImageView>
+                  <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="lblJudulFilm" text="Zootopia 2" textFill="#1a2c50">
+                           <font>
+                              <Font name="Inter 28pt Bold" size="22.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblGenreDurasi" text="Animasi · 108 menit" textFill="#64748b">
+                           <font>
+                              <Font name="Inter 28pt Regular" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblSinopsis" maxWidth="450.0" prefWidth="450.0" text="Kemitraan polisi Judy Hopps dan Nick Wilde diuji saat mereka ditugaskan melacak Gary De'Snake, seekor ular piton misterius yang memicu kekacauan besar di Zootopia." textAlignment="JUSTIFY" textFill="#1a2c50" wrapText="true">
+                           <font>
+                              <Font name="Inter 28pt Regular" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Region prefHeight="200.0" prefWidth="200.0" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <HBox prefHeight="0.0" prefWidth="0.0">
+                           <children>
+                              <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/Harga%20tiket.png" />
+                                 </image>
+                              </ImageView>
+                              <Label contentDisplay="CENTER" text="Harga Tiket">
+                                 <font>
+                                    <Font name="Inter 28pt Regular" size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="8.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Label fx:id="lblHargaTiket" style="-fx-background-color: #FFF0CC; -fx-background-radius: 12; -fx-padding: 12, 32, 12, 32; -fx-text-fill: #1A2C50;" text="Rp 50.000">
+                           <font>
+                              <Font name="Inter 28pt SemiBold" size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets right="55.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox spacing="12.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefWidth="1018.0" spacing="10.0">
+                     <children>
+                        <Label text="Pilih Tanggal" textFill="#1a2c50">
+                           <font>
+                              <Font name="Inter 28pt Bold" size="20.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/Minimalist%20Black%20Calendar%20Icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="-10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="-15.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="containerTanggal" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="851.0" spacing="16.0">
+                     <children>
+                        <Button fx:id="btnTanggal1" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#pilihTanggal" prefWidth="220.0" style="-fx-background-color: #1A2C50; -fx-background-radius: 10; -fx-border-color: #FBC436; -fx-border-width: 1.5; -fx-border-radius: 10; -fx-text-fill: #FFFFFF; -fx-cursor: hand;" text="Min, 15 Nov 2026" textFill="WHITE">
+                           <font>
+                              <Font name="Inter 28pt SemiBold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/White%20Calendar%20Icon%20with%20Day%20Blocks.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnTanggal2" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#pilihTanggal" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Sen, 16 Nov 2026" textFill="WHITE">
+                           <font>
+                              <Font name="Inter 28pt SemiBold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/Minimalist%20Black%20Calendar%20Icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnTanggal3" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#pilihTanggal" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Sel, 17 Nov 2026" textFill="WHITE">
+                           <font>
+                              <Font name="Inter 28pt SemiBold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/Minimalist%20Black%20Calendar%20Icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnTanggal4" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#pilihTanggal" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Rab, 18 Nov 2026" textFill="WHITE">
+                           <font>
+                              <Font name="Inter 28pt SemiBold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/Minimalist%20Black%20Calendar%20Icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnTanggal5" graphicTextGap="8.0" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#pilihTanggal" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-width: 1; -fx-border-radius: 10; -fx-text-fill: #1A2C50; -fx-cursor: hand;" text="Kam, 19 Nov 2026" textFill="WHITE">
+                           <font>
+                              <Font name="Inter 28pt SemiBold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/Minimalist%20Black%20Calendar%20Icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="-8.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="-10.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label text="Pilih Jadwal Tayang" textFill="#1a2c50">
+                           <font>
+                              <Font name="Inter 28pt Bold" size="20.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/Minimalist%20Black%20Clock%20Icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="containerJadwal" alignment="CENTER_LEFT" spacing="16.0">
+                     <children>
+                        <VBox fx:id="cardJadwal1" alignment="CENTER" onMouseClicked="#pilihJadwal">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <children>
+                              <Label alignment="CENTER" graphicTextGap="6.0" text="Studio 1" textFill="#1a2c50">
+                                 <font>
+                                    <Font name="Inter 28pt SemiBold" size="14.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/Studio.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="10.30" textFill="#1a2c50">
+                                 <font>
+                                    <Font name="Inter 28pt Bold" size="22.0" />
+                                 </font>
+                              </Label>
+                              <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 48 Kursi" textFill="#1a2c50" />
+                           </children>
+                           <HBox.margin>
+                              <Insets top="-1.0" />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </VBox>
+                        <VBox fx:id="cardJadwal2" alignment="CENTER" onMouseClicked="#pilihJadwal">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <children>
+                              <Label alignment="CENTER" graphicTextGap="6.0" text="Studio 2" textFill="#1a2c50">
+                                 <font>
+                                    <Font name="Inter 28pt SemiBold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/Studio.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                              <Label text="13.15" textFill="#1a2c50">
+                                 <font>
+                                    <Font name="Inter 28pt Bold" size="22.0" />
+                                 </font>
+                              </Label>
+                              <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 52 Kursi" textFill="#1a2c50" />
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </VBox>
+                        <VBox fx:id="cardJadwal3" alignment="CENTER" onMouseClicked="#pilihJadwal">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <children>
+                              <Label alignment="CENTER" graphicTextGap="6.0" text="Studio 1" textFill="#1a2c50">
+                                 <font>
+                                    <Font name="Inter 28pt SemiBold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/Studio.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                              <Label text="16.00" textFill="#1a2c50">
+                                 <font>
+                                    <Font name="Inter 28pt Bold" size="22.0" />
+                                 </font>
+                              </Label>
+                              <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 46 Kursi" textFill="#1a2c50" />
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </VBox>
+                         <VBox fx:id="cardJadwal4" alignment="CENTER" onMouseClicked="#pilihJadwal">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <children>
+                              <Label alignment="CENTER" graphicTextGap="6.0" text="Studio 3" textFill="#1a2c50">
+                                 <font>
+                                    <Font name="Inter 28pt SemiBold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/Studio.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                             <Label text="18.45" textFill="#1a2c50">
+                                 <font>
+                                    <Font name="Inter 28pt Bold" size="22.0" />
+                                 </font>
+                              </Label>
+                              <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 60 Kursi" textFill="#1a2c50" />
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </VBox>
+                        <VBox fx:id="cardJadwal5" alignment="CENTER" onMouseClicked="#pilihJadwal">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <children>
+                              <Label alignment="CENTER" graphicTextGap="6.0" text="Studio 2" textFill="#1a2c50">
+                                 <font>
+                                    <Font name="Inter 28pt SemiBold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/Studio.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                              <Label text="21.00" textFill="#1a2c50">
+                                 <font>
+                                    <Font name="Inter 28pt Bold" size="22.0" />
+                                 </font>
+                              </Label>
+                              <Label style="-fx-background-color: #E5EBF5;; -fx-background-radius: 20; -fx-padding: 3 14 3 14;;" text="Tersedia: 58 Kursi" textFill="#1a2c50" />
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="-8.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnLanjut" alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#lanjut" prefHeight="44.0" prefWidth="120.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50;; -fx-cursor: hand;" text="Lanjut" textFill="#1a2c50" HBox.hgrow="NEVER">
+                     <font>
+                        <Font name="Inter 28pt SemiBold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/Bold%20Right-Pointing%20Arrow-1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+
+                  </children>
+         <padding>
+            <Insets bottom="10.0" left="40.0" right="40.0" top="10.0" />
+         </padding>
+        </VBox>
+
+    </children>
+</VBox>
