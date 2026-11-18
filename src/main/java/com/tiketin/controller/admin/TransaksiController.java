@@ -92,7 +92,7 @@ public class TransaksiController implements HalamanAdmin {
 
     private static String gayaStatus(BarisTransaksi baris) {
         return switch (baris.getStatus()) {
-            case BERHASIL -> "berhasil";
+            case LUNAS -> "berhasil";
             case DIBATALKAN -> "batal";
             case MENUNGGU_PEMBAYARAN -> "tunggu";
         };

@@ -214,13 +214,13 @@ public final class PenyimpananSementara {
     }
 
     private void isiContoh() {
-        Admin admin = new Admin(0, "admin", PasswordUtil.hash("admin123"), "Admin Bioskop", 0);
+        Admin admin = new Admin(0, 0, "admin", PasswordUtil.hash("admin123"), "Admin Bioskop");
         admin.setIdPengguna(++idPengguna);
         admin.setIdAdmin(++idAdmin);
         pengguna.add(admin);
         ProfilService.terapkanTersimpan(admin);
 
-        Kasir kasir = new Kasir(0, "kasir1", PasswordUtil.hash("kasir123"), "Kasir Loket", 0);
+        Kasir kasir = new Kasir(0, 0, "kasir1", PasswordUtil.hash("kasir123"), "Kasir Loket");
         kasir.setIdPengguna(++idPengguna);
         kasir.setIdKasir(++idKasir);
         pengguna.add(kasir);
@@ -255,15 +255,15 @@ public final class PenyimpananSementara {
         JadwalTayang pulauLalu = simpanJadwal(new JadwalTayang(0, pulau.getIdFilm(), studio2.getIdStudio(),
                 LocalDateTime.of(hariIni.minusDays(3), LocalTime.of(21, 0)), 45000, StatusJadwal.AKTIF, admin.getIdAdmin()));
 
-        pesan(senjaLalu, kasir.getIdKasir(), KanalPemesanan.LOKET, StatusPemesanan.BERHASIL,
+        pesan(senjaLalu, kasir.getIdKasir(), KanalPemesanan.KASIR, StatusPemesanan.LUNAS,
                 hariIni.minusDays(2).atTime(19, 20), 50000, a2);
-        pesan(pulauLalu, null, KanalPemesanan.KIOSK, StatusPemesanan.BERHASIL,
+        pesan(pulauLalu, null, KanalPemesanan.KIOSK, StatusPemesanan.LUNAS,
                 hariIni.minusDays(3).atTime(21, 10), 90000, c1, c2);
         pesan(tayangBesok, null, KanalPemesanan.KIOSK, StatusPemesanan.MENUNGGU_PEMBAYARAN,
                 LocalDateTime.now().minusHours(1), 50000, b1);
         pesan(tayangBesok, null, KanalPemesanan.KIOSK, StatusPemesanan.DIBATALKAN,
                 LocalDateTime.now().minusHours(3), 50000, a1);
-        pesan(pulauBesok, kasir.getIdKasir(), KanalPemesanan.LOKET, StatusPemesanan.BERHASIL,
+        pesan(pulauBesok, kasir.getIdKasir(), KanalPemesanan.KASIR, StatusPemesanan.LUNAS,
                 LocalDateTime.now().minusMinutes(30), 45000, c1);
     }
 
@@ -274,7 +274,7 @@ public final class PenyimpananSementara {
         pemesanan.add(pesanan);
         for (Kursi item : kursiDipilih) {
             detail.add(new DetailPemesanan(++idDetail, pesanan.getIdPemesanan(),
-                    jadwalTayang.getIdJadwal(), item.getIdKursi()));
+                    jadwalTayang.getIdJadwal(), item.getIdKursi(), jadwalTayang.getHargaTiket()));
         }
     }
 }

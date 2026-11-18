@@ -2,7 +2,7 @@ package com.tiketin.enums;
 
 public enum KanalPemesanan {
     KIOSK("Kiosk"),
-    LOKET("Loket");
+    KASIR("Kasir");
 
     private final String label;
 

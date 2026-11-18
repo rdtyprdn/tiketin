@@ -28,7 +28,7 @@ public class KasirService {
         String namaBersih = Validasi.wajib(nama, "Nama kasir wajib diisi.");
         String usernameBersih = username(username, 0);
         String sandi = wajibPassword(password, true);
-        Kasir kasir = new Kasir(0, usernameBersih, PasswordUtil.hash(sandi), namaBersih, 0);
+        Kasir kasir = new Kasir(0, 0, usernameBersih, PasswordUtil.hash(sandi), namaBersih);
         return data.simpanKasir(kasir);
     }
 
@@ -41,7 +41,7 @@ public class KasirService {
         String usernameBersih = username(username, lama.getIdPengguna());
         String sandi = wajibPassword(password, false);
         String hash = sandi == null ? lama.getPassword() : PasswordUtil.hash(sandi);
-        Kasir baru = new Kasir(lama.getIdPengguna(), usernameBersih, hash, namaBersih, lama.getIdKasir());
+        Kasir baru = new Kasir(lama.getIdKasir(), lama.getIdPengguna(), usernameBersih, hash, namaBersih);
         return data.simpanKasir(baru);
     }
 
