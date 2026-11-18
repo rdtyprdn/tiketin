@@ -18,40 +18,36 @@ public class Kursi {
     public int getIdKursi() {
         return idKursi;
     }
-
     public void setIdKursi(int idKursi) {
         this.idKursi = idKursi;
     }
-
     public int getIdStudio() {
         return idStudio;
     }
-
     public void setIdStudio(int idStudio) {
         this.idStudio = idStudio;
     }
-
     public String getNomorKursi() {
         return nomorKursi;
     }
-
     public void setNomorKursi(String nomorKursi) {
         this.nomorKursi = nomorKursi;
     }
-
     public String getTipeKursi() {
         return tipeKursi;
     }
-
     public void setTipeKursi(String tipeKursi) {
         this.tipeKursi = tipeKursi;
     }
-
     public int getIdAdmin() {
         return idAdmin;
     }
-
     public void setIdAdmin(int idAdmin) {
         this.idAdmin = idAdmin;
+    }
+
+    @Override 
+    public String toString(){
+        return nomorKursi;
     }
 }
