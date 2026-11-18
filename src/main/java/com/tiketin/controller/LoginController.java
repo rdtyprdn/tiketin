@@ -28,21 +28,28 @@ public class LoginController {
 
     @FXML
     private void masuk() {
-        errorLabel.setText("");
+        tampilkanGalat("");
         try {
             Pengguna pengguna = authService.login(usernameField.getText(), passwordField.getText());
             if ("ADMIN".equals(pengguna.peran())) {
                 bukaAdmin((Admin) pengguna);
             } else if ("KASIR".equals(pengguna.peran())) {
-                errorLabel.setText("Akun kasir dikenali. Dashboard kasir belum dipasang di bagian ini.");
+                tampilkanGalat("Akun kasir dikenali. Dashboard kasir belum dipasang di bagian ini.");
             } else {
-                errorLabel.setText("Peran akun tidak dikenali.");
+                tampilkanGalat("Peran akun tidak dikenali.");
             }
         } catch (IllegalArgumentException ex) {
-            errorLabel.setText(ex.getMessage());
+            tampilkanGalat(ex.getMessage());
         } catch (IOException ex) {
-            errorLabel.setText("Halaman admin tidak bisa dibuka.");
+            tampilkanGalat("Halaman admin tidak bisa dibuka.");
         }
+    }
+
+    private void tampilkanGalat(String pesan) {
+        boolean ada = pesan != null && !pesan.isBlank();
+        errorLabel.setText(ada ? pesan : "");
+        errorLabel.setVisible(ada);
+        errorLabel.setManaged(ada);
     }
 
     private void bukaAdmin(Admin admin) throws IOException {

@@ -55,7 +55,7 @@
                 <Label styleClass="judul-form" text="Pendapatan 7 hari" />
                 <Label styleClass="bantuan" text="Total bayar pesanan berhasil, per hari" />
             </VBox>
-            <AreaChart fx:id="grafikPendapatan" animated="false" legendVisible="false" minHeight="280.0" style="-fx-padding: 8 4 0 0;" VBox.vgrow="ALWAYS">
+            <AreaChart fx:id="grafikPendapatan" animated="false" legendVisible="false" minHeight="240.0" style="-fx-padding: 8 4 0 0;" VBox.vgrow="ALWAYS">
                 <xAxis>
                     <CategoryAxis side="BOTTOM" />
                 </xAxis>
@@ -69,7 +69,7 @@
                 <Label styleClass="judul-form" text="Transaksi 7 hari" />
                 <Label styleClass="bantuan" text="Jumlah pesanan berhasil" />
             </VBox>
-            <BarChart fx:id="grafik" animated="false" barGap="4.0" categoryGap="18.0" horizontalGridLinesVisible="true" legendVisible="false" minHeight="280.0" style="-fx-padding: 8 4 0 0;" verticalGridLinesVisible="false" VBox.vgrow="ALWAYS">
+            <BarChart fx:id="grafik" animated="false" barGap="4.0" categoryGap="18.0" horizontalGridLinesVisible="true" legendVisible="false" minHeight="240.0" style="-fx-padding: 8 4 0 0;" verticalGridLinesVisible="false" VBox.vgrow="ALWAYS">
                 <xAxis>
                     <CategoryAxis side="BOTTOM" />
                 </xAxis>

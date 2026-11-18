@@ -4,11 +4,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane styleClass="shell" stylesheets="@../../css/global.css, @../../css/admin.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.admin.AdminShellController">
+<BorderPane minHeight="0.0" minWidth="0.0" styleClass="shell" stylesheets="@../../css/global.css, @../../css/admin.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.admin.AdminShellController">
     <left>
         <VBox prefWidth="248.0" styleClass="sidebar">
             <VBox spacing="2">
-                <Label styleClass="merek" text="Tiketin" />
+                <Label styleClass="merek" text="tiketin" />
                 <Label styleClass="peran-kecil" text="Dashboard admin" />
             </VBox>
             <VBox spacing="4" VBox.vgrow="ALWAYS">
@@ -57,7 +57,7 @@
                     </graphic>
                 </Button>
             </HBox>
-            <StackPane fx:id="konten" styleClass="konten" VBox.vgrow="ALWAYS" />
+            <StackPane fx:id="konten" minHeight="0.0" minWidth="0.0" styleClass="konten" VBox.vgrow="ALWAYS" />
         </VBox>
     </center>
 </BorderPane>
