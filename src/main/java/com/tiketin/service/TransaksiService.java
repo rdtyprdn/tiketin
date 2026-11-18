@@ -53,7 +53,7 @@ public class TransaksiService {
                 .toList();
         String kursi = nomor.isEmpty() ? "-" : nomor.stream().collect(Collectors.joining(", "));
         return new BarisTransaksi(pesanan.getIdPemesanan(), pesanan.getIdJadwal(), pesanan.getWaktuPemesanan(),
-                pesanan.getKanalPemesanan(), kasir, pesanan.getTotalBayar(), pesanan.getStatusPemesanan(),
+                pesanan.getKanalPemesanan(), kasir, (int) Math.round(pesanan.getTotalBayar()), pesanan.getStatusPemesanan(),
                 judul, studio, tayang, kursi, nomor.size());
     }
 

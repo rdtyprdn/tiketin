@@ -5,6 +5,9 @@ public class Studio {
     private String namaStudio;
     private int idAdmin;
 
+    public Studio() {
+    }
+
     public Studio(int idStudio, String namaStudio, int idAdmin) {
         this.idStudio = idStudio;
         this.namaStudio = namaStudio;

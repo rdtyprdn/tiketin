@@ -214,13 +214,13 @@ public final class PenyimpananSementara {
     }
 
     private void isiContoh() {
-        Admin admin = new Admin(0, "admin", PasswordUtil.hash("admin123"), "Admin Bioskop", 0);
+        Admin admin = new Admin(0, 0, "admin", PasswordUtil.hash("admin123"), "Admin Bioskop");
         admin.setIdPengguna(++idPengguna);
         admin.setIdAdmin(++idAdmin);
         pengguna.add(admin);
         ProfilService.terapkanTersimpan(admin);
 
-        Kasir kasir = new Kasir(0, "kasir1", PasswordUtil.hash("kasir123"), "Kasir Loket", 0);
+        Kasir kasir = new Kasir(0, 0, "kasir1", PasswordUtil.hash("kasir123"), "Kasir Loket");
         kasir.setIdPengguna(++idPengguna);
         kasir.setIdKasir(++idKasir);
         pengguna.add(kasir);
@@ -274,7 +274,7 @@ public final class PenyimpananSementara {
         pemesanan.add(pesanan);
         for (Kursi item : kursiDipilih) {
             detail.add(new DetailPemesanan(++idDetail, pesanan.getIdPemesanan(),
-                    jadwalTayang.getIdJadwal(), item.getIdKursi()));
+                    jadwalTayang.getIdJadwal(), item.getIdKursi(), jadwalTayang.getHargaTiket()));
         }
     }
 }

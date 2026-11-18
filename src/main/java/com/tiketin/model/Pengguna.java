@@ -5,6 +5,7 @@ public abstract class Pengguna {
     private String username;
     private String password;
     private String nama;
+    private String foto;
 
     public Pengguna(){
 
@@ -47,5 +48,11 @@ public abstract class Pengguna {
         this.nama = nama;
     }
 
-    
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
 }

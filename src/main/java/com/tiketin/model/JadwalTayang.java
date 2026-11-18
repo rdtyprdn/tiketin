@@ -13,6 +13,9 @@ public class JadwalTayang {
     private StatusJadwal statusJadwal;
     private int idAdmin;
 
+    public JadwalTayang() {
+    }
+
     public JadwalTayang(int idJadwal, int idFilm, int idStudio, LocalDateTime waktuMulai,
                         int hargaTiket, StatusJadwal statusJadwal, int idAdmin) {
         this.idJadwal = idJadwal;
