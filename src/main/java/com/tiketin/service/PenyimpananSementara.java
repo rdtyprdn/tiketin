@@ -85,7 +85,12 @@ public final class PenyimpananSementara {
     }
 
     public List<JadwalTayang> jadwal() {
-        return jadwal.stream().sorted(Comparator.comparing(JadwalTayang::getWaktuMulai).reversed()).toList();
+        try {
+            return new com.tiketin.dao.JadwalTayangDAO().getAll().stream()
+                    .sorted(Comparator.comparing(JadwalTayang::getWaktuMulai).reversed()).toList();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat jadwal: " + e.getMessage());
+        }
     }
 
     public List<Pemesanan> pemesanan() {
@@ -130,7 +135,11 @@ public final class PenyimpananSementara {
     }
 
     public JadwalTayang cariJadwal(int id) {
-        return jadwal.stream().filter(item -> item.getIdJadwal() == id).findFirst().orElse(null);
+        try {
+            return new com.tiketin.dao.JadwalTayangDAO().getById(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal mencari jadwal: " + e.getMessage());
+        }
     }
 
     public Kasir cariKasir(int idKasir) {
@@ -208,18 +217,23 @@ public final class PenyimpananSementara {
     }
 
     public JadwalTayang simpanJadwal(JadwalTayang item) {
-        if (item.getIdJadwal() == 0) {
-            item.setIdJadwal(++idJadwal);
-            jadwal.add(item);
+        try {
+            if (item.getIdJadwal() == 0) {
+                new com.tiketin.dao.JadwalTayangDAO().tambah(item);
+            } else {
+                new com.tiketin.dao.JadwalTayangDAO().ubah(item);
+            }
             return item;
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menyimpan jadwal: " + e.getMessage());
         }
-        ganti(jadwal, item, JadwalTayang::getIdJadwal, item.getIdJadwal(), "Jadwal tidak ditemukan.");
-        return item;
     }
 
     public void hapusJadwal(int id) {
-        if (!jadwal.removeIf(item -> item.getIdJadwal() == id)) {
-            throw new IllegalArgumentException("Jadwal tidak ditemukan.");
+        try {
+            new com.tiketin.dao.JadwalTayangDAO().hapus(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menghapus jadwal: " + e.getMessage());
         }
     }
 
@@ -286,16 +300,16 @@ public final class PenyimpananSementara {
         // Kursi c2 = simpanKursi(new Kursi(0, 2, "C2", "Reguler", admin.getIdAdmin()));
 
         LocalDate hariIni = LocalDate.now();
-        JadwalTayang tayangBesok = simpanJadwal(new JadwalTayang(0, 1, 1,
-                LocalDateTime.of(hariIni.plusDays(1), LocalTime.of(19, 0)), 50000, StatusJadwal.AKTIF, admin.getIdAdmin()));
-        JadwalTayang pulauBesok = simpanJadwal(new JadwalTayang(0, 2, 2,
-                LocalDateTime.of(hariIni.plusDays(1), LocalTime.of(21, 0)), 45000, StatusJadwal.AKTIF, admin.getIdAdmin()));
-        simpanJadwal(new JadwalTayang(0, 3, 1,
-                LocalDateTime.of(hariIni, LocalTime.of(16, 0)), 60000, StatusJadwal.DIBATALKAN, admin.getIdAdmin()));
-        JadwalTayang senjaLalu = simpanJadwal(new JadwalTayang(0, 1, 1,
-                LocalDateTime.of(hariIni.minusDays(2), LocalTime.of(19, 0)), 50000, StatusJadwal.AKTIF, admin.getIdAdmin()));
-        JadwalTayang pulauLalu = simpanJadwal(new JadwalTayang(0, 2, 2,
-                LocalDateTime.of(hariIni.minusDays(3), LocalTime.of(21, 0)), 45000, StatusJadwal.AKTIF, admin.getIdAdmin()));
+       // JadwalTayang tayangBesok =simpanJadwal(new JadwalTayang(0, 1, 1,
+         //       LocalDateTime.of(hariIni.plusDays(1), LocalTime.of(19, 0)), 50000, StatusJadwal.AKTIF, admin.getIdAdmin()));
+        // JadwalTayang pulauBesok = simpanJadwal(new JadwalTayang(0, 2, 2,
+         //       LocalDateTime.of(hariIni.plusDays(1), LocalTime.of(21, 0)), 45000, StatusJadwal.AKTIF, admin.getIdAdmin()));
+        // simpanJadwal(new JadwalTayang(0, 3, 1,
+          //      LocalDateTime.of(hariIni, LocalTime.of(16, 0)), 60000, StatusJadwal.DIBATALKAN, admin.getIdAdmin()));
+        // JadwalTayang senjaLalu = simpanJadwal(new JadwalTayang(0, 1, 1,
+          //      LocalDateTime.of(hariIni.minusDays(2), LocalTime.of(19, 0)), 50000, StatusJadwal.AKTIF, admin.getIdAdmin()));
+        // JadwalTayang pulauLalu = simpanJadwal(new JadwalTayang(0, 2, 2,
+          //      LocalDateTime.of(hariIni.minusDays(3), LocalTime.of(21, 0)), 45000, StatusJadwal.AKTIF, admin.getIdAdmin()));
 
        // pesan(senjaLalu, kasir.getIdKasir(), KanalPemesanan.KASIR, StatusPemesanan.LUNAS,
            //     hariIni.minusDays(2).atTime(19, 20), 50000, a2);
