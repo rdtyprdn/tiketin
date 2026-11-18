@@ -7,8 +7,6 @@ public class Film {
     private int durasi;
     private String sinopsis;
     private int idAdmin;
-
-
     public Film(){
 
     }
