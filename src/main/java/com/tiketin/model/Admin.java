@@ -20,6 +20,7 @@ public class Admin extends Pengguna {
     public int getIdAdmin() {
         return idAdmin;
     }
+
     public void setIdAdmin(int idAdmin) {
         this.idAdmin = idAdmin;
     }

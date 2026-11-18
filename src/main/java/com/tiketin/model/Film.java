@@ -8,12 +8,7 @@ public class Film {
     private String sinopsis;
     private int idAdmin;
 
-
-    public Film(){
-
-    }
-
-    public Film(int idFilm, String judul, String genre, int durasi, String sinopsis, int idAdmin){
+    public Film(int idFilm, String judul, String genre, int durasi, String sinopsis, int idAdmin) {
         this.idFilm = idFilm;
         this.judul = judul;
         this.genre = genre;

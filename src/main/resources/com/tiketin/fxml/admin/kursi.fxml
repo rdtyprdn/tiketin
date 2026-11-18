@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="16" styleClass="halaman" stylesheets="@../../css/global.css, @../../css/admin.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.admin.KursiController">
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <ComboBox fx:id="filterStudio" prefWidth="180" promptText="Semua studio" styleClass="field" />
+        <TextField fx:id="cariField" promptText="Cari nomor atau tipe" styleClass="field" HBox.hgrow="ALWAYS" />
+        <Button mnemonicParsing="false" onAction="#tampilkanFormBaru" styleClass="tombol-utama" text="Tambah" />
+        <Button fx:id="tombolUbah" mnemonicParsing="false" onAction="#tampilkanFormUbah" styleClass="tombol-netral" text="Ubah" />
+        <Button fx:id="tombolHapus" mnemonicParsing="false" onAction="#hapus" styleClass="tombol-bahaya" text="Hapus" />
+    </HBox>
+    <VBox fx:id="panelForm" managed="false" spacing="10" styleClass="kartu" visible="false">
+        <Label fx:id="judulForm" styleClass="judul-form" text="Tambah kursi" />
+        <HBox spacing="10">
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Studio" />
+                <ComboBox fx:id="studioField" maxWidth="1.7976931348623157E308" promptText="Pilih studio" styleClass="field" />
+            </VBox>
+            <VBox spacing="6" prefWidth="160">
+                <Label text="Nomor kursi" />
+                <TextField fx:id="nomorField" styleClass="field" />
+            </VBox>
+            <VBox spacing="6" prefWidth="160">
+                <Label text="Tipe" />
+                <ComboBox fx:id="tipeField" maxWidth="1.7976931348623157E308" styleClass="field" />
+            </VBox>
+        </HBox>
+        <Label styleClass="bantuan" text="Status ketersediaan tidak disimpan di kursi. Kursi yang sama boleh dipakai di jadwal lain." wrapText="true" />
+        <Label fx:id="errorForm" styleClass="error" />
+        <HBox spacing="10">
+            <Button mnemonicParsing="false" onAction="#simpan" styleClass="tombol-utama" text="Simpan" />
+            <Button mnemonicParsing="false" onAction="#batal" styleClass="tombol-netral" text="Batal" />
+        </HBox>
+    </VBox>
+    <TableView fx:id="tabel" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="kolomId" prefWidth="70" text="ID" />
+            <TableColumn fx:id="kolomStudio" prefWidth="160" text="Studio" />
+            <TableColumn fx:id="kolomNomor" prefWidth="140" text="Nomor" />
+            <TableColumn fx:id="kolomTipe" prefWidth="140" text="Tipe" />
+        </columns>
+    </TableView>
+</VBox>
