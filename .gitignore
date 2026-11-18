@@ -1,0 +1,15 @@
+# Maven
+target/
+
+# Java compiled files
+*.class
+
+# IDE
+.idea/
+
+# Logs
+*.log
+target/
+.vscode/
+.DS_Store
+db.properties
