@@ -9,3 +9,7 @@ target/
 
 # Logs
 *.log
+target/
+.vscode/
+.DS_Store
+db.properties

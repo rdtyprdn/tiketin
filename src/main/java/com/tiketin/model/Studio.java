@@ -14,24 +14,25 @@ public class Studio {
     public int getIdStudio() {
         return idStudio;
     }
-
     public void setIdStudio(int idStudio) {
         this.idStudio = idStudio;
     }
-
     public String getNamaStudio() {
         return namaStudio;
     }
-
     public void setNamaStudio(String namaStudio) {
         this.namaStudio = namaStudio;
     }
-
     public int getIdAdmin() {
         return idAdmin;
     }
-
     public void setIdAdmin(int idAdmin) {
         this.idAdmin = idAdmin;
     }
+
+    @Override 
+    public String toString(){
+        return namaStudio;
+    }
+
 }
