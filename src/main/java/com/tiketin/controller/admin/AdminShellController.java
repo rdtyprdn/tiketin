@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -148,12 +149,30 @@ public class AdminShellController {
             if (controller instanceof HalamanAdmin halaman) {
                 halaman.siap(admin);
             }
-            konten.getChildren().setAll(view);
+            konten.getChildren().setAll(tampilan(file, view));
             judulHalaman.setText(judul);
             tandai(aktif);
         } catch (IOException ex) {
             Peringatan.gagal("Halaman tidak bisa dibuka.");
         }
+    }
+
+    private Parent tampilan(String file, Parent view) {
+        if (!"dashboard.fxml".equals(file)) {
+            return view;
+        }
+        ScrollPane gulir = new ScrollPane(view);
+        gulir.setFitToWidth(true);
+        gulir.setFitToHeight(true);
+        gulir.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        gulir.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        gulir.setMinHeight(0);
+        gulir.setMinWidth(0);
+        gulir.setMaxHeight(Double.MAX_VALUE);
+        gulir.setMaxWidth(Double.MAX_VALUE);
+        gulir.setFocusTraversable(false);
+        gulir.getStyleClass().add("dashboard-gulir");
+        return gulir;
     }
 
     private void tandai(Button aktif) {
