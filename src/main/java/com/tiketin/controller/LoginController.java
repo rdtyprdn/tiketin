@@ -31,9 +31,9 @@ public class LoginController {
         errorLabel.setText("");
         try {
             Pengguna pengguna = authService.login(usernameField.getText(), passwordField.getText());
-            if ("ADMIN".equals(pengguna.peran())) {
+            if ("ADMIN".equals(pengguna.getPeran())) {
                 bukaAdmin((Admin) pengguna);
-            } else if ("KASIR".equals(pengguna.peran())) {
+            } else if ("KASIR".equals(pengguna.getPeran())) {
                 errorLabel.setText("Akun kasir dikenali. Dashboard kasir belum dipasang di bagian ini.");
             } else {
                 errorLabel.setText("Peran akun tidak dikenali.");

@@ -80,7 +80,7 @@ public class JadwalController implements HalamanAdmin {
         kolomFilm.setCellValueFactory(data -> new SimpleStringProperty(jadwalService.judul(data.getValue().getIdFilm())));
         kolomStudio.setCellValueFactory(data -> new SimpleStringProperty(jadwalService.namaStudio(data.getValue().getIdStudio())));
         kolomWaktu.setCellValueFactory(data -> new SimpleStringProperty(Waktu.format(data.getValue().getWaktuMulai())));
-        kolomHarga.setCellValueFactory(data -> new SimpleStringProperty(Rupiah.dari(data.getValue().getHargaTiket())));
+        kolomHarga.setCellValueFactory(data -> new SimpleStringProperty(Rupiah.dari((int) data.getValue().getHargaTiket())));
         Tabel.chip(kolomStatus, jadwal -> jadwal.getStatusJadwal().getLabel(),
                 jadwal -> jadwal.getStatusJadwal() == StatusJadwal.AKTIF ? "aktif" : "batal");
         filmField.setConverter(new StringConverter<>() {

@@ -48,4 +48,9 @@ public abstract class Pengguna {
     }
 
     
+
+    private String foto; // hanya di memori, tidak disimpan ke database
+
+    public String getFoto() { return foto; }
+    public void setFoto(String foto) { this.foto = foto; }
 }
