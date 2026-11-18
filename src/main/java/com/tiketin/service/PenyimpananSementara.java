@@ -60,7 +60,11 @@ public final class PenyimpananSementara {
     }
 
     public List<Film> film() {
-        return film.stream().sorted(Comparator.comparingInt(Film::getIdFilm)).toList();
+        try {
+            return new com.tiketin.dao.FilmDAO().getAll();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat film: " + e.getMessage());
+        }
     }
 
     public List<Studio> studio() {
@@ -93,7 +97,11 @@ public final class PenyimpananSementara {
     }
 
     public Film cariFilm(int id) {
-        return film.stream().filter(item -> item.getIdFilm() == id).findFirst().orElse(null);
+        try {
+            return new com.tiketin.dao.FilmDAO().getById(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal mencari film: " + e.getMessage());
+        }
     }
 
     public Studio cariStudio(int id) {
@@ -118,20 +126,26 @@ public final class PenyimpananSementara {
     }
 
     public Film simpanFilm(Film item) {
-        if (item.getIdFilm() == 0) {
-            item.setIdFilm(++idFilm);
-            film.add(item);
+        try {
+            if (item.getIdFilm() == 0) {
+                new com.tiketin.dao.FilmDAO().tambah(item);
+            } else {
+                new com.tiketin.dao.FilmDAO().ubah(item);
+            }
             return item;
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menyimpan film: " + e.getMessage());
         }
-        ganti(film, item, Film::getIdFilm, item.getIdFilm(), "Film tidak ditemukan.");
-        return item;
     }
 
-    public void hapusFilm(int id) {
-        if (!film.removeIf(item -> item.getIdFilm() == id)) {
-            throw new IllegalArgumentException("Film tidak ditemukan.");
+      public void hapusFilm(int id) {
+        try {
+            new com.tiketin.dao.FilmDAO().hapus(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menghapus film: " + e.getMessage());
         }
     }
+
 
     public Studio simpanStudio(Studio item) {
         if (item.getIdStudio() == 0) {
