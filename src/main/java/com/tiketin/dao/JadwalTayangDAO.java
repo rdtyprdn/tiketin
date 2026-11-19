@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tiketin.config.DatabaseConnection;
+import com.tiketin.enums.StatusJadwal;
 import com.tiketin.model.JadwalTayang;
 
 public class JadwalTayangDAO {
@@ -108,7 +109,8 @@ public class JadwalTayangDAO {
         jadwal.setIdFilm(rs.getInt("id_film"));
         jadwal.setIdStudio(rs.getInt("id_studio"));
         jadwal.setWaktuMulai(rs.getObject("waktu_mulai", LocalDateTime.class));
-        jadwal.setHargaTiket(rs.getDouble("harga_tiket"));
+        jadwal.setHargaTiket(rs.getInt("harga_tiket"));
+        jadwal.setStatusJadwal(StatusJadwal.AKTIF);
         jadwal.setIdAdmin(rs.getInt("id_admin"));
         return jadwal;
     }

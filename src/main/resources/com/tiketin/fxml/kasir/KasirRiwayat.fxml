@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="650.0" prefWidth="1018.0" spacing="20" style="-fx-background-color: #F3F5F8;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.kasir.KasirRiwayatController">
+
+    <children>
+
+              <HBox alignment="CENTER_LEFT" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" spacing="10.0" style="-fx-background-color: #1A2C50;">
+            <children>
+            <VBox prefHeight="90.0" prefWidth="340.0" spacing="4.0">
+               <children>
+                      <Label text="tiketin" textFill="#fbc436">
+                     <font>
+                        <Font name="Inter 28pt Bold" size="32.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="18.0" prefWidth="335.0" text="Cinema Ticket Booking System" textFill="WHITE">
+                     <font>
+                        <Font name="Inter 18pt Regular" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="14.0" left="32.0" right="32.0" top="14.0" />
+               </padding>
+            </VBox>
+            <Region prefHeight="90.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/Minimalist%20White%20Profile%20Avatar%20Icon.png" />
+                     </image>
+                  </ImageView>
+                  <VBox alignment="CENTER_LEFT" spacing="4.0">
+                     <children>
+                        <Label text="Kasir" textFill="WHITE">
+                           <font>
+                              <Font name="Inter 18pt SemiBold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblIdKasir" text="KS001" textFill="WHITE">
+                           <font>
+                              <Font name="Inter 28pt Regular" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Separator maxHeight="36.0" maxWidth="36.0" minHeight="36.0" orientation="VERTICAL" prefHeight="36.0" prefWidth="1.0" style="-fx-border-color: #FFFFFF; -fx-border-width: 0,0,0,1;">
+               <effect>
+                  <Blend />
+               </effect>
+            </Separator>
+            <Button fx:id="btnKeluar" mnemonicParsing="false" prefHeight="45.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #FFFFFF; -fx-border-width: 1.5; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8, 18, 8, 18;" text="Keluar" textFill="WHITE">
+               <font>
+                  <Font name="Inter 28pt SemiBold" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" opacity="0.79" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/Rounded%20Exit%20Arrow%20Icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            </children>
+         <padding>
+            <Insets bottom="20.0" left="32.0" right="32.0" top="20.0" />
+         </padding>
+        </HBox>
+
+              <VBox prefHeight="344.0" prefWidth="1018.0" spacing="20.0" VBox.vgrow="ALWAYS">
+            <children>
+            <Button fx:id="btnKembali" mnemonicParsing="false" onAction="#kembali" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-cursor: hand;" text="Kembali" textFill="#1a2c50">
+               <font>
+                  <Font name="Inter 28pt Regular" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                     <image>
+                        <Image url="@../../images/Bold%20Right-Pointing%20Arrow-1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="-15.0" />
+               </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+                <Label text="Riwayat Transaksi" textFill="#1a2c50">
+               <font>
+                  <Font name="Inter 28pt Bold" size="22.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-10.0" />
+               </VBox.margin>
+            </Label>
+                <Label text="Lihat riwayat transaksi penjualan tiket yang telah Anda proses." textFill="#64748b">
+               <font>
+                  <Font name="Inter 28pt Regular" size="12.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" maxWidth="9999.0" prefHeight="100.0" prefWidth="200.0" spacing="24.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" maxWidth="9999.0" prefHeight="110.0" prefWidth="380.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 12, 0, 0, 4);;" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                     </padding>
+                     <children>
+                        <Label fx:id="lblTotalTransaksi" text="Total Transaksi" textFill="#1a2c50">
+                           <font>
+                              <Font name="Inter 28pt Regular" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTotalTransaksi" text="12 Transaksi" textFill="#1a2c50">
+                           <font>
+                              <Font name="Inter 28pt Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" maxWidth="9999.0" prefHeight="110.0" prefWidth="380.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 12, 0, 0, 4);;">
+                     <padding>
+                        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                     </padding>
+                     <children>
+                        <Label fx:id="lblTiketTerjual" text="Tiket Terjual" textFill="#1a2c50">
+                           <font>
+                              <Font name="Inter 28pt Regular" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTiketTerjual" text="28 Tiket" textFill="#1a2c50">
+                           <font>
+                              <Font name="Inter 28pt Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" maxWidth="9999.0" prefHeight="110.0" prefWidth="380.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 12, 0, 0, 4);;">
+                     <padding>
+                        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                     </padding>
+                     <children>
+                        <Label fx:id="lblTotalPenjualan" text="Total Penjualan" textFill="#1a2c50">
+                           <font>
+                              <Font name="Inter 28pt Regular" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTotalPenjualan" text="Rp1.400.000" textFill="#1a2c50">
+                           <font>
+                              <Font name="Inter 28pt Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox maxWidth="9999.0" prefHeight="200.0" prefWidth="100.0" spacing="16.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 12, 0, 0, 4);;" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+               </padding>
+               <children>
+                  <Label text="Daftar Transaksi" textFill="#1a2c50">
+                     <font>
+                        <Font name="Inter 28pt Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="16.0">
+                     <children>
+                        <TextField fx:id="txtCariTransaksi" prefHeight="40.0" prefWidth="350.0" promptText="Cari kode transaksi...">
+                           <font>
+                              <Font name="Inter 28pt Regular" size="12.0" />
+                           </font>
+                        </TextField>
+                        <DatePicker fx:id="dpTanggalTransaksi" prefHeight="40.0" prefWidth="200.0" promptText="Semua Tanggal" style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-font-size: 12px; -fx-font-family: Inter;" />
+                     </children>
+                  </HBox>
+                  <TableView fx:id="tableRiwayat" maxHeight="9999.0" maxWidth="9999.0" prefHeight="280.0" prefWidth="200.0" stylesheets="@KasirTiket.css" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="colIdTransaksi" prefWidth="150.0" text="ID Transaksi" />
+                        <TableColumn fx:id="colTanggal" prefWidth="220.0" text="Tanggal &amp; Waktu" />
+                        <TableColumn fx:id="colFilm" prefWidth="240.0" text="Judul Film" />
+                        <TableColumn fx:id="colJumlahTiket" prefWidth="120.0" text="Jumlah Tiket" />
+                        <TableColumn fx:id="colTotal" prefWidth="200.0" text="Total Pembayaran" />
+                        <TableColumn fx:id="colStatus" prefWidth="120.0" text="Status" />
+                        <TableColumn fx:id="colAksi" prefWidth="120.0" text="Aksi" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </VBox>
+
+                  </children>
+         <padding>
+            <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+         </padding>
+        </VBox>
+
+    </children>
+</VBox>
