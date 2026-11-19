@@ -56,7 +56,11 @@ public final class PenyimpananSementara {
     }
 
     public List<Pengguna> pengguna() {
-        return List.copyOf(pengguna);
+        try {
+            return new com.tiketin.dao.PenggunaDAO().getAll();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat pengguna: " + e.getMessage());
+        }
     }
 
     public List<Film> film() {
@@ -102,12 +106,11 @@ public final class PenyimpananSementara {
     }
 
     public Pengguna cariUsername(String username) {
-        for (Pengguna orang : pengguna) {
-            if (orang.getUsername().equals(username)) {
-                return orang;
-            }
+        try {
+            return new com.tiketin.dao.PenggunaDAO().getByUsername(username);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal mencari pengguna: " + e.getMessage());
         }
-        return null;
     }
 
     public Film cariFilm(int id) {
@@ -143,7 +146,7 @@ public final class PenyimpananSementara {
     }
 
     public Kasir cariKasir(int idKasir) {
-        for (Pengguna orang : pengguna) {
+        for (Pengguna orang : pengguna()) {
             if (orang instanceof Kasir kasir && kasir.getIdKasir() == idKasir) {
                 return kasir;
             }
@@ -237,25 +240,30 @@ public final class PenyimpananSementara {
         }
     }
 
-    public Kasir simpanKasir(Kasir item) {
-        if (item.getIdPengguna() == 0) {
-            item.setIdPengguna(++idPengguna);
-            item.setIdKasir(++idKasir);
-            pengguna.add(item);
+      public Kasir simpanKasir(Kasir item) {
+        try {
+            if (item.getIdPengguna() == 0) {
+                new com.tiketin.dao.PenggunaDAO().tambahKasir(item);
+            } else {
+                new com.tiketin.dao.PenggunaDAO().ubahKasir(item);
+            }
             return item;
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menyimpan kasir: " + e.getMessage());
         }
-        ganti(pengguna, item, Pengguna::getIdPengguna, item.getIdPengguna(), "Kasir tidak ditemukan.");
-        return item;
     }
+        
 
     public void hapusKasir(int idKasirDihapus) {
-        if (!pengguna.removeIf(item -> item instanceof Kasir kasir && kasir.getIdKasir() == idKasirDihapus)) {
-            throw new IllegalArgumentException("Kasir tidak ditemukan.");
+        try {
+            new com.tiketin.dao.PenggunaDAO().hapusKasir(idKasirDihapus);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menghapus kasir: " + e.getMessage());
         }
     }
 
     public boolean usernameDipakai(String username, int kecualiIdPengguna) {
-        return pengguna.stream().anyMatch(item ->
+        return pengguna().stream().anyMatch(item ->
                 item.getUsername().equalsIgnoreCase(username) && item.getIdPengguna() != kecualiIdPengguna);
     }
 
@@ -273,13 +281,13 @@ public final class PenyimpananSementara {
         Admin admin = new Admin(0, 0, "admin", PasswordUtil.hash("admin123"), "Admin Bioskop");
         admin.setIdPengguna(++idPengguna);
         admin.setIdAdmin(++idAdmin);
-        pengguna.add(admin);
+        // pengguna.add(admin);
         ProfilService.terapkanTersimpan(admin);
 
         Kasir kasir = new Kasir(0, 0, "kasir1", PasswordUtil.hash("kasir123"), "Kasir Loket");
         kasir.setIdPengguna(++idPengguna);
         kasir.setIdKasir(++idKasir);
-        pengguna.add(kasir);
+       // pengguna.add(kasir);
 
         // Film senja = simpanFilm(new Film(0, "Senja di Sanur", "Drama", 112,
           //      "Dua sahabat kembali ke Sanur dan menemukan surat yang belum pernah dikirim.", admin.getIdAdmin()));

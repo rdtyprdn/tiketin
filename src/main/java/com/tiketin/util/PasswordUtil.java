@@ -19,8 +19,11 @@ public final class PasswordUtil {
     }
 
     public static boolean cocok(String plain, String tersimpan) {
-        if (plain == null || tersimpan == null || !tersimpan.contains(":")) {
+        if (plain == null || tersimpan == null) {
             return false;
+        }
+        if (!tersimpan.contains(":")) {
+            return hash(new byte[0], plain).equalsIgnoreCase(tersimpan);
         }
         String[] bagian = tersimpan.split(":", 2);
         byte[] salt = HexFormat.of().parseHex(bagian[0]);
