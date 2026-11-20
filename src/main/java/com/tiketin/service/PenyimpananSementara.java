@@ -98,11 +98,19 @@ public final class PenyimpananSementara {
     }
 
     public List<Pemesanan> pemesanan() {
-        return pemesanan.stream().sorted(Comparator.comparing(Pemesanan::getWaktuPemesanan).reversed()).toList();
+        try {
+            return new com.tiketin.dao.PemesananDAO().getAll();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat pemesanan: " + e.getMessage());
+        }
     }
 
     public List<DetailPemesanan> detail() {
-        return List.copyOf(detail);
+        try {
+            return new com.tiketin.dao.DetailPemesananDAO().getAll();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat detail pemesanan: " + e.getMessage());
+        }
     }
 
     public Pengguna cariUsername(String username) {

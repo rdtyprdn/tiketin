@@ -4,12 +4,34 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.tiketin.config.DatabaseConnection;
+import com.tiketin.model.DetailPemesanan;
 
 public class DetailPemesananDAO {
+
+    public List<DetailPemesanan> getAll() throws SQLException {
+        List<DetailPemesanan> daftar = new ArrayList<>();
+        String sql = "SELECT * FROM detail_pemesanan";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                daftar.add(new DetailPemesanan(
+                        rs.getInt("id_detail"),
+                        rs.getInt("id_pemesanan"),
+                        rs.getInt("id_jadwal"),
+                        rs.getInt("id_kursi"),
+                        rs.getDouble("harga_tiket")));
+            }
+        }
+        return daftar;
+    }
 
     public Set<Integer> getKursiTerisi(int idJadwal) throws SQLException {
         Set<Integer> terisi = new HashSet<>();
