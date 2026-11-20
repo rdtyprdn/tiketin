@@ -4,6 +4,7 @@ import com.tiketin.model.Admin;
 import com.tiketin.model.Film;
 import com.tiketin.service.FilmService;
 import com.tiketin.util.Peringatan;
+import com.tiketin.util.PosterUtil;
 import com.tiketin.util.Tabel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class FilmController implements HalamanAdmin {
@@ -159,13 +162,26 @@ public class FilmController implements HalamanAdmin {
 
     private void isiDetail(Film film) {
         if (film == null) {
+            inisialLabel.setGraphic(null);
             inisialLabel.setText("?");
             detailJudul.setText("Pilih film");
             detailMeta.setText("Detail muncul di sini.");
             detailSinopsis.setText("");
             return;
         }
-        inisialLabel.setText(film.getJudul().substring(0, 1).toUpperCase());
+        // Kalau ada file poster sesuai judul, tampilkan; kalau tidak, tetap huruf awal judul
+        Image poster = PosterUtil.cari(film);
+        if (poster != null) {
+            ImageView gambar = new ImageView(poster);
+            gambar.setFitHeight(200);
+            gambar.setFitWidth(200);
+            gambar.setPreserveRatio(true);
+            inisialLabel.setGraphic(gambar);
+            inisialLabel.setText("");
+        } else {
+            inisialLabel.setGraphic(null);
+            inisialLabel.setText(film.getJudul().substring(0, 1).toUpperCase());
+        }
         detailJudul.setText(film.getJudul());
         detailMeta.setText(film.getGenre() + " · " + film.getDurasi() + " menit");
         detailSinopsis.setText(film.getSinopsis());

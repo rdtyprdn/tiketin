@@ -19,6 +19,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -75,9 +76,16 @@ public class MovieListController {
         kartu.setPadding(new Insets(12));
         kartu.setStyle("-fx-background-radius: 16; -fx-background-color: #FFFFFF;");
 
-        ImageView poster = new ImageView(KasirUtil.poster(film));
-        poster.setFitWidth(196);
-        poster.setFitHeight(220);
+        // Poster dijaga rasionya dan ditaruh di tengah kotak 196x220 supaya tidak gepeng
+        ImageView gambar = new ImageView(KasirUtil.poster(film));
+        gambar.setFitWidth(196);
+        gambar.setFitHeight(220);
+        gambar.setPreserveRatio(true);
+        gambar.setSmooth(true);
+        StackPane poster = new StackPane(gambar);
+        poster.setPrefSize(196, 220);
+        poster.setMinSize(196, 220);
+        poster.setMaxSize(196, 220);
 
         Label judul = new Label(film.getJudul());
         judul.setTextFill(Color.web("#1a2c50"));
