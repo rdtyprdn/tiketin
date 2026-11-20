@@ -5,7 +5,9 @@ import com.tiketin.dao.KursiDAO;
 import com.tiketin.model.Kursi;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -14,8 +16,10 @@ import javafx.scene.layout.GridPane;
 public class DenahKursi extends GridPane {
 
     private final List<Integer> kursiDipilih = new ArrayList<>();
+    private final Map<Integer, Kursi> dataKursi = new LinkedHashMap<>();
     private final KursiDAO kursiDAO = new KursiDAO();
     private final DetailPemesananDAO detailDAO = new DetailPemesananDAO();
+    private Runnable saatBerubah;
 
     public DenahKursi() {
         setHgap(6);
@@ -27,14 +31,22 @@ public class DenahKursi extends GridPane {
     public void muat(int idStudio, int idJadwal) throws SQLException {
         getChildren().clear();
         kursiDipilih.clear();
+        dataKursi.clear();
 
         List<Kursi> daftarKursi = kursiDAO.getByStudio(idStudio);
         Set<Integer> terisi = detailDAO.getKursiTerisi(idJadwal);
 
         for (Kursi k : daftarKursi) {
             String nomor = k.getNomorKursi();             // contoh "A10"
-            int baris = nomor.charAt(0) - 'A';            // A=0, B=1, dst ...
-            int kolom = Integer.parseInt(nomor.substring(1)) - 1; // 10 -> 9
+            int baris;
+            int kolom;
+            try {
+                baris = Character.toUpperCase(nomor.charAt(0)) - 'A'; // A=0, B=1, dst ...
+                kolom = Integer.parseInt(nomor.substring(1)) - 1;     // 10 -> 9
+            } catch (RuntimeException e) {
+                continue; // format nomor tidak dikenal, dilewati
+            }
+            dataKursi.put(k.getIdKursi(), k);
 
             Button tombol = new Button(nomor);
             tombol.setPrefSize(48, 36);
@@ -59,9 +71,30 @@ public class DenahKursi extends GridPane {
             kursiDipilih.add(idKursi);
             tombol.getStyleClass().add("kursi-dipilih");
         }
+        if (saatBerubah != null) {
+            saatBerubah.run();
+        }
+    }
+
+    // dipanggil tiap kali pilihan kursi berubah
+    public void setSaatBerubah(Runnable aksi) {
+        this.saatBerubah = aksi;
     }
 
     public List<Integer> getKursiDipilih() {
         return new ArrayList<>(kursiDipilih);
+    }
+
+    // data kursi lengkap (id + nomor) sesuai urutan dipilih
+    public List<Kursi> getKursiDipilihLengkap() {
+        List<Kursi> hasil = new ArrayList<>();
+        for (Integer id : kursiDipilih) {
+            hasil.add(dataKursi.get(id));
+        }
+        return hasil;
+    }
+
+    public int getJumlahKursi() {
+        return dataKursi.size();
     }
 }

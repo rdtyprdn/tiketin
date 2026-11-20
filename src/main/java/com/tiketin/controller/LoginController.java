@@ -5,8 +5,10 @@ import java.io.IOException;
 import com.tiketin.App;
 import com.tiketin.controller.admin.AdminShellController;
 import com.tiketin.model.Admin;
+import com.tiketin.model.Kasir;
 import com.tiketin.model.Pengguna;
 import com.tiketin.service.AuthService;
+import com.tiketin.util.KasirSession;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,14 +36,15 @@ public class LoginController {
             if ("ADMIN".equals(pengguna.getPeran())) {
                 bukaAdmin((Admin) pengguna);
             } else if ("KASIR".equals(pengguna.getPeran())) {
-                tampilkanGalat("Akun kasir dikenali. Dashboard kasir belum dipasang di bagian ini.");
+                bukaKasir((Kasir) pengguna);
             } else {
                 tampilkanGalat("Peran akun tidak dikenali.");
             }
         } catch (IllegalArgumentException ex) {
             tampilkanGalat(ex.getMessage());
         } catch (IOException ex) {
-            tampilkanGalat("Halaman admin tidak bisa dibuka.");
+            ex.printStackTrace();
+            tampilkanGalat("Halaman tidak bisa dibuka: " + ex.getMessage());
         }
     }
 
@@ -59,5 +62,27 @@ public class LoginController {
         Stage stage = (Stage) usernameField.getScene().getWindow();
         stage.setTitle("Tiketin Admin");
         stage.getScene().setRoot(root);
+    }
+
+    // Buka halaman kiosk (pelanggan) tanpa login
+    @FXML
+    private void bukaKiosk() {
+        tampilkanGalat("");
+        try {
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setTitle("Tiketin Kiosk");
+            App.setRoot("fxml/customer/kiosk-home");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            tampilkanGalat("Halaman kiosk tidak bisa dibuka: " + ex.getMessage());
+        }
+    }
+
+    private void bukaKasir(Kasir kasir) throws IOException {
+        KasirSession.setKasirLogin(kasir);
+        KasirSession.reset();
+        Stage stage = (Stage) usernameField.getScene().getWindow();
+        stage.setTitle("Tiketin Kasir");
+        App.setRoot("fxml/kasir/KasirHome");
     }
 }

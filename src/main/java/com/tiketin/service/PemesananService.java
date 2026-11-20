@@ -52,7 +52,7 @@ public class PemesananService {
             simpanPembayaran(conn, data);
 
             // 6. Tandai lunas
-            ubahStatus(conn, idPemesanan, StatusPemesanan.BERHASIL);
+            ubahStatus(conn, idPemesanan, StatusPemesanan.LUNAS);
 
             conn.commit();
             return idPemesanan;

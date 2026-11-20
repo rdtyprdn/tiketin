@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="720" prefWidth="1280" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.customer.KioskTicketController">
+
+    <HBox maxHeight="100.0" minHeight="100" prefHeight="100" style="-fx-background-color: #1A2C50;">
+      <children>
+         <VBox prefHeight="100.0" prefWidth="280.0" style="-fx-alignment: center-left; -fx-spacing: 2;" HBox.hgrow="ALWAYS">
+            <children>
+               <Label style="-fx-text-fill: #FBC436; -fx-font-size: 30; -fx-font-weight: bold; -fx-font-family: Inter;" text="tiketin">
+                  <font>
+                     <Font name="Inter SemiBold" size="12.0" />
+                  </font></Label>
+               <Label prefHeight="19.0" prefWidth="428.0" style="-fx-font-family: Inter; -fx-font-size: 16; -fx-text-fill: #FFFFFF; -fx-alignment: CENTER_LEFT; -fx-text-alignment: LEFT; -fx-padding: 0; -fx-wrap-text: off; -fx-font-style: regular;" text="Cinema Ticket Booking System">
+                  <font>
+                     <Font name="Inter Regular" size="12.0" />
+                  </font></Label>
+            </children>
+            <padding>
+               <Insets left="40.0" />
+            </padding>
+         </VBox>
+         <Label alignment="CENTER_RIGHT" minHeight="60.0" minWidth="60.0" prefHeight="90.0" prefWidth="140.0" style="-fx-font-size: 50; -fx-text-fill: #FBC436; -fx-alignment: center; -fx-text-alignment: center;" text="🎬" />
+      </children>
+      <cursor>
+         <Cursor fx:constant="MOVE" />
+      </cursor></HBox>
+
+                      <VBox spacing="15.0" style="-fx-background-color: #F3F5FF; -fx-alignment: top-left;" VBox.vgrow="SOMETIMES">
+      <children>
+         <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" spacing="8.0" onMouseClicked="#handleSelesai" style="-fx-alignment: center_left; -fx-spacing: 8; -fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-padding: 10 16 10 16;">
+            <children>
+               <Label scaleX="-1.0" style="-fx-text-fill: #1A2C50;" text="➜">
+                  <font>
+                     <Font name="Inter Bold" size="16.0" />
+                  </font>
+               </Label>
+               <Label style="-fx-text-fill: #1A2C50; -fx-font: Inter; -fx-font-weight: SemiBold;" text="Selesai">
+                  <font>
+                     <Font name="Inter SemiBold" size="14.0" />
+                  </font>
+               </Label>
+            </children>
+            <padding>
+               <Insets left="35.0" top="25.0" />
+            </padding>
+            <VBox.margin>
+               <Insets left="20.0" top="25.0" />
+            </VBox.margin>
+         </HBox>
+         <HBox alignment="CENTER" prefHeight="410.0" prefWidth="1000.0" spacing="35.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 18; -fx-border-color: #E8EAF2; -fx-border-radius: 18; -fx-border-width: 1;" VBox.vgrow="NEVER">
+            <VBox.margin>
+               <Insets bottom="30.0" left="30.0" right="30.0" top="2.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="30.0" left="30.0" right="30.0" top="25.0" />
+            </padding>
+            <children>
+               <VBox alignment="CENTER_LEFT" prefHeight="346.0" prefWidth="588.0" spacing="8.0" HBox.hgrow="ALWAYS">
+                  <children>
+                     <Label text="Kode Tiket" textFill="#1a2c50">
+                        <font>
+                           <Font name="Inter SemiBold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="lblKodeTiket" alignment="CENTER" prefHeight="42.0" prefWidth="300.0" style="-fx-background-color: #E5EBF5; -fx-background-radius: 8; -fx-text-fill: #1A2C50; -fx-font-weight: bold;" text="TK-20261118-001">
+                        <font>
+                           <Font name="Inter Regular" size="22.0" />
+                        </font>
+                     </Label>
+                     <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0" spacing="5.0">
+                        <children>
+                           <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../../images/film.jpeg" />
+                              </image>
+                           </ImageView>
+                           <Label prefWidth="80.0" text="FIlm" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label text=":" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="lblJudulFilmTiket" text="Zootopia 2" textFill="#1a2c50">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                     <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="212.0" prefHeight="25.0" prefWidth="200.0" spacing="8.0">
+                        <children>
+                           <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../../images/Minimalist%20Black%20Calendar%20Icon.png" />
+                              </image>
+                           </ImageView>
+                           <Label prefWidth="80.0" text="Tanggal" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label text=":" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="lblTanggalTiket" text="15 November 2026" textFill="#1a2c50">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                     <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="229.0" prefHeight="25.0" prefWidth="200.0" spacing="8.0">
+                        <children>
+                           <ImageView fitHeight="18.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../../images/icon-durasi.png" />
+                              </image>
+                           </ImageView>
+                           <Label prefWidth="80.0" text="Jam" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label text=":" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="lblJamTiket" text="10.30" textFill="#1a2c50">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                     <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="246.0" prefHeight="26.0" prefWidth="400.0" spacing="8.0">
+                        <children>
+                           <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../../images/icon-animation.png" />
+                              </image>
+                           </ImageView>
+                           <Label prefWidth="80.0" text="Studio" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label text=":" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="lblStudioTiket" text="Studio 2" textFill="#1a2c50">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                     </HBox>
+                     <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="263.0" prefHeight="25.0" prefWidth="200.0" spacing="2.0">
+                        <children>
+                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../../images/Ikon%20Kursi%20Berlengan%20Biru%20Navy.png" />
+                              </image>
+                           </ImageView>
+                           <Label prefWidth="80.0" text="Kursi" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label text=":" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="lblKursiTiket" text="D5, D6" textFill="#1a2c50">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                     <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="280.0" prefHeight="25.0" prefWidth="200.0" spacing="2.0">
+                        <children>
+                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../../images/Ikon%20Tiket%20Bioskop%20Biru%20Navy.png" />
+                              </image>
+                           </ImageView>
+                           <Label prefWidth="80.0" text="Jumlah TIket" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label text=":" textFill="#64748b">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="lblJumlahTiket" text="2" textFill="#1a2c50">
+                              <font>
+                                 <Font name="Inter Regular" size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                  </children>
+                  <HBox.margin>
+                     <Insets left="100.0" right="200.0" />
+                  </HBox.margin>
+               </VBox>
+               <Separator orientation="VERTICAL" prefHeight="260.0">
+                  <HBox.margin>
+                     <Insets />
+                  </HBox.margin>
+               </Separator>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="290.0" spacing="20.0">
+                  <children>
+                     <HBox alignment="CENTER" prefHeight="52.0" prefWidth="260.0" spacing="8.0" style="-fx-background-color: #DCFCE7; -fx-background-radius: 30; -fx-padding: 10;">
+                        <children>
+                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../../images/centang-hijau.png" />
+                              </image></ImageView>
+                           <Label alignment="CENTER" text="Pembayaran Berhasil" textFill="#15803d">
+                              <font>
+                                 <Font name="Inter SemiBold" size="16.0" />
+                              </font>
+                           </Label>
+                        </children>
+                        <VBox.margin>
+                           <Insets bottom="10.0" />
+                        </VBox.margin>
+                     </HBox>
+                     <ImageView fitHeight="80.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../images/tiketin_barcode.png" />
+                        </image>
+                        <VBox.margin>
+                           <Insets bottom="-25.0" />
+                        </VBox.margin></ImageView>
+                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+                        <children>
+                           <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../../images/tiketin_popcorn.png" />
+                              </image></ImageView>
+                           <Label text="Selamat menonton!" textFill="#1a2c50">
+                              <font>
+                                 <Font name="Inter SemiBold" size="16.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                  </children>
+                  <HBox.margin>
+                     <Insets left="100.0" right="100.0" />
+                  </HBox.margin>
+               </VBox>
+            </children>
+         </HBox>
+      </children>
+   </VBox>
+
+</VBox>

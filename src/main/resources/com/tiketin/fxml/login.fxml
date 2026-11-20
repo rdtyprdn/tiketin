@@ -18,6 +18,7 @@
         </VBox>
         <Label fx:id="errorLabel" managed="false" styleClass="error" visible="false" wrapText="true" />
         <Button defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#masuk" styleClass="tombol-utama, tombol-lebar" text="Masuk" />
+        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#bukaKiosk" styleClass="tombol-netral, tombol-lebar" text="Mode Kiosk" />
         <Label styleClass="contoh-akun" text="Akun contoh admin: admin / admin123" />
     </VBox>
 </StackPane>

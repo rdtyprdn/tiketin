@@ -56,60 +56,105 @@ public final class PenyimpananSementara {
     }
 
     public List<Pengguna> pengguna() {
-        return List.copyOf(pengguna);
+        try {
+            return new com.tiketin.dao.PenggunaDAO().getAll();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat pengguna: " + e.getMessage());
+        }
     }
 
     public List<Film> film() {
-        return film.stream().sorted(Comparator.comparingInt(Film::getIdFilm)).toList();
+        try {
+            return new com.tiketin.dao.FilmDAO().getAll();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat film: " + e.getMessage());
+        }
     }
 
     public List<Studio> studio() {
-        return studio.stream().sorted(Comparator.comparingInt(Studio::getIdStudio)).toList();
+        try {
+            return new com.tiketin.dao.StudioDAO().getAll();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat studio: " + e.getMessage());
+        }
     }
 
-    public List<Kursi> kursi() {
-        return kursi.stream().sorted(Comparator.comparingInt(Kursi::getIdKursi)).toList();
+
+     public List<Kursi> kursi() {
+        try {
+            return new com.tiketin.dao.KursiDAO().getAll();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat kursi: " + e.getMessage());
+        }
     }
 
     public List<JadwalTayang> jadwal() {
-        return jadwal.stream().sorted(Comparator.comparing(JadwalTayang::getWaktuMulai).reversed()).toList();
+        try {
+            return new com.tiketin.dao.JadwalTayangDAO().getAll().stream()
+                    .sorted(Comparator.comparing(JadwalTayang::getWaktuMulai).reversed()).toList();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat jadwal: " + e.getMessage());
+        }
     }
 
     public List<Pemesanan> pemesanan() {
-        return pemesanan.stream().sorted(Comparator.comparing(Pemesanan::getWaktuPemesanan).reversed()).toList();
+        try {
+            return new com.tiketin.dao.PemesananDAO().getAll();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat pemesanan: " + e.getMessage());
+        }
     }
 
     public List<DetailPemesanan> detail() {
-        return List.copyOf(detail);
+        try {
+            return new com.tiketin.dao.DetailPemesananDAO().getAll();
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal memuat detail pemesanan: " + e.getMessage());
+        }
     }
 
     public Pengguna cariUsername(String username) {
-        for (Pengguna orang : pengguna) {
-            if (orang.getUsername().equals(username)) {
-                return orang;
-            }
+        try {
+            return new com.tiketin.dao.PenggunaDAO().getByUsername(username);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal mencari pengguna: " + e.getMessage());
         }
-        return null;
     }
 
     public Film cariFilm(int id) {
-        return film.stream().filter(item -> item.getIdFilm() == id).findFirst().orElse(null);
+        try {
+            return new com.tiketin.dao.FilmDAO().getById(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal mencari film: " + e.getMessage());
+        }
     }
 
     public Studio cariStudio(int id) {
-        return studio.stream().filter(item -> item.getIdStudio() == id).findFirst().orElse(null);
+        try {
+            return new com.tiketin.dao.StudioDAO().getById(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal mencari studio: " + e.getMessage());
+        }
     }
 
     public Kursi cariKursi(int id) {
-        return kursi.stream().filter(item -> item.getIdKursi() == id).findFirst().orElse(null);
+        try {
+            return new com.tiketin.dao.KursiDAO().getById(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal mencari kursi: " + e.getMessage());
+        }
     }
 
     public JadwalTayang cariJadwal(int id) {
-        return jadwal.stream().filter(item -> item.getIdJadwal() == id).findFirst().orElse(null);
+        try {
+            return new com.tiketin.dao.JadwalTayangDAO().getById(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal mencari jadwal: " + e.getMessage());
+        }
     }
 
     public Kasir cariKasir(int idKasir) {
-        for (Pengguna orang : pengguna) {
+        for (Pengguna orang : pengguna()) {
             if (orang instanceof Kasir kasir && kasir.getIdKasir() == idKasir) {
                 return kasir;
             }
@@ -118,88 +163,115 @@ public final class PenyimpananSementara {
     }
 
     public Film simpanFilm(Film item) {
-        if (item.getIdFilm() == 0) {
-            item.setIdFilm(++idFilm);
-            film.add(item);
+        try {
+            if (item.getIdFilm() == 0) {
+                new com.tiketin.dao.FilmDAO().tambah(item);
+            } else {
+                new com.tiketin.dao.FilmDAO().ubah(item);
+            }
             return item;
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menyimpan film: " + e.getMessage());
         }
-        ganti(film, item, Film::getIdFilm, item.getIdFilm(), "Film tidak ditemukan.");
-        return item;
     }
 
-    public void hapusFilm(int id) {
-        if (!film.removeIf(item -> item.getIdFilm() == id)) {
-            throw new IllegalArgumentException("Film tidak ditemukan.");
+      public void hapusFilm(int id) {
+        try {
+            new com.tiketin.dao.FilmDAO().hapus(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menghapus film: " + e.getMessage());
         }
     }
+
 
     public Studio simpanStudio(Studio item) {
-        if (item.getIdStudio() == 0) {
-            item.setIdStudio(++idStudio);
-            studio.add(item);
+        try {
+            if (item.getIdStudio() == 0) {
+                new com.tiketin.dao.StudioDAO().tambah(item);
+            } else {
+                new com.tiketin.dao.StudioDAO().ubah(item);
+            }
             return item;
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menyimpan studio: " + e.getMessage());
         }
-        ganti(studio, item, Studio::getIdStudio, item.getIdStudio(), "Studio tidak ditemukan.");
-        return item;
     }
 
+
     public void hapusStudio(int id) {
-        if (!studio.removeIf(item -> item.getIdStudio() == id)) {
-            throw new IllegalArgumentException("Studio tidak ditemukan.");
+        try {
+            new com.tiketin.dao.StudioDAO().hapus(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menghapus studio: " + e.getMessage());
         }
     }
 
     public Kursi simpanKursi(Kursi item) {
-        if (item.getIdKursi() == 0) {
-            item.setIdKursi(++idKursi);
-            kursi.add(item);
+        try {
+            if (item.getIdKursi() == 0) {
+                new com.tiketin.dao.KursiDAO().tambah(item);
+            } else {
+                new com.tiketin.dao.KursiDAO().ubah(item);
+            }
             return item;
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menyimpan kursi: " + e.getMessage());
         }
-        ganti(kursi, item, Kursi::getIdKursi, item.getIdKursi(), "Kursi tidak ditemukan.");
-        return item;
     }
 
     public void hapusKursi(int id) {
-        if (!kursi.removeIf(item -> item.getIdKursi() == id)) {
-            throw new IllegalArgumentException("Kursi tidak ditemukan.");
+        try {
+            new com.tiketin.dao.KursiDAO().hapus(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menghapus kursi: " + e.getMessage());
         }
     }
 
     public JadwalTayang simpanJadwal(JadwalTayang item) {
-        if (item.getIdJadwal() == 0) {
-            item.setIdJadwal(++idJadwal);
-            jadwal.add(item);
+        try {
+            if (item.getIdJadwal() == 0) {
+                new com.tiketin.dao.JadwalTayangDAO().tambah(item);
+            } else {
+                new com.tiketin.dao.JadwalTayangDAO().ubah(item);
+            }
             return item;
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menyimpan jadwal: " + e.getMessage());
         }
-        ganti(jadwal, item, JadwalTayang::getIdJadwal, item.getIdJadwal(), "Jadwal tidak ditemukan.");
-        return item;
     }
 
     public void hapusJadwal(int id) {
-        if (!jadwal.removeIf(item -> item.getIdJadwal() == id)) {
-            throw new IllegalArgumentException("Jadwal tidak ditemukan.");
+        try {
+            new com.tiketin.dao.JadwalTayangDAO().hapus(id);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menghapus jadwal: " + e.getMessage());
         }
     }
 
-    public Kasir simpanKasir(Kasir item) {
-        if (item.getIdPengguna() == 0) {
-            item.setIdPengguna(++idPengguna);
-            item.setIdKasir(++idKasir);
-            pengguna.add(item);
+      public Kasir simpanKasir(Kasir item) {
+        try {
+            if (item.getIdPengguna() == 0) {
+                new com.tiketin.dao.PenggunaDAO().tambahKasir(item);
+            } else {
+                new com.tiketin.dao.PenggunaDAO().ubahKasir(item);
+            }
             return item;
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menyimpan kasir: " + e.getMessage());
         }
-        ganti(pengguna, item, Pengguna::getIdPengguna, item.getIdPengguna(), "Kasir tidak ditemukan.");
-        return item;
     }
+        
 
     public void hapusKasir(int idKasirDihapus) {
-        if (!pengguna.removeIf(item -> item instanceof Kasir kasir && kasir.getIdKasir() == idKasirDihapus)) {
-            throw new IllegalArgumentException("Kasir tidak ditemukan.");
+        try {
+            new com.tiketin.dao.PenggunaDAO().hapusKasir(idKasirDihapus);
+        } catch (java.sql.SQLException e) {
+            throw new IllegalArgumentException("Gagal menghapus kasir: " + e.getMessage());
         }
     }
 
     public boolean usernameDipakai(String username, int kecualiIdPengguna) {
-        return pengguna.stream().anyMatch(item ->
+        return pengguna().stream().anyMatch(item ->
                 item.getUsername().equalsIgnoreCase(username) && item.getIdPengguna() != kecualiIdPengguna);
     }
 
@@ -217,54 +289,54 @@ public final class PenyimpananSementara {
         Admin admin = new Admin(0, 0, "admin", PasswordUtil.hash("admin123"), "Admin Bioskop");
         admin.setIdPengguna(++idPengguna);
         admin.setIdAdmin(++idAdmin);
-        pengguna.add(admin);
+        // pengguna.add(admin);
         ProfilService.terapkanTersimpan(admin);
 
         Kasir kasir = new Kasir(0, 0, "kasir1", PasswordUtil.hash("kasir123"), "Kasir Loket");
         kasir.setIdPengguna(++idPengguna);
         kasir.setIdKasir(++idKasir);
-        pengguna.add(kasir);
+       // pengguna.add(kasir);
 
-        Film senja = simpanFilm(new Film(0, "Senja di Sanur", "Drama", 112,
-                "Dua sahabat kembali ke Sanur dan menemukan surat yang belum pernah dikirim.", admin.getIdAdmin()));
-        Film pulau = simpanFilm(new Film(0, "Pulau Sunyi", "Horor", 98,
-                "Sebuah pulau wisata ditutup setelah mercusuarnya menyala sendiri setiap tengah malam.", admin.getIdAdmin()));
-        Film jejak = simpanFilm(new Film(0, "Jejak Emas", "Petualangan", 126,
-                "Peta tua membawa tiga mahasiswa menyusuri gua di utara Bali.", admin.getIdAdmin()));
+        // Film senja = simpanFilm(new Film(0, "Senja di Sanur", "Drama", 112,
+          //      "Dua sahabat kembali ke Sanur dan menemukan surat yang belum pernah dikirim.", admin.getIdAdmin()));
+        // Film pulau = simpanFilm(new Film(0, "Pulau Sunyi", "Horor", 98,
+          //      "Sebuah pulau wisata ditutup setelah mercusuarnya menyala sendiri setiap tengah malam.", admin.getIdAdmin()));
+        // Film jejak = simpanFilm(new Film(0, "Jejak Emas", "Petualangan", 126,
+          //      "Peta tua membawa tiga mahasiswa menyusuri gua di utara Bali.", admin.getIdAdmin()));
 
-        Studio studio1 = simpanStudio(new Studio(0, "Studio 1", admin.getIdAdmin()));
-        Studio studio2 = simpanStudio(new Studio(0, "Studio 2", admin.getIdAdmin()));
+        // Studio studio1 = simpanStudio(new Studio(0, "Studio 1", admin.getIdAdmin()));
+        // Studio studio2 = simpanStudio(new Studio(0, "Studio 2", admin.getIdAdmin()));
 
-        Kursi a1 = simpanKursi(new Kursi(0, studio1.getIdStudio(), "A1", "VIP", admin.getIdAdmin()));
-        Kursi a2 = simpanKursi(new Kursi(0, studio1.getIdStudio(), "A2", "Reguler", admin.getIdAdmin()));
-        simpanKursi(new Kursi(0, studio1.getIdStudio(), "A3", "Reguler", admin.getIdAdmin()));
-        Kursi b1 = simpanKursi(new Kursi(0, studio1.getIdStudio(), "B1", "Reguler", admin.getIdAdmin()));
-        simpanKursi(new Kursi(0, studio1.getIdStudio(), "B2", "Reguler", admin.getIdAdmin()));
-        Kursi c1 = simpanKursi(new Kursi(0, studio2.getIdStudio(), "C1", "Reguler", admin.getIdAdmin()));
-        Kursi c2 = simpanKursi(new Kursi(0, studio2.getIdStudio(), "C2", "Reguler", admin.getIdAdmin()));
+        // Kursi a1 = simpanKursi(new Kursi(0, 1, "A1", "VIP", admin.getIdAdmin()));
+        // Kursi a2 = simpanKursi(new Kursi(0, 1, "A2", "Reguler", admin.getIdAdmin()));
+        // simpanKursi(new Kursi(0, 1, "A3", "Reguler", admin.getIdAdmin()));
+        // Kursi b1 = simpanKursi(new Kursi(0, 1, "B1", "Reguler", admin.getIdAdmin()));
+        // simpanKursi(new Kursi(0, 1, "B2", "Reguler", admin.getIdAdmin()));
+        // Kursi c1 = simpanKursi(new Kursi(0, 2, "C1", "Reguler", admin.getIdAdmin()));
+        // Kursi c2 = simpanKursi(new Kursi(0, 2, "C2", "Reguler", admin.getIdAdmin()));
 
         LocalDate hariIni = LocalDate.now();
-        JadwalTayang tayangBesok = simpanJadwal(new JadwalTayang(0, senja.getIdFilm(), studio1.getIdStudio(),
-                LocalDateTime.of(hariIni.plusDays(1), LocalTime.of(19, 0)), 50000, StatusJadwal.AKTIF, admin.getIdAdmin()));
-        JadwalTayang pulauBesok = simpanJadwal(new JadwalTayang(0, pulau.getIdFilm(), studio2.getIdStudio(),
-                LocalDateTime.of(hariIni.plusDays(1), LocalTime.of(21, 0)), 45000, StatusJadwal.AKTIF, admin.getIdAdmin()));
-        simpanJadwal(new JadwalTayang(0, jejak.getIdFilm(), studio1.getIdStudio(),
-                LocalDateTime.of(hariIni, LocalTime.of(16, 0)), 60000, StatusJadwal.DIBATALKAN, admin.getIdAdmin()));
-        JadwalTayang senjaLalu = simpanJadwal(new JadwalTayang(0, senja.getIdFilm(), studio1.getIdStudio(),
-                LocalDateTime.of(hariIni.minusDays(2), LocalTime.of(19, 0)), 50000, StatusJadwal.AKTIF, admin.getIdAdmin()));
-        JadwalTayang pulauLalu = simpanJadwal(new JadwalTayang(0, pulau.getIdFilm(), studio2.getIdStudio(),
-                LocalDateTime.of(hariIni.minusDays(3), LocalTime.of(21, 0)), 45000, StatusJadwal.AKTIF, admin.getIdAdmin()));
+       // JadwalTayang tayangBesok =simpanJadwal(new JadwalTayang(0, 1, 1,
+         //       LocalDateTime.of(hariIni.plusDays(1), LocalTime.of(19, 0)), 50000, StatusJadwal.AKTIF, admin.getIdAdmin()));
+        // JadwalTayang pulauBesok = simpanJadwal(new JadwalTayang(0, 2, 2,
+         //       LocalDateTime.of(hariIni.plusDays(1), LocalTime.of(21, 0)), 45000, StatusJadwal.AKTIF, admin.getIdAdmin()));
+        // simpanJadwal(new JadwalTayang(0, 3, 1,
+          //      LocalDateTime.of(hariIni, LocalTime.of(16, 0)), 60000, StatusJadwal.DIBATALKAN, admin.getIdAdmin()));
+        // JadwalTayang senjaLalu = simpanJadwal(new JadwalTayang(0, 1, 1,
+          //      LocalDateTime.of(hariIni.minusDays(2), LocalTime.of(19, 0)), 50000, StatusJadwal.AKTIF, admin.getIdAdmin()));
+        // JadwalTayang pulauLalu = simpanJadwal(new JadwalTayang(0, 2, 2,
+          //      LocalDateTime.of(hariIni.minusDays(3), LocalTime.of(21, 0)), 45000, StatusJadwal.AKTIF, admin.getIdAdmin()));
 
-        pesan(senjaLalu, kasir.getIdKasir(), KanalPemesanan.KASIR, StatusPemesanan.LUNAS,
-                hariIni.minusDays(2).atTime(19, 20), 50000, a2);
-        pesan(pulauLalu, null, KanalPemesanan.KIOSK, StatusPemesanan.LUNAS,
-                hariIni.minusDays(3).atTime(21, 10), 90000, c1, c2);
-        pesan(tayangBesok, null, KanalPemesanan.KIOSK, StatusPemesanan.MENUNGGU_PEMBAYARAN,
-                LocalDateTime.now().minusHours(1), 50000, b1);
-        pesan(tayangBesok, null, KanalPemesanan.KIOSK, StatusPemesanan.DIBATALKAN,
-                LocalDateTime.now().minusHours(3), 50000, a1);
-        pesan(pulauBesok, kasir.getIdKasir(), KanalPemesanan.KASIR, StatusPemesanan.LUNAS,
-                LocalDateTime.now().minusMinutes(30), 45000, c1);
+       // pesan(senjaLalu, kasir.getIdKasir(), KanalPemesanan.KASIR, StatusPemesanan.LUNAS,
+           //     hariIni.minusDays(2).atTime(19, 20), 50000, a2);
+       // pesan(pulauLalu, null, KanalPemesanan.KIOSK, StatusPemesanan.LUNAS,
+             //   hariIni.minusDays(3).atTime(21, 10), 90000, c1, c2);
+       // pesan(tayangBesok, null, KanalPemesanan.KIOSK, StatusPemesanan.MENUNGGU_PEMBAYARAN,
+               // LocalDateTime.now().minusHours(1), 50000, b1);
+       // pesan(tayangBesok, null, KanalPemesanan.KIOSK, StatusPemesanan.DIBATALKAN,
+               // LocalDateTime.now().minusHours(3), 50000, a1);
+       // pesan(pulauBesok, kasir.getIdKasir(), KanalPemesanan.KASIR, StatusPemesanan.LUNAS,
+                // LocalDateTime.now().minusMinutes(30), 45000, c1);
     }
 
     private void pesan(JadwalTayang jadwalTayang, Integer idKasirPesanan, KanalPemesanan kanal,
