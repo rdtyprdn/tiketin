@@ -1,17 +1,19 @@
 package com.tiketin.controller.kasir;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import com.tiketin.App;
+import com.tiketin.model.Kasir;
+import com.tiketin.model.KasirRiwayatItem;
+import com.tiketin.service.KasirTransaksiService;
+import com.tiketin.util.KasirSession;
+import com.tiketin.util.KasirUtil;
+import com.tiketin.util.Peringatan;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import com.tiketin.model.KasirRiwayatItem;
-import com.tiketin.util.KasirRiwayatData;
-import java.time.LocalDate;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 public class KasirHomeController {
 
@@ -36,45 +38,49 @@ public class KasirHomeController {
     @FXML
     private Label lblTotalPendapatan;
 
+    private final KasirTransaksiService service = new KasirTransaksiService();
+
+    @FXML
+    private void initialize() {
+        KasirUtil.pasangHeader(lblIdKasir, btnKeluar);
+        hitungStatistikDashboard();
+    }
+
     @FXML
     private void mulaiTransaksi() throws IOException {
-    App.setRoot("fxml/kasir/KasirFilm");
+        KasirSession.reset();
+        App.setRoot("fxml/kasir/KasirFilm");
     }
 
     @FXML
     private void lihatRiwayat() throws IOException {
-    App.setRoot("fxml/kasir/KasirRiwayat");
+        App.setRoot("fxml/kasir/KasirRiwayat");
     }
 
-    @FXML
-    private void initialize() {
-        hitungStatistikDashboard();
-    }
-    
+    // Statistik hari ini dari database, hanya transaksi kasir yang login
     private void hitungStatistikDashboard() {
-    
         int totalTransaksi = 0;
         int totalTiket = 0;
-        int totalPendapatan = 0;
-    
-        for (KasirRiwayatItem transaksi :
-                KasirRiwayatData.getDaftarTransaksi()) {
-    
-            if (transaksi.getTanggal().toLocalDate()
-                    .equals(LocalDate.now())) {
-    
-                totalTransaksi++;
-                totalTiket += transaksi.getJumlahTiket();
-                totalPendapatan += transaksi.getTotal();
+        double totalPendapatan = 0;
+
+        Kasir kasir = KasirSession.getKasirLogin();
+        if (kasir != null) {
+            try {
+                for (KasirRiwayatItem transaksi : service.riwayat(kasir.getIdKasir())) {
+                    boolean hariIni = transaksi.getTanggal().toLocalDate().equals(LocalDate.now());
+                    if (hariIni && "Lunas".equals(transaksi.getStatus())) {
+                        totalTransaksi++;
+                        totalTiket += transaksi.getJumlahTiket();
+                        totalPendapatan += transaksi.getTotal();
+                    }
+                }
+            } catch (IllegalArgumentException ex) {
+                Peringatan.gagal(ex.getMessage());
             }
         }
-    
-        NumberFormat format = NumberFormat.getNumberInstance(
-            Locale.forLanguageTag("id-ID")
-        );
-    
+
         lblTransaksiHariIni.setText(String.valueOf(totalTransaksi));
         lblTiketTerjual.setText(String.valueOf(totalTiket));
-        lblTotalPendapatan.setText("Rp" + format.format(totalPendapatan));
+        lblTotalPendapatan.setText(KasirUtil.rupiah(totalPendapatan));
     }
 }

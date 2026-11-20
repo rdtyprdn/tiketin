@@ -1,28 +1,26 @@
 package com.tiketin.controller.kasir;
 
-import java.text.NumberFormat;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import com.tiketin.App;
 import com.tiketin.model.Film;
+import com.tiketin.model.JadwalTayang;
+import com.tiketin.model.Kasir;
+import com.tiketin.service.KasirTransaksiService;
 import com.tiketin.util.KasirSession;
+import com.tiketin.util.KasirUtil;
+import com.tiketin.util.Peringatan;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import java.io.IOException;
-import com.tiketin.App;
-import com.tiketin.model.KasirRiwayatItem;
-import com.tiketin.util.KasirRiwayatData;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class KasirPembayaranController {
-    private final int totalPembayaran = 100000;
 
     @FXML
     private ImageView imgPosterFilm;
@@ -61,100 +59,100 @@ public class KasirPembayaranController {
     private Button btnKonfirmasiPembayaran;
 
     @FXML
+    private Label lblIdKasir;
+
+    @FXML
+    private Button btnKeluar;
+
+    private final KasirTransaksiService service = new KasirTransaksiService();
+
+    // Total dihitung dari harga jadwal x jumlah kursi
+    private double totalPembayaran;
+
+    @FXML
     private void initialize() {
+        KasirUtil.pasangHeader(lblIdKasir, btnKeluar);
+        totalPembayaran = KasirSession.getTotalBayar();
+
+        Film film = KasirSession.getFilmTerpilih();
+        if (film != null) {
+            lblJudulFilm.setText(film.getJudul());
+            lblGenreDurasi.setText(film.getGenre() + " · " + film.getDurasi() + " menit");
+            imgPosterFilm.setImage(KasirUtil.poster(film));
+        }
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.forLanguageTag("id-ID"));
+        if (KasirSession.getTanggalTerpilih() != null) {
+            lblTanggal.setText(KasirSession.getTanggalTerpilih().format(format));
+        }
+        lblJamTayang.setText(KasirSession.getJamTerpilih());
         lblStudio.setText(KasirSession.getStudioTerpilih());
-        txtNominalUang.textProperty().addListener(
-    (observable, oldValue, newValue) -> {
+
+        KasirRingkasanController.tampilkanKursi(containerKursi, KasirSession.getKursiTerpilih());
+        lblTotalPembayaran.setText(KasirUtil.rupiah(totalPembayaran));
+
+        txtNominalUang.textProperty().addListener((observable, oldValue, newValue) -> hitungKembalian());
         hitungKembalian();
     }
-    );
-    hitungKembalian();
 
-    Film film = KasirSession.getFilmTerpilih();
-
-    if (film != null) {
-
-        lblJudulFilm.setText(film.getJudul());
-
-        lblGenreDurasi.setText(
-            film.getGenre() + " · "
-            + film.getDurasi() + " menit"
-        );
-
-        imgPosterFilm.setImage(new Image(
-            getClass().getResourceAsStream(
-                "/com/tiketin/images/" + film.getPoster()
-            )
-        ));
-    }
-
-    DateTimeFormatter format = DateTimeFormatter.ofPattern(
-        "dd MMMM yyyy",
-        Locale.forLanguageTag("id-ID")
-    );
-
-    if (KasirSession.getTanggalTerpilih() != null) {
-        lblTanggal.setText(
-            KasirSession.getTanggalTerpilih().format(format)
-        );
-    }
-
-    lblJamTayang.setText(KasirSession.getJamTerpilih());
-    lblStudio.setText(KasirSession.getStudioTerpilih());
+    // Boleh ketik "100000" atau "100.000"
+    private long bacaNominal() {
+        String angka = txtNominalUang.getText() == null ? "" : txtNominalUang.getText().replaceAll("[^0-9]", "");
+        if (angka.isEmpty() || angka.length() > 12) {
+            return -1;
+        }
+        return Long.parseLong(angka);
     }
 
     private void hitungKembalian() {
+        long nominal = bacaNominal();
 
-    try {
-        int nominal = Integer.parseInt(txtNominalUang.getText());
-
-        if (nominal < totalPembayaran) {
+        if (nominal < 0) {
+            btnKonfirmasiPembayaran.setDisable(true);
+            lblValidasiPembayaran.setText("Masukkan nominal uang yang valid.");
+            lblValidasiPembayaran.setStyle("-fx-text-fill: #DC2626;");
+            lblKembalian.setText("Rp 0");
+        } else if (nominal < totalPembayaran) {
             btnKonfirmasiPembayaran.setDisable(true);
             lblValidasiPembayaran.setText("Nominal pembayaran belum mencukupi.");
             lblValidasiPembayaran.setStyle("-fx-text-fill: #DC2626;");
             lblKembalian.setText("Rp 0");
         } else {
-            int kembalian = nominal - totalPembayaran;
-            btnKonfirmasiPembayaran.setDisable(false);  
+            btnKonfirmasiPembayaran.setDisable(totalPembayaran <= 0);
             lblValidasiPembayaran.setText("Nominal pembayaran mencukupi.");
             lblValidasiPembayaran.setStyle("-fx-text-fill: #16A34A;");
+            lblKembalian.setText(KasirUtil.rupiah(nominal - totalPembayaran));
+        }
+    }
 
-            NumberFormat format = NumberFormat.getNumberInstance(
-                Locale.forLanguageTag("id-ID")
-            );
+    @FXML
+    private void kembali() throws IOException {
+        App.setRoot("fxml/kasir/KasirRingkasan");
+    }
 
-            lblKembalian.setText("Rp " + format.format(kembalian));
+    // Simpan transaksi ke database lewat PemesananService
+    @FXML
+    private void konfirmasiPembayaran() throws IOException {
+        if (btnKonfirmasiPembayaran.isDisabled()) {
+            return;
         }
 
-    } catch (NumberFormatException e) {
-        btnKonfirmasiPembayaran.setDisable(true);
-        lblValidasiPembayaran.setText("Masukkan nominal uang yang valid.");
-        lblValidasiPembayaran.setStyle("-fx-text-fill: #DC2626;");
-        lblKembalian.setText("Rp 0");
-    }
-    }
+        Kasir kasir = KasirSession.getKasirLogin();
+        JadwalTayang jadwal = KasirSession.getJadwalTerpilih();
+        if (kasir == null || jadwal == null || KasirSession.getKursiTerpilih().isEmpty()) {
+            Peringatan.gagal("Data transaksi belum lengkap. Ulangi dari pilih film.");
+            return;
+        }
 
-   @FXML
-    private void konfirmasiPembayaran() throws IOException {
-
-    if (btnKonfirmasiPembayaran.isDisabled()) {
-        return;
-    }
-
-    String idTransaksi = "DEMO-" +
-        UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-
-    KasirRiwayatItem transaksi = new KasirRiwayatItem(
-        idTransaksi,
-        LocalDateTime.now(),
-        KasirSession.getFilmTerpilih().getJudul(),
-        2,
-        totalPembayaran,
-        "Lunas"
-    );
-
-    App.setRoot("fxml/kasir/KasirTiket");
-
-    KasirRiwayatData.tambahTransaksi(transaksi);
+        btnKonfirmasiPembayaran.setDisable(true); // cegah klik dua kali
+        try {
+            int idPemesanan = service.bayarTunai(jadwal, KasirSession.getKursiTerpilih(), bacaNominal(),
+                kasir.getIdKasir());
+            KasirSession.setIdPemesananTerakhir(idPemesanan);
+            App.setRoot("fxml/kasir/KasirTiket");
+        } catch (IllegalArgumentException ex) {
+            Peringatan.gagal(ex.getMessage());
+            btnKonfirmasiPembayaran.setDisable(false);
+        }
     }
 }
