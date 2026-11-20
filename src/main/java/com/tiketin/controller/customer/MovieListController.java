@@ -1,131 +1,133 @@
 package com.tiketin.controller.customer;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.tiketin.App;
+import com.tiketin.model.Film;
+import com.tiketin.service.KasirTransaksiService;
+import com.tiketin.util.KasirUtil;
+import com.tiketin.util.KioskSession;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class MovieListController {
 
     @FXML
-    private void handleZootopia() {
-        bukaDetailFilm(
-            "Zootopia 2",
-            "Animation",
-            "108 min",
-            "7.3",
-            "Kemitraan polisi Judy Hopps dan Nick Wilde diuji saat mereka ditugaskan melacak Gary De'Snake, seekor ular piton misterius yang memicu kekacauan besar di Zootopia.",
-            "Jared Bush & Byron Howard",
-            "2025",
-            "SU",
-            "/com/tiketin/images/Zootopia.jpg"
-        );
-    }
+    private HBox wadahFilm;
+
+    private final KasirTransaksiService service = new KasirTransaksiService();
 
     @FXML
-    private void handleRanggaCinta() {
-        bukaDetailFilm(
-            "Rangga & Cinta",
-            "Romance",
-            "112 min",
-            "6.6",
-            "Cinta, siswi SMA populer dan berprestasi, harus menerima kekalahan dalam lomba puisi dari Rangga, siswa yang kurang dikenal di sekolahnya. Pertemuan tersebut membuat keduanya saling tidak menyukai, tetapi seiring waktu, rasa benci itu perlahan berubah menjadi cinta.",
-            "Riri Riza",
-            "2025",
-            "R13",
-            "/com/tiketin/images/Rangga dan Cinta.jpg"
-        );
-    }
+    private void initialize() {
+        wadahFilm.getChildren().clear();
 
-    @FXML
-    private void handleGhost() {
-        bukaDetailFilm(
-            "Ghost In The Cell",
-            "Horor",
-            "155 min",
-            "6.5",
-            "Di sebuah penjara, para narapidana diteror oleh sosok hantu misterius yang memburu orang-orang dengan aura negatif. Untuk bertahan hidup, mereka harus mengesampingkan permusuhan dan bekerja sama menghadapi teror tersebut.",
-            "Joko Anwar",
-            "2026",
-            "17+",
-            "/com/tiketin/images/ghost.jpg"
-        );
-    }
-
-    @FXML
-    private void handleWicked() {
-        bukaDetailFilm(
-            "Wicked",
-            "Fantasy",
-            "160 min",
-            "7.3",
-            "Elphaba dan Glinda, dua gadis dengan kepribadian berbeda, bertemu di Universitas Shiz dan menjalin persahabatan. Namun, sebuah peristiwa membuat mereka menghadapi pilihan yang mengubah kehidupan dan takdir mereka di Negeri Oz.",
-            "Jon M. Chu.",
-            "2024",
-            "8+",
-            "/com/tiketin/images/Wicked.jpg"
-        );
-    }
-
-    @FXML
-    private void handleMissionImpossible() {
-        bukaDetailFilm(
-            "Mission: Impossible Fallout",
-            "Action",
-            "155 min",
-            "7.7",
-            "Ethan Hunt dan tim IMF berusaha menghentikan kelompok teroris yang berencana melancarkan serangan nuklir. Mereka harus berpacu dengan waktu demi menyelamatkan dunia dari kehancuran.",
-            "Christopher McQuarrie",
-            "2018",
-            "PG-13",
-            "/com/tiketin/images/Action.jpg"
-        );
-    }
-
-    private void bukaDetailFilm(
-            String judul,
-            String genre,
-            String durasi,
-            String rating,
-            String sinopsis,
-            String sutradara,
-            String tahun,
-            String usia,
-            String poster) {
-
+        List<Film> daftar;
         try {
-            FXMLLoader loader = new FXMLLoader(
-                App.class.getResource(
-                    "/com/tiketin/fxml/customer/movie-detail.fxml"
-                )
-            );
+            daftar = service.daftarFilm();
+        } catch (IllegalArgumentException ex) {
+            wadahFilm.getChildren().add(pesan("Film tidak bisa dimuat: " + ex.getMessage()));
+            return;
+        }
+        if (daftar.isEmpty()) {
+            wadahFilm.getChildren().add(pesan("Belum ada film yang tayang."));
+            return;
+        }
 
-            Parent root = loader.load();
+        // Kartu disusun dalam satu baris; kalau film lebih banyak dari lebar layar bisa digeser
+        HBox baris = new HBox(20);
+        baris.setAlignment(Pos.CENTER);
+        for (Film film : daftar) {
+            baris.getChildren().add(buatKartu(film));
+        }
 
-            MovieDetailController controller = loader.getController();
+        ScrollPane gulir = new ScrollPane(baris);
+        gulir.setFitToHeight(true);
+        gulir.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        gulir.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        gulir.setMinHeight(420);
+        gulir.setStyle("-fx-background-color: transparent; -fx-background: transparent;");
+        // supaya kartu tetap di tengah kalau filmnya sedikit
+        baris.minWidthProperty().bind(gulir.widthProperty().subtract(4));
+        HBox.setHgrow(gulir, Priority.ALWAYS);
+        wadahFilm.getChildren().add(gulir);
+    }
 
-            controller.setDataFilm(
-                judul, genre, durasi, rating,
-                sinopsis, sutradara, tahun, usia
-            );
+    // Kartu film, gayanya disamakan dengan kartu di desain Alia
+    private VBox buatKartu(Film film) {
+        VBox kartu = new VBox(10);
+        kartu.setPrefSize(220, 390);
+        kartu.setMinWidth(220);
+        kartu.setMinHeight(390);
+        kartu.setMaxHeight(390);
+        kartu.setPadding(new Insets(12));
+        kartu.setStyle("-fx-background-radius: 16; -fx-background-color: #FFFFFF;");
 
-            controller.setPoster(poster);
+        ImageView poster = new ImageView(KasirUtil.poster(film));
+        poster.setFitWidth(196);
+        poster.setFitHeight(220);
 
-            App.setRoot(root);
+        Label judul = new Label(film.getJudul());
+        judul.setTextFill(Color.web("#1a2c50"));
+        judul.setFont(new Font("Inter SemiBold", 16));
+        judul.setMaxWidth(196);
+        judul.setTooltip(new Tooltip(film.getJudul()));
 
+        String genre = film.getGenre() == null || film.getGenre().isBlank() ? "-" : film.getGenre();
+        Label info = new Label(genre + " • " + film.getDurasi() + " min");
+        info.setTextFill(Color.web("#1a2c50"));
+        info.setFont(new Font("Inter Regular", 12));
+        info.setMaxWidth(196);
+
+        VBox pengisi = new VBox();
+        VBox.setVgrow(pengisi, Priority.ALWAYS);
+
+        Button pilih = new Button("Pilih Film");
+        pilih.setPrefSize(193, 24);
+        pilih.setMaxWidth(196);
+        pilih.setStyle("-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50; "
+                + "-fx-font-family: \"Inter\"; -fx-font-weight: bold; -fx-font-size: 13;");
+        pilih.setOnAction(e -> bukaDetailFilm(film));
+
+        kartu.getChildren().addAll(poster, judul, info, pengisi, pilih);
+        return kartu;
+    }
+
+    private Label pesan(String teks) {
+        Label label = new Label(teks);
+        label.setTextFill(Color.web("#1a2c50"));
+        label.setFont(new Font("Inter SemiBold", 16));
+        label.setWrapText(true);
+        return label;
+    }
+
+    private void bukaDetailFilm(Film film) {
+        KioskSession.setFilmTerpilih(film);
+        try {
+            App.setRoot("fxml/customer/movie-detail");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @FXML
-    private void handleKembali() {  
-    try {
-        App.setRoot("fxml/customer/kiosk-home");
-    } catch (IOException e) {
-        e.printStackTrace();
+    private void handleKembali() {
+        try {
+            App.setRoot("fxml/customer/kiosk-home");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
 }

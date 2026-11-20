@@ -1,16 +1,16 @@
-
 package com.tiketin.controller.customer;
 
 import java.io.IOException;
-import java.net.URL;
 
 import com.tiketin.App;
+import com.tiketin.model.Film;
+import com.tiketin.util.KasirUtil;
+import com.tiketin.util.KioskSession;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class MovieDetailController {
@@ -42,40 +42,29 @@ public class MovieDetailController {
     @FXML
     private ImageView imgPoster;
 
-    public void setDataFilm(
-            String judul,
-            String genre,
-            String durasi,
-            String rating,
-            String sinopsis,
-            String sutradara,
-            String tahun,
-            String usia) {
-
-        lblJudulFilm.setText(judul);
-        lblGenre.setText(genre);
-        lblDurasi.setText(durasi);
-        lblRating.setText(rating);
-        lblSinopsis.setText(sinopsis);
-        lblSutradara.setText(sutradara);
-        lblTahunRilis.setText(tahun);
-        lblRatingUsia.setText(usia);
-    }
-
-    public void setPoster(String lokasiPoster) {
-        URL posterUrl = getClass().getResource(lokasiPoster);
-
-        if (posterUrl == null) {
-            throw new IllegalArgumentException(
-                "Poster tidak ditemukan: " + lokasiPoster
-            );
+    // Data film diambil dari film yang dipilih di halaman daftar film (database)
+    @FXML
+    private void initialize() {
+        Film film = KioskSession.getFilmTerpilih();
+        if (film == null) {
+            return; // dibuka tanpa memilih film: biarkan tampilan contoh
         }
+        lblJudulFilm.setText(film.getJudul());
+        lblGenre.setText(teks(film.getGenre()));
+        lblDurasi.setText(film.getDurasi() + " min");
+        lblSinopsis.setText(teks(film.getSinopsis()));
+        lblSinopsis.setWrapText(true);
+        imgPoster.setImage(KasirUtil.poster(film));
 
-        imgPoster.setImage(new Image(posterUrl.toExternalForm()));
+        // Tabel film belum punya kolom rating, sutradara, tahun rilis, dan rating usia
+        lblRating.setText("-");
+        lblSutradara.setText("-");
+        lblTahunRilis.setText("-");
+        lblRatingUsia.setText("-");
     }
 
-    public void setPosterImage(Image poster) {
-        imgPoster.setImage(poster);
+    private String teks(String nilai) {
+        return nilai == null || nilai.isBlank() ? "-" : nilai;
     }
 
     @FXML
@@ -101,6 +90,7 @@ public class MovieDetailController {
             KioskScheduleSelectionController controller =
                 loader.getController();
 
+            // (Langkah 2 akan mengganti halaman jadwal supaya membaca database)
             controller.setDataFilm(
                 lblJudulFilm.getText(),
                 lblGenre.getText(),
@@ -111,7 +101,7 @@ public class MovieDetailController {
                 lblTahunRilis.getText(),
                 lblRatingUsia.getText(),
                 imgPoster.getImage()
-);
+            );
 
             App.setRoot(root);
 

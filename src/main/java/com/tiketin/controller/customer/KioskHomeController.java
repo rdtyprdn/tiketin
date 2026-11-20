@@ -3,6 +3,7 @@ package com.tiketin.controller.customer;
 import java.io.IOException;
 
 import com.tiketin.App;
+import com.tiketin.util.KioskSession;
 import com.tiketin.util.Peringatan;
 
 import javafx.fxml.FXML;
@@ -18,6 +19,9 @@ public class KioskHomeController {
 
     @FXML
     private void initialize() {
+        // pelanggan baru: pilihan pemesanan sebelumnya dikosongkan
+        KioskSession.reset();
+
         // Jalan pintas petugas: tekan Esc di halaman awal kiosk untuk kembali ke login
         mulaiPesanButton.sceneProperty().addListener((obs, lama, scene) -> {
             if (scene != null) {
