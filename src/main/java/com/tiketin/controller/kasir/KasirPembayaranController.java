@@ -3,7 +3,7 @@ package com.tiketin.controller.kasir;
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-
+import com.tiketin.util.SceneManager;
 import com.tiketin.model.Film;
 import com.tiketin.util.KasirSession;
 
@@ -14,8 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import java.io.IOException;
-import com.tiketin.App;
 import com.tiketin.model.KasirRiwayatItem;
 import com.tiketin.util.KasirRiwayatData;
 import java.time.LocalDateTime;
@@ -135,7 +133,7 @@ public class KasirPembayaranController {
     }
 
    @FXML
-    private void konfirmasiPembayaran() throws IOException {
+   private void konfirmasiPembayaran() {
 
     if (btnKonfirmasiPembayaran.isDisabled()) {
         return;
@@ -153,8 +151,19 @@ public class KasirPembayaranController {
         "Lunas"
     );
 
-    App.setRoot("fxml/kasir/KasirTiket");
+    SceneManager.pindah(
+    "kasir/KasirTiket",
+    "Tiketin - Penerbitan Tiket"
+    );
 
     KasirRiwayatData.tambahTransaksi(transaksi);
     }
+
+    @FXML
+    private void kembali() {
+    SceneManager.pindah(
+        "kasir/KasirRingkasan",
+        "Tiketin - Ringkasan Pesanan"
+    );
+}
 }
