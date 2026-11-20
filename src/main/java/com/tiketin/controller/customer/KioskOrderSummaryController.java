@@ -14,8 +14,6 @@ import com.tiketin.util.KasirUtil;
 import com.tiketin.util.KioskSession;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
@@ -78,22 +76,7 @@ public class KioskOrderSummaryController {
             return;
         }
         try {
-            FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/tiketin/fxml/customer/kiosk-qris-simulation.fxml")
-            );
-            Parent root = loader.load();
-
-            // (Langkah 3 mengganti halaman QRIS supaya menyimpan ke database)
-            KioskQRISController controller = loader.getController();
-            controller.setDataPesanan(
-                (int) KioskSession.getTotalBayar(),
-                lblJudulFilmSummary.getText(),
-                lblTanggalSummary.getText(),
-                lblJamSummary.getText(),
-                lblStudioSummary.getText()
-            );
-
-            App.setRoot(root);
+            App.setRoot("fxml/customer/kiosk-qris-simulation");
         } catch (IOException e) {
             e.printStackTrace();
         }

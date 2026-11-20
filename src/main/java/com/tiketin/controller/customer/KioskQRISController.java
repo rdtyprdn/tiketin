@@ -1,13 +1,17 @@
-
 package com.tiketin.controller.customer;
 
 import java.io.IOException;
 
 import com.tiketin.App;
+import com.tiketin.model.JadwalTayang;
+import com.tiketin.service.KioskService;
+import com.tiketin.util.KasirUtil;
+import com.tiketin.util.KioskSession;
+import com.tiketin.util.Peringatan;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 public class KioskQRISController {
@@ -15,32 +19,11 @@ public class KioskQRISController {
     @FXML
     private Label lblTotalPembayaran;
 
-    private int totalPembayaran;
+    private final KioskService service = new KioskService();
 
-    private String judulFilm;
-    private String tanggal;
-    private String jam;
-    private String studio;
-
-    private final String kursi = "D5, D6";
-    private final int jumlahTiket = 2;
-
-    public void setDataPesanan(
-            int total,
-            String judul,
-            String tanggal,
-            String jam,
-            String studio) {
-
-        this.totalPembayaran = total;
-        this.judulFilm = judul;
-        this.tanggal = tanggal;
-        this.jam = jam;
-        this.studio = studio;
-
-        lblTotalPembayaran.setText(
-            "Rp" + String.format("%,d", totalPembayaran).replace(',', '.')
-        );
+    @FXML
+    private void initialize() {
+        lblTotalPembayaran.setText(KasirUtil.rupiah(KioskSession.getTotalBayar()));
     }
 
     @FXML
@@ -52,39 +35,30 @@ public class KioskQRISController {
         }
     }
 
+    // Simulasi QRIS: tombol ini dianggap pembayaran berhasil, lalu pesanan disimpan ke database
     @FXML
-    private void handleKonfirmasiPembayaran() {
+    private void handleKonfirmasiPembayaran(ActionEvent event) {
+        JadwalTayang jadwal = KioskSession.getJadwalTerpilih();
+        if (jadwal == null || KioskSession.getKursiTerpilih().isEmpty()) {
+            Peringatan.gagal("Pesanan belum lengkap. Silakan pilih jadwal dan kursi dulu.");
+            return;
+        }
+
+        Node tombol = (Node) event.getSource();
+        tombol.setDisable(true); // cegah klik dua kali
         try {
-            var lokasiFXML = getClass().getResource(
-                "/com/tiketin/fxml/customer/kiosk-ticket.fxml"
-            );
-
-            System.out.println("LOKASI E-TICKET: " + lokasiFXML);
-
-            if (lokasiFXML == null) {
-                System.out.println(
-                    "FILE KIOSK-TICKET.FXML TIDAK DITEMUKAN!"
-                );
-                return;
+            int idPemesanan = service.bayarQris(jadwal, KioskSession.getKursiTerpilih());
+            KioskSession.setIdPemesananTerakhir(idPemesanan);
+            App.setRoot("fxml/customer/kiosk-ticket");
+        } catch (IllegalArgumentException ex) {
+            // contoh: kursi keburu dibeli orang lain di kasir
+            Peringatan.gagal(ex.getMessage());
+            tombol.setDisable(false);
+            try {
+                App.setRoot("fxml/customer/kiosk-seat-selection");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            FXMLLoader loader = new FXMLLoader(lokasiFXML);
-            Parent root = loader.load();
-
-            KioskTicketController controller = loader.getController();
-
-            controller.setDataTiket(
-                "TK-20261120-001",
-                judulFilm,
-                tanggal,
-                jam,
-                studio,
-                kursi,
-                jumlahTiket
-            );
-
-            App.setRoot(root);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
