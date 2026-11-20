@@ -5,7 +5,7 @@ USE tiketin;
 CREATE TABLE pengguna (
   id_pengguna INT AUTO_INCREMENT PRIMARY KEY,
   username    VARCHAR(50) NOT NULL UNIQUE,
-  password    VARCHAR(64) NOT NULL,
+  password    VARCHAR(255) NOT NULL,
   nama        VARCHAR(100) NOT NULL
 );
 CREATE TABLE admin (
@@ -114,4 +114,8 @@ INSERT INTO kursi (id_studio, nomor_kursi, id_admin) VALUES
   (1,'B1',1),(1,'B2',1),(1,'B3',1),(1,'B4',1),(1,'B5',1);
 INSERT INTO jadwal_tayang (id_film, id_studio, waktu_mulai, harga_tiket, id_admin) VALUES
   (1, 1, '2026-11-16 13:00:00', 40000, 1),
-  (2, 1, '2026-11-16 16:00:00', 35000, 1);
+  (2, 1, '2026-11-16 16:00:00', 35000, 1),
+  -- jadwal contoh relatif ke tanggal import, supaya kasir & kiosk langsung bisa dicoba
+  (1, 1, CONCAT(CURDATE() + INTERVAL 1 DAY, ' 13:00:00'), 40000, 1),
+  (2, 1, CONCAT(CURDATE() + INTERVAL 1 DAY, ' 16:00:00'), 35000, 1),
+  (1, 1, CONCAT(CURDATE() + INTERVAL 2 DAY, ' 19:00:00'), 45000, 1);
