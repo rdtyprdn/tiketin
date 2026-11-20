@@ -64,6 +64,20 @@ public class LoginController {
         stage.getScene().setRoot(root);
     }
 
+    // Buka halaman kiosk (pelanggan) tanpa login
+    @FXML
+    private void bukaKiosk() {
+        tampilkanGalat("");
+        try {
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setTitle("Tiketin Kiosk");
+            App.setRoot("fxml/customer/kiosk-home");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            tampilkanGalat("Halaman kiosk tidak bisa dibuka: " + ex.getMessage());
+        }
+    }
+
     private void bukaKasir(Kasir kasir) throws IOException {
         KasirSession.setKasirLogin(kasir);
         KasirSession.reset();
