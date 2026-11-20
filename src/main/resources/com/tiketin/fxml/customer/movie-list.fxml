@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="720" prefWidth="1280" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.customer.KioskHomeController">
+<VBox prefHeight="720" prefWidth="1280" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.customer.MovieListController">
 
     <HBox maxHeight="100.0" minHeight="100" prefHeight="100" style="-fx-background-color: #1A2C50;">
       <children>
@@ -38,7 +38,7 @@
 
                       <VBox spacing="15.0" style="-fx-background-color: #F3F5FF; -fx-alignment: top-left;" VBox.vgrow="SOMETIMES">
       <children>
-         <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" spacing="8.0" style="-fx-alignment: center_left; -fx-spacing: 8; -fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-padding: 10 16 10 16;">
+         <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" spacing="8.0" onMouseClicked="#handleKembali" style="-fx-alignment: center_left; -fx-spacing: 8; -fx-background-color: #FFFFFF; -fx-background-radius: 12; -fx-padding: 10 16 10 16;">
             <children>
                <Label scaleX="-1.0" style="-fx-text-fill: #1A2C50;" text="➜">
                   <font>
@@ -111,7 +111,7 @@
                            </Label>
                         </children>
                      </HBox>
-                     <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="193.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50; -fx-font-family: &quot;Inter&quot;; -fx-font-weight: bold; -fx-font-size: 13;" text="Pilih Film" />
+                     <Button mnemonicParsing="false" onAction="#handleZootopia" prefHeight="24.0" prefWidth="193.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50; -fx-font-family: &quot;Inter&quot;; -fx-font-weight: bold; -fx-font-size: 13;" text="Pilih Film" />
                   </children>
                   <HBox.margin>
                      <Insets />
@@ -150,7 +150,7 @@
                            </Label>
                         </children>
                      </HBox>
-                     <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="193.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50; -fx-font-family: &quot;Inter&quot;; -fx-font-weight: bold; -fx-font-size: 13;" text="Pilih Film" />
+                     <Button mnemonicParsing="false" onAction="#handleRanggaCinta" prefHeight="24.0" prefWidth="193.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50; -fx-font-family: &quot;Inter&quot;; -fx-font-weight: bold; -fx-font-size: 13;" text="Pilih Film" />
                   </children>
                </VBox>
                <VBox prefHeight="390.0" prefWidth="220.0" spacing="10.0" style="-fx-background-radius: 16; -fx-background-color: #FFFFFF;">
@@ -186,7 +186,7 @@
                            </Label>
                         </children>
                      </HBox>
-                     <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="193.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50; -fx-font-family: &quot;Inter&quot;; -fx-font-weight: bold; -fx-font-size: 13;" text="Pilih Film" />
+                     <Button mnemonicParsing="false" onAction="#handleGhost" prefHeight="24.0" prefWidth="193.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50; -fx-font-family: &quot;Inter&quot;; -fx-font-weight: bold; -fx-font-size: 13;" text="Pilih Film" />
                   </children>
                </VBox>
                <VBox prefHeight="390.0" prefWidth="220.0" spacing="10.0" style="-fx-background-radius: 16; -fx-background-color: #FFFFFF;">
@@ -222,7 +222,7 @@
                            </Label>
                         </children>
                      </HBox>
-                     <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="193.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50; -fx-font-family: &quot;Inter&quot;; -fx-font-weight: bold; -fx-font-size: 13;" text="Pilih Film" />
+                     <Button mnemonicParsing="false" onAction="#handleWicked" prefHeight="24.0" prefWidth="193.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50; -fx-font-family: &quot;Inter&quot;; -fx-font-weight: bold; -fx-font-size: 13;" text="Pilih Film" />
                   </children>
                </VBox>
                <VBox prefHeight="390.0" prefWidth="220.0" spacing="10.0" style="-fx-background-radius: 16; -fx-background-color: #FFFFFF;">
@@ -258,7 +258,7 @@
                            </Label>
                         </children>
                      </HBox>
-                     <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="193.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50; -fx-font-family: &quot;Inter&quot;; -fx-font-weight: bold; -fx-font-size: 13;" text="Pilih Film" />
+                     <Button mnemonicParsing="false" onAction="#handleMissionImpossible" prefHeight="24.0" prefWidth="193.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1A2C50; -fx-font-family: &quot;Inter&quot;; -fx-font-weight: bold; -fx-font-size: 13;" text="Pilih Film" />
                   </children>
                </VBox>
             </children>
