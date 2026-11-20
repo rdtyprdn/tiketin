@@ -158,7 +158,7 @@
                                              <Image url="@../../images/Ikon%20Kursi%20Berlengan%20Biru%20Navy.png" />
                                           </image>
                                        </ImageView>
-                                       <Label text="D5, D6" textFill="#1a2c50">
+                                       <Label fx:id="lblKursiSummary" text="D5, D6" textFill="#1a2c50">
                                           <font>
                                              <Font name="Inter Regular" size="20.0" />
                                           </font>

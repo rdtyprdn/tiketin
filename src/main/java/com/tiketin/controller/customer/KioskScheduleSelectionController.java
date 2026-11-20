@@ -1,16 +1,24 @@
-
 package com.tiketin.controller.customer;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import com.tiketin.App;
+import com.tiketin.model.Film;
+import com.tiketin.model.JadwalTayang;
+import com.tiketin.service.KasirTransaksiService;
+import com.tiketin.util.KasirUtil;
+import com.tiketin.util.KioskSession;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
@@ -24,14 +32,14 @@ public class KioskScheduleSelectionController {
     @FXML private Label lblRatingUsia;
     @FXML private Label lblHargaTiket;
 
-    // PILIHAN TANGGAL
+    // PILIHAN TANGGAL (5 kartu dari desain Alia, diisi hari ini s.d. 4 hari ke depan)
     @FXML private VBox cardTanggal15;
     @FXML private VBox cardTanggal16;
     @FXML private VBox cardTanggal17;
     @FXML private VBox cardTanggal18;
     @FXML private VBox cardTanggal19;
 
-    // PILIHAN JADWAL
+    // PILIHAN JADWAL (5 kartu dari desain Alia, diisi jadwal dari database)
     @FXML private VBox cardJadwal1030;
     @FXML private VBox cardJadwal1315;
     @FXML private VBox cardJadwal1600;
@@ -41,21 +49,9 @@ public class KioskScheduleSelectionController {
     // TOMBOL
     @FXML private Button btnLanjut;
 
-    // DATA PILIHAN
-    private String tanggalDipilih;
-    private String jadwalDipilih;
-    private String studioDipilih;
-
-    // DATA FILM
-    private String judulFilm;
-    private String genreFilm;
-    private String durasiFilm;
-    private String ratingFilm;
-    private String sinopsisFilm;
-    private String sutradaraFilm;
-    private String tahunFilm;
-    private String usiaFilm;
-    private Image posterFilm;
+    private static final Locale ID = Locale.forLanguageTag("id-ID");
+    private static final DateTimeFormatter FORMAT_TANGGAL = DateTimeFormatter.ofPattern("EEE, dd MMM", ID);
+    private static final DateTimeFormatter FORMAT_JAM = DateTimeFormatter.ofPattern("HH.mm");
 
     // STYLE TANGGAL
     private static final String BORDER_NORMAL_TANGGAL =
@@ -91,213 +87,204 @@ public class KioskScheduleSelectionController {
         "-fx-border-width: 2; " +
         "-fx-padding: 10 5 10 5;";
 
+    private static final String JADWAL_PENUH =
+        BORDER_NORMAL_JADWAL + " -fx-opacity: 0.5;";
+
+    private final KasirTransaksiService service = new KasirTransaksiService();
+
+    private VBox[] kartuTanggal;
+    private VBox[] kartuJadwal;
+    private final LocalDate[] tanggalKartu = new LocalDate[5];
+    private final List<JadwalTayang> jadwalTampil = new ArrayList<>();
+
+    // DATA PILIHAN
+    private Film film;
+    private LocalDate tanggalDipilih;
+    private JadwalTayang jadwalDipilih;
+    private String studioDipilih;
+
     @FXML
     private void initialize() {
-        aturPilihanTanggal();
-        aturPilihanJadwal();
+        kartuTanggal = new VBox[] { cardTanggal15, cardTanggal16, cardTanggal17, cardTanggal18, cardTanggal19 };
+        kartuJadwal = new VBox[] { cardJadwal1030, cardJadwal1315, cardJadwal1600, cardJadwal1845, cardJadwal2100 };
         btnLanjut.setDisable(true);
-    }
 
-    // MENERIMA DATA FILM
-    public void setDataFilm(
-            String judul,
-            String genre,
-            String durasi,
-            String rating,
-            String sinopsis,
-            String sutradara,
-            String tahun,
-            String usia,
-            Image poster) {
+        film = KioskSession.getFilmTerpilih();
+        if (film == null) {
+            return; // dibuka tanpa memilih film
+        }
+        tampilkanFilm();
+        aturPilihanTanggal();
 
-        this.judulFilm = judul;
-        this.genreFilm = genre;
-        this.durasiFilm = durasi;
-        this.ratingFilm = rating;
-        this.sinopsisFilm = sinopsis;
-        this.sutradaraFilm = sutradara;
-        this.tahunFilm = tahun;
-        this.usiaFilm = usia;
-        this.posterFilm = poster;
+        // Pulihkan pilihan sebelumnya (misal kembali dari halaman kursi), kalau tidak pilih hari ini
+        LocalDate awal = KioskSession.getTanggalTerpilih();
+        int indeks = 0;
+        for (int i = 0; i < tanggalKartu.length; i++) {
+            if (tanggalKartu[i].equals(awal)) {
+                indeks = i;
+            }
+        }
+        pilihTanggal(indeks);
 
-        lblJudulFilm.setText(judul);
-        lblGenre.setText(genre);
-        lblDurasi.setText(durasi);
-        lblRatingUsia.setText(usia);
-        lblHargaTiket.setText("Rp50.000");
-
-        if (poster != null) {
-            imgPosterFilm.setImage(poster);
+        JadwalTayang sebelumnya = KioskSession.getJadwalTerpilih();
+        if (sebelumnya != null) {
+            for (int i = 0; i < jadwalTampil.size(); i++) {
+                if (jadwalTampil.get(i).getIdJadwal() == sebelumnya.getIdJadwal()) {
+                    pilihJadwal(i);
+                }
+            }
         }
     }
 
-    // MEMULIHKAN PILIHAN TANGGAL DAN JADWAL
-    public void restorePilihan(String tanggal, String jam, String studio) {
-
-        tanggalDipilih = tanggal;
-        jadwalDipilih = jam;
-        studioDipilih = studio;
-
-        VBox[] semuaTanggal = {
-            cardTanggal15, cardTanggal16, cardTanggal17,
-            cardTanggal18, cardTanggal19
-        };
-
-        for (VBox item : semuaTanggal) {
-            item.setStyle(BORDER_NORMAL_TANGGAL);
-        }
-
-        if ("15 November 2026".equals(tanggal)) {
-            cardTanggal15.setStyle(BORDER_SELECTED_TANGGAL);
-        } else if ("16 November 2026".equals(tanggal)) {
-            cardTanggal16.setStyle(BORDER_SELECTED_TANGGAL);
-        } else if ("17 November 2026".equals(tanggal)) {
-            cardTanggal17.setStyle(BORDER_SELECTED_TANGGAL);
-        } else if ("18 November 2026".equals(tanggal)) {
-            cardTanggal18.setStyle(BORDER_SELECTED_TANGGAL);
-        } else if ("19 November 2026".equals(tanggal)) {
-            cardTanggal19.setStyle(BORDER_SELECTED_TANGGAL);
-        }
-
-        VBox[] semuaJadwal = {
-            cardJadwal1030, cardJadwal1315,
-            cardJadwal1600, cardJadwal1845,
-            cardJadwal2100
-        };
-
-        for (VBox item : semuaJadwal) {
-            item.setStyle(BORDER_NORMAL_JADWAL);
-        }
-
-        if ("10.30".equals(jam)) {
-            cardJadwal1030.setStyle(BORDER_SELECTED_JADWAL);
-        } else if ("13.15".equals(jam)) {
-            cardJadwal1315.setStyle(BORDER_SELECTED_JADWAL);
-        } else if ("16.00".equals(jam)) {
-            cardJadwal1600.setStyle(BORDER_SELECTED_JADWAL);
-        } else if ("18.45".equals(jam)) {
-            cardJadwal1845.setStyle(BORDER_SELECTED_JADWAL);
-        } else if ("21.00".equals(jam)) {
-            cardJadwal2100.setStyle(BORDER_SELECTED_JADWAL);
-        }
-
-        periksaPilihan();
+    private void tampilkanFilm() {
+        lblJudulFilm.setText(film.getJudul());
+        lblGenre.setText(film.getGenre() == null || film.getGenre().isBlank() ? "-" : film.getGenre());
+        lblDurasi.setText(film.getDurasi() + " min");
+        lblRatingUsia.setText("-"); // tabel film belum punya kolom rating usia
+        lblHargaTiket.setText("-");
+        imgPosterFilm.setImage(KasirUtil.poster(film));
     }
 
     // MENGATUR PILIHAN TANGGAL
     private void aturPilihanTanggal() {
-        pasangTanggal(cardTanggal15, "15 November 2026");
-        pasangTanggal(cardTanggal16, "16 November 2026");
-        pasangTanggal(cardTanggal17, "17 November 2026");
-        pasangTanggal(cardTanggal18, "18 November 2026");
-        pasangTanggal(cardTanggal19, "19 November 2026");
-    }
-
-    private void pasangTanggal(VBox kartu, String tanggal) {
-        kartu.setOnMouseClicked(event -> {
-
-            tanggalDipilih = tanggal;
-
-            VBox[] semua = {
-                cardTanggal15, cardTanggal16, cardTanggal17,
-                cardTanggal18, cardTanggal19
-            };
-
-            for (VBox item : semua) {
-                item.setStyle(BORDER_NORMAL_TANGGAL);
+        LocalDate hariIni = LocalDate.now();
+        for (int i = 0; i < kartuTanggal.length; i++) {
+            final int indeks = i;
+            tanggalKartu[i] = hariIni.plusDays(i);
+            List<Label> label = cariLabel(kartuTanggal[i]);
+            if (!label.isEmpty()) {
+                label.get(0).setText(tanggalKartu[i].format(FORMAT_TANGGAL));
             }
-
-            kartu.setStyle(BORDER_SELECTED_TANGGAL);
-            System.out.println("TINGGI KARTU: " + kartu.getHeight());
-            System.out.println("PREFERRED HEIGHT: " + kartu.getPrefHeight());
-            periksaPilihan();
-        });
+            kartuTanggal[i].setOnMouseClicked(event -> pilihTanggal(indeks));
+        }
     }
 
-    // MENGATUR PILIHAN JADWAL
-    private void aturPilihanJadwal() {
-        pasangJadwal(cardJadwal1030, "10.30", "Studio 1");
-        pasangJadwal(cardJadwal1315, "13.15", "Studio 2");
-        pasangJadwal(cardJadwal1600, "16.00", "Studio 1");
-        pasangJadwal(cardJadwal1845, "18.45", "Studio 3");
-        pasangJadwal(cardJadwal2100, "21.00", "Studio 2");
+    private void pilihTanggal(int indeks) {
+        tanggalDipilih = tanggalKartu[indeks];
+        for (VBox item : kartuTanggal) {
+            item.setStyle(BORDER_NORMAL_TANGGAL);
+        }
+        kartuTanggal[indeks].setStyle(BORDER_SELECTED_TANGGAL);
+
+        jadwalDipilih = null;
+        studioDipilih = null;
+        muatJadwal();
+        periksaPilihan();
     }
 
-    private void pasangJadwal(VBox kartu, String jam, String studio) {
-        kartu.setOnMouseClicked(event -> {
+    // MENGISI KARTU JADWAL DARI DATABASE
+    private void muatJadwal() {
+        jadwalTampil.clear();
+        try {
+            jadwalTampil.addAll(service.jadwalFilm(film.getIdFilm(), tanggalDipilih));
+        } catch (IllegalArgumentException ex) {
+            System.err.println(ex.getMessage());
+        }
+        if (jadwalTampil.size() > kartuJadwal.length) {
+            // desain hanya punya 5 kartu jadwal per hari
+            jadwalTampil.subList(kartuJadwal.length, jadwalTampil.size()).clear();
+        }
 
-            jadwalDipilih = jam;
-            studioDipilih = studio;
-
-            VBox[] semua = {
-                cardJadwal1030, cardJadwal1315,
-                cardJadwal1600, cardJadwal1845,
-                cardJadwal2100
-            };
-
-            for (VBox item : semua) {
-                item.setStyle(BORDER_NORMAL_JADWAL);
+        for (int i = 0; i < kartuJadwal.length; i++) {
+            VBox kartu = kartuJadwal[i];
+            kartu.setOnMouseClicked(null);
+            kartu.setStyle(BORDER_NORMAL_JADWAL);
+            boolean ada = i < jadwalTampil.size();
+            kartu.setVisible(ada);
+            kartu.setManaged(ada);
+            if (ada) {
+                isiKartuJadwal(i, jadwalTampil.get(i));
             }
+        }
 
-            kartu.setStyle(BORDER_SELECTED_JADWAL);
-            periksaPilihan();
-        });
+        if (jadwalTampil.isEmpty()) {
+            // pakai kartu pertama untuk pesan "tidak ada jadwal"
+            VBox kartu = kartuJadwal[0];
+            kartu.setVisible(true);
+            kartu.setManaged(true);
+            isiLabelJadwal(kartu, "-", "Tidak ada jadwal", "Pilih tanggal lain");
+            lblHargaTiket.setText("-");
+        } else {
+            lblHargaTiket.setText(KasirUtil.rupiah(jadwalTampil.get(0).getHargaTiket()));
+        }
+    }
+
+    private void isiKartuJadwal(int indeks, JadwalTayang jadwal) {
+        VBox kartu = kartuJadwal[indeks];
+        String studio = service.namaStudio(jadwal.getIdStudio());
+        int sisa = service.sisaKursi(jadwal);
+        isiLabelJadwal(kartu, studio, jadwal.getWaktuMulai().format(FORMAT_JAM),
+            sisa > 0 ? "Tersedia: " + sisa + " Kursi" : "Penuh");
+
+        if (sisa > 0) {
+            kartu.setOnMouseClicked(event -> pilihJadwal(indeks));
+        } else {
+            kartu.setStyle(JADWAL_PENUH);
+        }
+    }
+
+    // urutan label di kartu Alia: nama studio, jam, sisa kursi
+    private void isiLabelJadwal(VBox kartu, String studio, String jam, String sisa) {
+        List<Label> label = cariLabel(kartu);
+        if (label.size() >= 3) {
+            label.get(0).setText(studio);
+            label.get(1).setText(jam);
+            label.get(2).setText(sisa);
+        }
+    }
+
+    private void pilihJadwal(int indeks) {
+        jadwalDipilih = jadwalTampil.get(indeks);
+        studioDipilih = service.namaStudio(jadwalDipilih.getIdStudio());
+
+        for (int i = 0; i < jadwalTampil.size(); i++) {
+            if (!JADWAL_PENUH.equals(kartuJadwal[i].getStyle())) {
+                kartuJadwal[i].setStyle(BORDER_NORMAL_JADWAL);
+            }
+        }
+        kartuJadwal[indeks].setStyle(BORDER_SELECTED_JADWAL);
+        lblHargaTiket.setText(KasirUtil.rupiah(jadwalDipilih.getHargaTiket()));
+        periksaPilihan();
+    }
+
+    // Ambil semua Label di dalam kartu, urut dari atas ke bawah
+    private List<Label> cariLabel(Node node) {
+        List<Label> hasil = new ArrayList<>();
+        if (node instanceof Label label) {
+            hasil.add(label);
+        } else if (node instanceof Parent parent) {
+            for (Node anak : parent.getChildrenUnmodifiable()) {
+                hasil.addAll(cariLabel(anak));
+            }
+        }
+        return hasil;
     }
 
     // MEMERIKSA PILIHAN
     private void periksaPilihan() {
-        btnLanjut.setDisable(
-            tanggalDipilih == null || jadwalDipilih == null
-        );
+        btnLanjut.setDisable(tanggalDipilih == null || jadwalDipilih == null);
     }
 
-    // KEMBALI KE HALAMAN FILM
+    // KEMBALI KE HALAMAN DETAIL FILM
     @FXML
     private void handleKembali() {
         try {
-            App.setRoot("fxml/customer/movie-list");
+            App.setRoot("fxml/customer/movie-detail");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // LANJUT KE RINGKASAN PESANAN
+    // LANJUT KE PILIH KURSI
     @FXML
     private void handleLanjut() {
-
         if (tanggalDipilih == null || jadwalDipilih == null) {
             return;
         }
-
+        KioskSession.setTanggalTerpilih(tanggalDipilih);
+        KioskSession.setJadwalTerpilih(jadwalDipilih, studioDipilih);
         try {
-            FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                    "/com/tiketin/fxml/customer/kiosk-order-summary.fxml"
-                )
-            );
-
-            Parent root = loader.load();
-
-            KioskOrderSummaryController controller =
-                loader.getController();
-
-            controller.setDataPesanan(
-                judulFilm,
-                genreFilm,
-                durasiFilm,
-                ratingFilm,
-                sinopsisFilm,
-                sutradaraFilm,
-                tahunFilm,
-                usiaFilm,
-                tanggalDipilih,
-                jadwalDipilih,
-                studioDipilih,
-                posterFilm
-            );
-
-            App.setRoot(root);
-
+            App.setRoot("fxml/customer/kiosk-seat-selection");
         } catch (IOException e) {
             e.printStackTrace();
         }

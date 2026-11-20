@@ -8,8 +8,6 @@ import com.tiketin.util.KasirUtil;
 import com.tiketin.util.KioskSession;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
@@ -78,33 +76,11 @@ public class MovieDetailController {
 
     @FXML
     private void handlePilihFilm() {
+        if (KioskSession.getFilmTerpilih() == null) {
+            return;
+        }
         try {
-            FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                    "/com/tiketin/fxml/customer/kiosk-schedule-selection.fxml"
-                )
-            );
-
-            Parent root = loader.load();
-
-            KioskScheduleSelectionController controller =
-                loader.getController();
-
-            // (Langkah 2 akan mengganti halaman jadwal supaya membaca database)
-            controller.setDataFilm(
-                lblJudulFilm.getText(),
-                lblGenre.getText(),
-                lblDurasi.getText(),
-                lblRating.getText(),
-                lblSinopsis.getText(),
-                lblSutradara.getText(),
-                lblTahunRilis.getText(),
-                lblRatingUsia.getText(),
-                imgPoster.getImage()
-            );
-
-            App.setRoot(root);
-
+            App.setRoot("fxml/customer/kiosk-schedule-selection");
         } catch (IOException e) {
             e.printStackTrace();
         }
