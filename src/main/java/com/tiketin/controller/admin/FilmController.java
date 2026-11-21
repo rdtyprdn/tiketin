@@ -9,6 +9,7 @@ import com.tiketin.util.Tabel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -53,6 +54,16 @@ public class FilmController implements HalamanAdmin {
     private TextField durasiField;
     @FXML
     private TextArea sinopsisField;
+    @FXML
+    private TextField sutradaraField;
+    @FXML
+    private TextField tahunField;
+    @FXML
+    private ComboBox<String> ratingUsiaField;
+    @FXML
+    private TextField ratingField;
+    @FXML
+    private Label detailInfo;
     @FXML
     private Label errorForm;
     @FXML
@@ -101,6 +112,8 @@ public class FilmController implements HalamanAdmin {
         cariField.textProperty().addListener((obs, lama, baru) -> muat());
         tombolUbah.setDisable(true);
         tombolHapus.setDisable(true);
+        ratingUsiaField.getItems().setAll(FilmService.RATING_USIA);
+        ratingUsiaField.getSelectionModel().select("SU");
         aturKotakPoster();
         sembunyikanForm();
         isiDetail(null);
@@ -137,6 +150,10 @@ public class FilmController implements HalamanAdmin {
         genreField.clear();
         durasiField.clear();
         sinopsisField.clear();
+        sutradaraField.clear();
+        tahunField.clear();
+        ratingUsiaField.getSelectionModel().select("SU");
+        ratingField.clear();
         errorForm.setText("");
         resetPosterForm(null);
         tampilkanForm();
@@ -154,6 +171,10 @@ public class FilmController implements HalamanAdmin {
         genreField.setText(film.getGenre());
         durasiField.setText(String.valueOf(film.getDurasi()));
         sinopsisField.setText(film.getSinopsis());
+        sutradaraField.setText(film.getSutradara() == null ? "" : film.getSutradara());
+        tahunField.setText(film.getTahunRilis() == null ? "" : String.valueOf(film.getTahunRilis()));
+        ratingUsiaField.getSelectionModel().select(film.getRatingUsia() == null ? "SU" : film.getRatingUsia());
+        ratingField.setText(film.getRating() == null ? "" : FilmService.formatRating(film.getRating()));
         errorForm.setText("");
         resetPosterForm(film);
         tampilkanForm();
@@ -162,12 +183,14 @@ public class FilmController implements HalamanAdmin {
     @FXML
     private void simpan() {
         try {
+            FilmService.Detail detail = new FilmService.Detail(sutradaraField.getText(), tahunField.getText(),
+                    ratingUsiaField.getValue(), ratingField.getText());
             if (idDiedit == null) {
                 filmService.tambah(judulField.getText(), genreField.getText(), durasiField.getText(),
-                        sinopsisField.getText(), admin.getIdAdmin(), posterDipilih);
+                        sinopsisField.getText(), detail, admin.getIdAdmin(), posterDipilih);
             } else {
                 filmService.ubah(idDiedit, judulField.getText(), genreField.getText(), durasiField.getText(),
-                        sinopsisField.getText(), posterDipilih, posterDihapus);
+                        sinopsisField.getText(), detail, posterDipilih, posterDihapus);
             }
             sembunyikanForm();
             muat();
@@ -262,6 +285,7 @@ public class FilmController implements HalamanAdmin {
             inisialLabel.setText("?");
             detailJudul.setText("Pilih film");
             detailMeta.setText("Detail muncul di sini.");
+            detailInfo.setText("");
             detailSinopsis.setText("");
             return;
         }
@@ -272,6 +296,10 @@ public class FilmController implements HalamanAdmin {
         inisialLabel.setText(poster == null ? film.getJudul().substring(0, 1).toUpperCase() : "");
         detailJudul.setText(film.getJudul());
         detailMeta.setText(film.getGenre() + " · " + film.getDurasi() + " menit");
+        detailInfo.setText("Sutradara: " + (film.getSutradara() == null ? "-" : film.getSutradara())
+                + "\nTahun " + (film.getTahunRilis() == null ? "-" : film.getTahunRilis())
+                + " · " + (film.getRatingUsia() == null ? "SU" : film.getRatingUsia())
+                + " · ★ " + FilmService.formatRating(film.getRating()));
         detailSinopsis.setText(film.getSinopsis());
     }
 

@@ -140,7 +140,7 @@ public class KioskScheduleSelectionController {
         lblJudulFilm.setText(film.getJudul());
         lblGenre.setText(film.getGenre() == null || film.getGenre().isBlank() ? "-" : film.getGenre());
         lblDurasi.setText(film.getDurasi() + " min");
-        lblRatingUsia.setText("-"); // tabel film belum punya kolom rating usia
+        lblRatingUsia.setText(film.getRatingUsia() == null || film.getRatingUsia().isBlank() ? "-" : film.getRatingUsia());
         lblHargaTiket.setText("-");
         imgPosterFilm.setImage(KasirUtil.poster(film));
     }

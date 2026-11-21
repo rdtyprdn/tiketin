@@ -28,6 +28,10 @@ CREATE TABLE film (
   durasi   INT NOT NULL,
   sinopsis TEXT,
   id_admin INT NOT NULL,
+  sutradara   VARCHAR(150) NULL,
+  tahun_rilis SMALLINT NULL,
+  rating_usia VARCHAR(10) NOT NULL DEFAULT 'SU', -- SU / 13+ / 17+ / 21+
+  rating      DECIMAL(2,1) NULL,                 -- 1.0 - 5.0 (bintang)
   FOREIGN KEY (id_admin) REFERENCES admin(id_admin)
 );
 CREATE TABLE studio (
@@ -106,9 +110,9 @@ INSERT INTO pengguna (username, password, nama) VALUES
   ('kasir1', SHA2('kasir123', 256), 'Kasir Satu');
 INSERT INTO admin (id_pengguna) VALUES (1);
 INSERT INTO kasir (id_pengguna) VALUES (2);
-INSERT INTO film (judul, genre, durasi, sinopsis, id_admin) VALUES
-  ('Minions 3', 'Animasi', 130, 'Film Minions 3 (Minions & Monsters) mengisahkan petualangan sekelompok Minions di Hollywood era 1920-an yang mendadak menjadi bintang film bisu, namun ketenaran mereka meredup saat era film bersuara (talkies) dimulai karena kendala bahasa Minionese.', 1),
-  ('Spider-Man: Brand New Day', 'Adventure/Sci-Fi', 180, 'Kehidupan Baru yang Kesepian: Empat tahun setelah peristiwa No Way Home, dunia telah melupakan identitas Peter Parker (Tom Holland). Peter hidup sendirian sebagai Spider-Man penuh waktu tanpa keluarga, kekasih (MJ), maupun sahabat (Ned) yang mengenalnya lagi.', 1);
+INSERT INTO film (judul, genre, durasi, sinopsis, id_admin, sutradara, tahun_rilis, rating_usia, rating) VALUES
+  ('Minions 3', 'Animasi', 130, 'Film Minions 3 (Minions & Monsters) mengisahkan petualangan sekelompok Minions di Hollywood era 1920-an yang mendadak menjadi bintang film bisu, namun ketenaran mereka meredup saat era film bersuara (talkies) dimulai karena kendala bahasa Minionese.', 1, 'Pierre Coffin', 2026, 'SU', 4.0),
+  ('Spider-Man: Brand New Day', 'Adventure/Sci-Fi', 180, 'Kehidupan Baru yang Kesepian: Empat tahun setelah peristiwa No Way Home, dunia telah melupakan identitas Peter Parker (Tom Holland). Peter hidup sendirian sebagai Spider-Man penuh waktu tanpa keluarga, kekasih (MJ), maupun sahabat (Ned) yang mengenalnya lagi.', 1, 'Destin Daniel Cretton', 2026, '13+', 4.5);
 INSERT INTO studio (nama_studio, id_admin) VALUES ('Deluxe', 1);
 INSERT INTO kursi (id_studio, nomor_kursi, id_admin) VALUES
   (1,'A1',1),(1,'A2',1),(1,'A3',1),(1,'A4',1),(1,'A5',1),

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.tiketin.App;
 import com.tiketin.model.Film;
+import com.tiketin.service.FilmService;
 import com.tiketin.util.KasirUtil;
 import com.tiketin.util.KioskSession;
 
@@ -54,11 +55,11 @@ public class MovieDetailController {
         lblSinopsis.setWrapText(true);
         imgPoster.setImage(KasirUtil.poster(film));
 
-        // Tabel film belum punya kolom rating, sutradara, tahun rilis, dan rating usia
-        lblRating.setText("-");
-        lblSutradara.setText("-");
-        lblTahunRilis.setText("-");
-        lblRatingUsia.setText("-");
+        // Detail film diisi admin di Admin > Film; "-" kalau belum diisi
+        lblRating.setText(FilmService.formatRating(film.getRating()));
+        lblSutradara.setText(teks(film.getSutradara()));
+        lblTahunRilis.setText(film.getTahunRilis() == null ? "-" : String.valueOf(film.getTahunRilis()));
+        lblRatingUsia.setText(teks(film.getRatingUsia()));
     }
 
     private String teks(String nilai) {
