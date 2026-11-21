@@ -98,7 +98,6 @@ public class PenggunaDAO {
             ps.setString(2, kasir.getNama());
             ps.setString(3, kasir.getPassword());
             ps.setInt(4, kasir.getIdPengguna());
-            ps.setInt(5, kasir.getIdPengguna());
             ps.executeUpdate();
         }
     }
