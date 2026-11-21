@@ -8,6 +8,7 @@ import com.tiketin.model.Admin;
 import com.tiketin.model.Kasir;
 import com.tiketin.model.Pengguna;
 import com.tiketin.service.AuthService;
+import com.tiketin.service.ProfilService;
 import com.tiketin.util.KasirSession;
 
 import javafx.fxml.FXML;
@@ -56,6 +57,7 @@ public class LoginController {
     }
 
     private void bukaAdmin(Admin admin) throws IOException {
+        ProfilService.terapkanTersimpan(admin);
         FXMLLoader loader = new FXMLLoader(App.class.getResource("/com/tiketin/fxml/admin/shell.fxml"));
         Parent root = loader.load();
         loader.<AdminShellController>getController().siap(admin);
