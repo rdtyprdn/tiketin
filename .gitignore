@@ -13,3 +13,6 @@ target/
 .vscode/
 .DS_Store
 db.properties
+
+# Profil admin lokal (foto), tidak ikut repo
+data/

@@ -68,9 +68,9 @@
                         <Insets left="35.0" top="25.0" />
                      </padding>
                   </HBox>
-                  <VBox alignment="TOP_CENTER" maxHeight="550.0" maxWidth="-Infinity" minHeight="490.0" prefHeight="550.0" prefWidth="300.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.12), 15, 0.1, 0, 4);" translateX="20.0" VBox.vgrow="NEVER">
+                  <VBox alignment="TOP_CENTER" maxHeight="550.0" maxWidth="-Infinity" minHeight="490.0" prefHeight="550.0" prefWidth="300.0" spacing="11.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.12), 15, 0.1, 0, 4);" translateX="20.0" VBox.vgrow="NEVER">
                      <children>
-                        <ImageView fx:id="imgPosterFilm" fitHeight="250.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgPosterFilm" fitHeight="230.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../images/Zootopia.jpg" />
                            </image>
@@ -115,7 +115,21 @@
                                     <Image url="@../../images/icon-rating.png" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="lblRatingUsia" text="SU" textFill="#777777">
+                              <Label fx:id="lblRating" text="-" textFill="#777777">
+                                 <font>
+                                    <Font name="Inter Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+                           <children>
+                              <Label fx:id="lblRatingUsia" alignment="CENTER" minWidth="-Infinity" style="-fx-background-color: #1A2C50; -fx-background-radius: 6; -fx-padding: 1 7 1 7; -fx-text-fill: white;" text="SU" textFill="WHITE">
+                                 <font>
+                                    <Font name="Inter Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Rating usia" textFill="#777777">
                                  <font>
                                     <Font name="Inter Regular" size="15.0" />
                                  </font>

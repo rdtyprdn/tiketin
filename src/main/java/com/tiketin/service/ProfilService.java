@@ -1,5 +1,6 @@
 package com.tiketin.service;
 
+import com.tiketin.dao.PenggunaDAO;
 import com.tiketin.model.Admin;
 
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -15,6 +17,7 @@ public class ProfilService {
 
     private final PenyimpananSementara data = PenyimpananSementara.get();
 
+    // nama dan username sudah dibaca dari database saat login; berkas ini hanya menyimpan foto
     public static void terapkanTersimpan(Admin admin) {
         if (!Files.isRegularFile(BERKAS)) {
             return;
@@ -25,15 +28,7 @@ public class ProfilService {
         } catch (IOException ex) {
             return;
         }
-        String nama = isi.getProperty("nama", "").trim();
-        String username = isi.getProperty("username", "").trim();
         String foto = isi.getProperty("foto", "").trim();
-        if (!nama.isBlank()) {
-            admin.setNama(nama);
-        }
-        if (!username.isBlank()) {
-            admin.setUsername(username);
-        }
         if (!foto.isBlank() && Files.isRegularFile(Path.of(foto))) {
             admin.setFoto(foto);
         }
@@ -56,6 +51,11 @@ public class ProfilService {
             foto = null;
         } else if (fotoBaru != null) {
             foto = salinFoto(fotoBaru);
+        }
+        try {
+            new PenggunaDAO().ubahIdentitas(admin.getIdPengguna(), namaBersih, akun);
+        } catch (SQLException ex) {
+            throw new IllegalArgumentException("Perubahan profil tidak bisa disimpan: " + ex.getMessage());
         }
         admin.setNama(namaBersih);
         admin.setUsername(akun);
@@ -82,13 +82,11 @@ public class ProfilService {
         } catch (IOException ex) {
             // berkas lama tidak menghalangi foto yang baru
         }
-        return tujuan.toAbsolutePath().toString();
+        return tujuan.toString();
     }
 
     private void tulis(Admin admin) {
         Properties isi = new Properties();
-        isi.setProperty("nama", admin.getNama());
-        isi.setProperty("username", admin.getUsername());
         isi.setProperty("foto", admin.getFoto() == null ? "" : admin.getFoto());
         try {
             Files.createDirectories(BERKAS.getParent());
