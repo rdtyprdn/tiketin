@@ -8,6 +8,11 @@ public class Film {
     private String sinopsis;
     private int idAdmin;
     private String poster;
+    // Detail tambahan (diisi admin, boleh kosong)
+    private String sutradara;
+    private Integer tahunRilis;
+    private String ratingUsia = "SU";   // SU, 13+, 17+, 21+
+    private Double rating;              // 1.0 - 5.0 (bintang)
     public Film(){
 
     }
@@ -76,4 +81,36 @@ public class Film {
         return judul;
     }
 
+
+    public String getSutradara() {
+        return sutradara;
+    }
+
+    public void setSutradara(String sutradara) {
+        this.sutradara = sutradara;
+    }
+
+    public Integer getTahunRilis() {
+        return tahunRilis;
+    }
+
+    public void setTahunRilis(Integer tahunRilis) {
+        this.tahunRilis = tahunRilis;
+    }
+
+    public String getRatingUsia() {
+        return ratingUsia;
+    }
+
+    public void setRatingUsia(String ratingUsia) {
+        this.ratingUsia = ratingUsia;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
 }

@@ -27,23 +27,43 @@
                 <TextField fx:id="durasiField" styleClass="field" />
             </VBox>
         </HBox>
-        <VBox spacing="6">
-            <Label text="Sinopsis" />
-            <TextArea fx:id="sinopsisField" prefRowCount="3" styleClass="field" wrapText="true" />
-        </VBox>
-        <HBox alignment="CENTER_LEFT" spacing="12">
-            <StackPane fx:id="kotakPreview" maxHeight="90" maxWidth="60" minHeight="90" minWidth="60" prefHeight="90" prefWidth="60" style="-fx-background-color: #1A2C50; -fx-background-radius: 8;">
-                <Label fx:id="previewKosong" style="-fx-text-fill: #FBC436; -fx-font-size: 20px; -fx-font-weight: 700;" text="?" />
-                <ImageView fx:id="previewPoster" fitHeight="90" fitWidth="60" preserveRatio="true" />
-            </StackPane>
-            <VBox spacing="6">
-                <Label text="Poster" />
-                <HBox spacing="8">
-                    <Button mnemonicParsing="false" onAction="#pilihPoster" styleClass="tombol-netral" text="Pilih poster" />
-                    <Button fx:id="tombolHapusPoster" mnemonicParsing="false" onAction="#hapusPosterForm" styleClass="tombol-netral" text="Hapus poster" />
-                </HBox>
-                <Label fx:id="infoPoster" styleClass="bantuan" text="JPG / PNG, maks 5 MB" wrapText="true" />
+        <HBox spacing="10">
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Sutradara" />
+                <TextField fx:id="sutradaraField" promptText="Opsional" styleClass="field" />
             </VBox>
+            <VBox spacing="6" prefWidth="110">
+                <Label text="Tahun rilis" />
+                <TextField fx:id="tahunField" promptText="2025" styleClass="field" />
+            </VBox>
+            <VBox spacing="6" prefWidth="120">
+                <Label text="Rating usia" />
+                <ComboBox fx:id="ratingUsiaField" maxWidth="1.7976931348623157E308" styleClass="field" />
+            </VBox>
+            <VBox spacing="6" prefWidth="110">
+                <Label text="Rating (1-5)" />
+                <TextField fx:id="ratingField" promptText="4.5" styleClass="field" />
+            </VBox>
+        </HBox>
+        <HBox spacing="16">
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Sinopsis" />
+                <TextArea fx:id="sinopsisField" prefRowCount="3" styleClass="field" wrapText="true" />
+            </VBox>
+            <HBox alignment="TOP_LEFT" minWidth="-Infinity" spacing="12">
+                <StackPane fx:id="kotakPreview" maxHeight="90" maxWidth="60" minHeight="90" minWidth="60" prefHeight="90" prefWidth="60" style="-fx-background-color: #1A2C50; -fx-background-radius: 8;">
+                    <Label fx:id="previewKosong" style="-fx-text-fill: #FBC436; -fx-font-size: 20px; -fx-font-weight: 700;" text="?" />
+                    <ImageView fx:id="previewPoster" fitHeight="90" fitWidth="60" preserveRatio="true" />
+                </StackPane>
+                <VBox maxWidth="230" minWidth="-Infinity" spacing="6">
+                    <Label text="Poster" />
+                    <HBox spacing="8">
+                        <Button mnemonicParsing="false" onAction="#pilihPoster" styleClass="tombol-netral" text="Pilih poster" />
+                        <Button fx:id="tombolHapusPoster" mnemonicParsing="false" onAction="#hapusPosterForm" styleClass="tombol-netral" text="Hapus poster" />
+                    </HBox>
+                    <Label fx:id="infoPoster" styleClass="bantuan" text="JPG / PNG, maks 5 MB" wrapText="true" />
+                </VBox>
+            </HBox>
         </HBox>
         <Label fx:id="errorForm" styleClass="error" />
         <HBox spacing="10">
@@ -68,6 +88,7 @@
             </StackPane>
             <Label fx:id="detailJudul" styleClass="judul-detail" text="Pilih film" wrapText="true" />
             <Label fx:id="detailMeta" styleClass="bantuan" wrapText="true" />
+            <Label fx:id="detailInfo" styleClass="bantuan" wrapText="true" />
             <Label fx:id="detailSinopsis" styleClass="sinopsis" wrapText="true" />
         </VBox>
     </HBox>
