@@ -60,7 +60,7 @@ public class JadwalTayang {
         this.idAdmin = idAdmin;
     }
 
-    private com.tiketin.enums.StatusJadwal statusJadwal = com.tiketin.enums.StatusJadwal.AKTIF; // hanya di memori
+    private com.tiketin.enums.StatusJadwal statusJadwal = com.tiketin.enums.StatusJadwal.AKTIF; // disimpan di kolom jadwal_tayang.status_jadwal
 
     public JadwalTayang(int idJadwal, int idFilm, int idStudio, LocalDateTime waktuMulai, double hargaTiket, com.tiketin.enums.StatusJadwal statusJadwal, int idAdmin) {
         this(idJadwal, idFilm, idStudio, waktuMulai, hargaTiket, idAdmin);

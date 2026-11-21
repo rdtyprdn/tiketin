@@ -19,6 +19,7 @@ import com.tiketin.util.Peringatan;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class KasirKursiController {
@@ -69,6 +70,7 @@ public class KasirKursiController {
         if (denah.getJumlahKursi() == 0) {
             wadahDenah.getChildren().add(new Label("Studio ini belum punya kursi. Tambahkan lewat halaman Admin."));
         } else {
+            denah.setMaxWidth(Region.USE_PREF_SIZE); // denah di tengah, sama seperti kiosk
             wadahDenah.getChildren().add(denah);
         }
         perbaruiRingkasan();

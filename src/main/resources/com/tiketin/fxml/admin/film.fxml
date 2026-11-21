@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="16" styleClass="halaman" stylesheets="@../../css/global.css, @../../css/admin.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.admin.FilmController">
@@ -30,6 +31,20 @@
             <Label text="Sinopsis" />
             <TextArea fx:id="sinopsisField" prefRowCount="3" styleClass="field" wrapText="true" />
         </VBox>
+        <HBox alignment="CENTER_LEFT" spacing="12">
+            <StackPane fx:id="kotakPreview" maxHeight="90" maxWidth="60" minHeight="90" minWidth="60" prefHeight="90" prefWidth="60" style="-fx-background-color: #1A2C50; -fx-background-radius: 8;">
+                <Label fx:id="previewKosong" style="-fx-text-fill: #FBC436; -fx-font-size: 20px; -fx-font-weight: 700;" text="?" />
+                <ImageView fx:id="previewPoster" fitHeight="90" fitWidth="60" preserveRatio="true" />
+            </StackPane>
+            <VBox spacing="6">
+                <Label text="Poster" />
+                <HBox spacing="8">
+                    <Button mnemonicParsing="false" onAction="#pilihPoster" styleClass="tombol-netral" text="Pilih poster" />
+                    <Button fx:id="tombolHapusPoster" mnemonicParsing="false" onAction="#hapusPosterForm" styleClass="tombol-netral" text="Hapus poster" />
+                </HBox>
+                <Label fx:id="infoPoster" styleClass="bantuan" text="JPG / PNG, maks 5 MB" wrapText="true" />
+            </VBox>
+        </HBox>
         <Label fx:id="errorForm" styleClass="error" />
         <HBox spacing="10">
             <Button mnemonicParsing="false" onAction="#simpan" styleClass="tombol-utama" text="Simpan" />
@@ -46,8 +61,10 @@
             </columns>
         </TableView>
         <VBox spacing="12" styleClass="kartu, kartu-detail">
-            <StackPane styleClass="poster">
+            <!-- Ukuran kotak tetap (tidak dihitung dari gambar); gambar mengikuti ukuran kotak, lihat FilmController -->
+            <StackPane fx:id="kotakPoster" maxWidth="1.7976931348623157E308" minHeight="140" prefHeight="300" styleClass="poster">
                 <Label fx:id="inisialLabel" styleClass="inisial" text="?" />
+                <ImageView fx:id="gambarPoster" preserveRatio="true" smooth="true" />
             </StackPane>
             <Label fx:id="detailJudul" styleClass="judul-detail" text="Pilih film" wrapText="true" />
             <Label fx:id="detailMeta" styleClass="bantuan" wrapText="true" />

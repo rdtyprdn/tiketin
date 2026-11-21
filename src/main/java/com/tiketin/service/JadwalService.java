@@ -75,7 +75,7 @@ public class JadwalService {
         if (status == null) {
             throw new IllegalArgumentException("Status jadwal wajib dipilih.");
         }
-        int harga = Validasi.angka(hargaTeks, "Harga tiket harus berupa angka.");
+        int harga = Validasi.uang(hargaTeks, "Harga tiket harus berupa angka, contoh 50000 atau 50.000.");
         if (harga <= 0) {
             throw new IllegalArgumentException("Harga tiket harus lebih dari 0.");
         }

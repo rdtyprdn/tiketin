@@ -53,6 +53,7 @@ CREATE TABLE jadwal_tayang (
   waktu_mulai DATETIME NOT NULL,
   harga_tiket DOUBLE NOT NULL,
   id_admin    INT NOT NULL,
+  status_jadwal VARCHAR(20) NOT NULL DEFAULT 'AKTIF', -- AKTIF / DIBATALKAN
   FOREIGN KEY (id_film)   REFERENCES film(id_film),
   FOREIGN KEY (id_studio) REFERENCES studio(id_studio),
   FOREIGN KEY (id_admin)  REFERENCES admin(id_admin)

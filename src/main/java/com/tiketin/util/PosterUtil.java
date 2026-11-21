@@ -2,6 +2,11 @@ package com.tiketin.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Locale;
@@ -31,10 +36,17 @@ import javafx.scene.text.TextAlignment;
 //   2. file gambar di src/main/resources/com/tiketin/images/ dengan nama = judul film
 //      (contoh "Minions 3.jpg", "Spider-Man Brand New Day.png")
 //   3. kalau tidak ada: poster cadangan rapi (kotak navy + judul film)
+//
+// Upload poster dari Admin > Film menyalin file ke src/main/resources/com/tiketin/images/
+// dengan nama = judul film (jadi bisa di-commit dan dipakai seluruh tim), dan juga ke
+// target/classes kalau ada. Saat dicari, folder sumber dicek dulu sehingga poster baru
+// langsung tampil tanpa build ulang.
 public final class PosterUtil {
 
     private static final String FOLDER_GAMBAR = "/com/tiketin/images/";
     private static final String[] EKSTENSI = { ".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG" };
+    private static final String FOLDER_SUMBER = "src/main/resources/com/tiketin/images";
+    private static final long UKURAN_MAKS = 5L * 1024 * 1024;
     private static final double LEBAR_CADANGAN = 300;
     private static final double TINGGI_CADANGAN = 450;
 
@@ -96,11 +108,30 @@ public final class PosterUtil {
         return hasil;
     }
 
+    private static boolean namaAman(String namaFile) {
+        return !namaFile.isBlank() && !namaFile.contains("..") && !namaFile.contains("/") && !namaFile.contains("\\");
+    }
+
     private static Image muat(String namaFile) {
         // jangan sampai keluar dari folder gambar
-        if (namaFile.contains("..") || namaFile.contains("/") || namaFile.contains("\\")) {
+        if (!namaAman(namaFile)) {
             return null;
         }
+        // 1) folder sumber proyek (hasil upload terbaru, tanpa perlu build ulang)
+        for (Path folder : folderTulis()) {
+            Path file = resolve(folder, namaFile);
+            if (file != null && Files.isRegularFile(file)) {
+                try (InputStream in = Files.newInputStream(file)) {
+                    Image img = new Image(in);
+                    if (!img.isError()) {
+                        return img;
+                    }
+                } catch (IOException e) {
+                    // lanjut ke classpath
+                }
+            }
+        }
+        // 2) classpath (target/classes atau jar)
         try (InputStream in = PosterUtil.class.getResourceAsStream(FOLDER_GAMBAR + namaFile)) {
             if (in == null) {
                 return null;
@@ -110,6 +141,192 @@ public final class PosterUtil {
         } catch (IOException e) {
             return null;
         }
+    }
+
+    private static Path resolve(Path folder, String namaFile) {
+        try {
+            return folder.resolve(namaFile);
+        } catch (InvalidPathException e) {
+            return null;
+        }
+    }
+
+    // ===================== Upload / hapus / ganti nama poster (Admin > Film) =====================
+
+    // Folder src/main/resources/com/tiketin/images di proyek; null kalau tidak ketemu (misal jalan dari jar)
+    public static Path folderSumber() {
+        Path dariKerja = Path.of(System.getProperty("user.dir"), FOLDER_SUMBER);
+        if (Files.isDirectory(dariKerja)) {
+            return dariKerja;
+        }
+        Path kelas = folderKelas();
+        if (kelas != null) {
+            // .../target/classes/com/tiketin/images -> .../src/main/resources/com/tiketin/images
+            Path akar = kelas.getParent();
+            for (int i = 0; i < 4 && akar != null; i++) {
+                akar = akar.getParent();
+            }
+            if (akar != null && Files.isDirectory(akar.resolve(FOLDER_SUMBER))) {
+                return akar.resolve(FOLDER_SUMBER);
+            }
+        }
+        return null;
+    }
+
+    // Folder gambar di classpath kalau berupa folder biasa (target/classes/com/tiketin/images)
+    private static Path folderKelas() {
+        URL url = PosterUtil.class.getResource(FOLDER_GAMBAR);
+        if (url == null || !"file".equals(url.getProtocol())) {
+            return null;
+        }
+        try {
+            return Path.of(url.toURI());
+        } catch (URISyntaxException | IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    // Semua folder yang ditulisi saat upload (sumber dulu, lalu target/classes)
+    private static java.util.List<Path> folderTulis() {
+        java.util.List<Path> hasil = new java.util.ArrayList<>();
+        Path sumber = folderSumber();
+        if (sumber != null) {
+            hasil.add(sumber);
+        }
+        Path kelas = folderKelas();
+        if (kelas != null && Files.isDirectory(kelas) && (sumber == null || !sameFile(sumber, kelas))) {
+            hasil.add(kelas);
+        }
+        return hasil;
+    }
+
+    private static boolean sameFile(Path a, Path b) {
+        try {
+            return Files.isSameFile(a, b);
+        } catch (IOException e) {
+            return a.toAbsolutePath().normalize().equals(b.toAbsolutePath().normalize());
+        }
+    }
+
+    // Ekstensi .jpg/.jpeg/.png dari nama file (huruf kecil); null kalau bukan gambar yang didukung
+    public static String ekstensi(Path file) {
+        String nama = file.getFileName().toString().toLowerCase(Locale.ROOT);
+        for (String ext : new String[] { ".jpg", ".jpeg", ".png" }) {
+            if (nama.endsWith(ext)) {
+                return ext;
+            }
+        }
+        return null;
+    }
+
+    // Cek file sebelum dipakai: format, ukuran, dan bisa dibaca sebagai gambar
+    public static Image bacaFile(Path file) {
+        if (file == null || !Files.isRegularFile(file)) {
+            throw new IllegalArgumentException("File poster tidak ditemukan.");
+        }
+        if (ekstensi(file) == null) {
+            throw new IllegalArgumentException("Poster harus berformat JPG, JPEG, atau PNG.");
+        }
+        try {
+            if (Files.size(file) > UKURAN_MAKS) {
+                throw new IllegalArgumentException("Ukuran poster maksimal 5 MB.");
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException("File poster tidak bisa dibaca.");
+        }
+        try (InputStream in = Files.newInputStream(file)) {
+            Image img = new Image(in);
+            if (img.isError()) {
+                throw new IllegalArgumentException("File poster bukan gambar yang valid.");
+            }
+            return img;
+        } catch (IOException e) {
+            throw new IllegalArgumentException("File poster tidak bisa dibaca.");
+        }
+    }
+
+    // Simpan poster untuk judul ini (menggantikan poster lama judul yang sama). Hasil: nama file.
+    public static String simpanPoster(String judul, Path file) {
+        bacaFile(file);
+        String nama = namaFile(judul);
+        if (nama.isBlank()) {
+            throw new IllegalArgumentException("Judul film tidak bisa dipakai sebagai nama file poster.");
+        }
+        java.util.List<Path> folder = folderTulis();
+        if (folder.isEmpty()) {
+            throw new IllegalArgumentException("Folder gambar proyek tidak ditemukan. Jalankan aplikasi dari folder proyek (mvn javafx:run).");
+        }
+        String namaBaru = nama + ekstensi(file);
+        try {
+            byte[] isi = Files.readAllBytes(file); // baca dulu: file sumber bisa saja poster lama yang akan dihapus
+            hapusPoster(judul);
+            for (Path f : folder) {
+                Files.write(f.resolve(namaBaru), isi);
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Poster gagal disimpan: " + e.getMessage());
+        }
+        return namaBaru;
+    }
+
+    // Hapus semua file poster milik judul ini (semua variasi nama & ekstensi) dari folder proyek
+    public static void hapusPoster(String judul) {
+        if (judul == null || judul.isBlank()) {
+            return;
+        }
+        for (Path folder : folderTulis()) {
+            for (String nama : variasiNama(judul)) {
+                for (String ext : EKSTENSI) {
+                    if (!namaAman(nama + ext)) {
+                        continue;
+                    }
+                    Path file = resolve(folder, nama + ext);
+                    try {
+                        if (file != null) {
+                            Files.deleteIfExists(file);
+                        }
+                    } catch (IOException e) {
+                        // abaikan, file lain tetap dicoba
+                    }
+                }
+            }
+        }
+    }
+
+    // Judul film diganti: poster berbasis judul lama ikut dipindah ke nama judul baru
+    public static void gantiJudul(String judulLama, String judulBaru) {
+        if (judulLama == null || judulBaru == null || namaFile(judulLama).equals(namaFile(judulBaru))) {
+            return;
+        }
+        Film baru = new Film();
+        baru.setJudul(judulBaru);
+        if (cariFileSumber(judulBaru) != null || cari(baru) != null) {
+            return; // judul baru sudah punya poster sendiri, jangan ditimpa
+        }
+        Path lama = cariFileSumber(judulLama);
+        if (lama == null) {
+            return; // poster lama hanya ada di classpath/jar atau tidak ada sama sekali
+        }
+        simpanPoster(judulBaru, lama);
+        hapusPoster(judulLama);
+    }
+
+    // File poster di folder proyek untuk judul ini; null kalau tidak ada
+    private static Path cariFileSumber(String judul) {
+        for (Path folder : folderTulis()) {
+            for (String nama : variasiNama(judul)) {
+                for (String ext : EKSTENSI) {
+                    if (!namaAman(nama + ext)) {
+                        continue;
+                    }
+                    Path file = resolve(folder, nama + ext);
+                    if (file != null && Files.isRegularFile(file)) {
+                        return file;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     // Poster cadangan: kotak navy, garis kuning, judul film di tengah
