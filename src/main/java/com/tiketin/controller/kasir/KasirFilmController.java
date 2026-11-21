@@ -12,13 +12,10 @@ import com.tiketin.util.Peringatan;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -26,7 +23,7 @@ import javafx.scene.text.Font;
 public class KasirFilmController {
 
     @FXML
-    private HBox containerFilm;
+    private FlowPane containerFilm;
 
     @FXML
     private Label lblIdKasir;
@@ -44,11 +41,9 @@ public class KasirFilmController {
 
     // Ganti kartu film dummy di FXML dengan film dari database
     private void tampilkanFilm() {
-        FlowPane wadah = new FlowPane(24, 20);
-        wadah.setAlignment(Pos.TOP_CENTER);
-        wadah.setPrefWrapLength(1000);
-        HBox.setHgrow(wadah, Priority.ALWAYS);
-        containerFilm.getChildren().setAll(wadah);
+        // containerFilm adalah FlowPane di dalam ScrollPane (lihat KasirFilm.fxml)
+        FlowPane wadah = containerFilm;
+        wadah.getChildren().clear();
 
         List<Film> daftarFilm;
         try {

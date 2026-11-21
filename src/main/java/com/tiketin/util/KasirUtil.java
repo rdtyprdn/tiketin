@@ -1,7 +1,6 @@
 package com.tiketin.util;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -16,10 +15,6 @@ import javafx.stage.Stage;
 
 // Bantuan kecil yang dipakai semua halaman kasir
 public final class KasirUtil {
-
-    private static final String FOLDER_GAMBAR = "/com/tiketin/images/";
-    private static final String POSTER_CADANGAN = "Blue Ticket Icon with Perforations.png";
-    private static final String[] EKSTENSI = { ".jpg", ".png", ".jpeg" };
 
     private KasirUtil() {
     }
@@ -50,37 +45,13 @@ public final class KasirUtil {
         }
     }
 
-    // Poster: pakai field poster kalau ada, kalau tidak cari file sesuai judul,
-    // kalau tetap tidak ada pakai gambar cadangan
+    // Poster film: logika lengkapnya ada di PosterUtil (dipakai juga oleh kiosk & admin)
     public static Image poster(Film film) {
-        if (film != null) {
-            if (film.getPoster() != null && !film.getPoster().isBlank()) {
-                Image img = muatGambar(film.getPoster());
-                if (img != null) {
-                    return img;
-                }
-            }
-            if (film.getJudul() != null) {
-                String nama = namaFilePoster(film.getJudul());
-                for (String ext : EKSTENSI) {
-                    Image img = muatGambar(nama + ext);
-                    if (img != null) {
-                        return img;
-                    }
-                }
-            }
-        }
-        return muatGambar(POSTER_CADANGAN);
+        return PosterUtil.poster(film);
     }
 
-    // Judul -> nama file, contoh "Spider-Man: Brand New Day" -> "Spider-Man Brand New Day"
     public static String namaFilePoster(String judul) {
-        return judul.replaceAll("[^A-Za-z0-9 &\\-]", "").replaceAll("\\s+", " ").trim();
-    }
-
-    private static Image muatGambar(String namaFile) {
-        InputStream in = KasirUtil.class.getResourceAsStream(FOLDER_GAMBAR + namaFile);
-        return in == null ? null : new Image(in);
+        return PosterUtil.namaFile(judul);
     }
 
     // Format Rp tanpa desimal, contoh Rp50.000
