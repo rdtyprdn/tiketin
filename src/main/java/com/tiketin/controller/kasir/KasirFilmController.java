@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -67,10 +68,17 @@ public class KasirFilmController {
 
     // Kartu film, gaya sama dengan desain Visvani
     private VBox buatKartu(Film film) {
-        ImageView poster = new ImageView(KasirUtil.poster(film));
-        poster.setFitWidth(200);
-        poster.setFitHeight(300);
-        poster.setPreserveRatio(true);
+        ImageView gambar = new ImageView(KasirUtil.poster(film));
+        gambar.setFitWidth(200);
+        gambar.setFitHeight(300);
+        gambar.setPreserveRatio(true);
+        gambar.setSmooth(true);
+        // Kotak poster selebar isi kartu (250 - padding 2x12) supaya gambar selalu di tengah,
+        // berapa pun rasio gambarnya
+        StackPane poster = new StackPane(gambar);
+        poster.setPrefSize(226, 300);
+        poster.setMinSize(226, 300);
+        poster.setMaxSize(226, 300);
 
         Label judul = new Label(film.getJudul());
         judul.setTextFill(Color.web("#1a2c50"));
@@ -83,7 +91,8 @@ public class KasirFilmController {
         info.setFont(Font.font("Inter 28pt Regular", 12));
 
         Button tombol = new Button("Pilih Film");
-        tombol.setPrefSize(206, 34);
+        tombol.setPrefHeight(34);
+        tombol.setMaxWidth(Double.MAX_VALUE); // tombol selebar kartu
         tombol.setTextFill(Color.web("#1a2c50"));
         tombol.setFont(Font.font("Inter 28pt SemiBold", 14));
         tombol.setStyle("-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;");
@@ -92,6 +101,7 @@ public class KasirFilmController {
 
         VBox kartu = new VBox(8, poster, judul, info, tombol);
         kartu.setPrefWidth(250);
+        kartu.setMinWidth(250);
         kartu.setMaxWidth(250);
         kartu.setStyle("-fx-padding: 12; -fx-background-color: #FFFFFF; -fx-background-radius: 12;");
         return kartu;

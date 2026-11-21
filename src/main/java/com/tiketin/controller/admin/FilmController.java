@@ -16,7 +16,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.nio.file.Path;
 
 public class FilmController implements HalamanAdmin {
     @FXML
@@ -52,6 +58,20 @@ public class FilmController implements HalamanAdmin {
     @FXML
     private Label inisialLabel;
     @FXML
+    private StackPane kotakPoster;
+    @FXML
+    private ImageView gambarPoster;
+    @FXML
+    private StackPane kotakPreview;
+    @FXML
+    private ImageView previewPoster;
+    @FXML
+    private Label previewKosong;
+    @FXML
+    private Label infoPoster;
+    @FXML
+    private Button tombolHapusPoster;
+    @FXML
     private Label detailJudul;
     @FXML
     private Label detailMeta;
@@ -61,6 +81,9 @@ public class FilmController implements HalamanAdmin {
     private final FilmService filmService = new FilmService();
     private Admin admin;
     private Integer idDiedit;
+    private Path posterDipilih;      // file baru dari "Pilih poster" (belum disimpan)
+    private boolean posterDihapus;   // "Hapus poster" ditekan
+    private static File folderTerakhir;
 
     @FXML
     private void initialize() {
@@ -78,8 +101,26 @@ public class FilmController implements HalamanAdmin {
         cariField.textProperty().addListener((obs, lama, baru) -> muat());
         tombolUbah.setDisable(true);
         tombolHapus.setDisable(true);
+        aturKotakPoster();
         sembunyikanForm();
         isiDetail(null);
+    }
+
+    // Poster detail selalu muat di dalam kotak navy: ukuran gambar mengikuti kotak, sudut dipotong bulat
+    private void aturKotakPoster() {
+        gambarPoster.fitWidthProperty().bind(kotakPoster.widthProperty().subtract(16));
+        gambarPoster.fitHeightProperty().bind(kotakPoster.heightProperty().subtract(16));
+        Rectangle klip = new Rectangle();
+        klip.setArcWidth(24);
+        klip.setArcHeight(24);
+        klip.widthProperty().bind(kotakPoster.widthProperty());
+        klip.heightProperty().bind(kotakPoster.heightProperty());
+        kotakPoster.setClip(klip);
+
+        Rectangle klipMini = new Rectangle(60, 90);
+        klipMini.setArcWidth(16);
+        klipMini.setArcHeight(16);
+        kotakPreview.setClip(klipMini);
     }
 
     @Override
@@ -97,6 +138,7 @@ public class FilmController implements HalamanAdmin {
         durasiField.clear();
         sinopsisField.clear();
         errorForm.setText("");
+        resetPosterForm(null);
         tampilkanForm();
     }
 
@@ -113,6 +155,7 @@ public class FilmController implements HalamanAdmin {
         durasiField.setText(String.valueOf(film.getDurasi()));
         sinopsisField.setText(film.getSinopsis());
         errorForm.setText("");
+        resetPosterForm(film);
         tampilkanForm();
     }
 
@@ -121,16 +164,68 @@ public class FilmController implements HalamanAdmin {
         try {
             if (idDiedit == null) {
                 filmService.tambah(judulField.getText(), genreField.getText(), durasiField.getText(),
-                        sinopsisField.getText(), admin.getIdAdmin());
+                        sinopsisField.getText(), admin.getIdAdmin(), posterDipilih);
             } else {
                 filmService.ubah(idDiedit, judulField.getText(), genreField.getText(), durasiField.getText(),
-                        sinopsisField.getText());
+                        sinopsisField.getText(), posterDipilih, posterDihapus);
             }
             sembunyikanForm();
             muat();
         } catch (IllegalArgumentException ex) {
             errorForm.setText(ex.getMessage());
         }
+    }
+
+    @FXML
+    private void pilihPoster() {
+        FileChooser pilih = new FileChooser();
+        pilih.setTitle("Pilih poster film");
+        pilih.getExtensionFilters().add(new FileChooser.ExtensionFilter("Gambar (JPG, JPEG, PNG)",
+                "*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG"));
+        if (folderTerakhir != null && folderTerakhir.isDirectory()) {
+            pilih.setInitialDirectory(folderTerakhir);
+        }
+        File file = pilih.showOpenDialog(panelForm.getScene().getWindow());
+        if (file != null) {
+            folderTerakhir = file.getParentFile();
+            pakaiPoster(file.toPath());
+        }
+    }
+
+    // Dipanggil setelah file dipilih: cek file, tampilkan pratinjau (belum disimpan sampai Simpan)
+    private void pakaiPoster(Path file) {
+        try {
+            Image gambar = PosterUtil.bacaFile(file);
+            posterDipilih = file;
+            posterDihapus = false;
+            tampilkanPreview(gambar);
+            infoPoster.setText(file.getFileName().toString());
+            errorForm.setText("");
+        } catch (IllegalArgumentException ex) {
+            errorForm.setText(ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void hapusPosterForm() {
+        posterDipilih = null;
+        posterDihapus = true;
+        tampilkanPreview(null);
+        infoPoster.setText("Poster akan dihapus saat Simpan.");
+    }
+
+    private void resetPosterForm(Film film) {
+        posterDipilih = null;
+        posterDihapus = false;
+        Image ada = film == null ? null : PosterUtil.cari(film);
+        tampilkanPreview(ada);
+        infoPoster.setText(ada == null ? "Belum ada poster. JPG / PNG, maks 5 MB" : "Poster saat ini. JPG / PNG, maks 5 MB");
+    }
+
+    private void tampilkanPreview(Image gambar) {
+        previewPoster.setImage(gambar);
+        previewKosong.setVisible(gambar == null);
+        tombolHapusPoster.setDisable(gambar == null);
     }
 
     @FXML
@@ -162,7 +257,8 @@ public class FilmController implements HalamanAdmin {
 
     private void isiDetail(Film film) {
         if (film == null) {
-            inisialLabel.setGraphic(null);
+            gambarPoster.setImage(null);
+            inisialLabel.setVisible(true);
             inisialLabel.setText("?");
             detailJudul.setText("Pilih film");
             detailMeta.setText("Detail muncul di sini.");
@@ -171,17 +267,9 @@ public class FilmController implements HalamanAdmin {
         }
         // Kalau ada file poster sesuai judul, tampilkan; kalau tidak, tetap huruf awal judul
         Image poster = PosterUtil.cari(film);
-        if (poster != null) {
-            ImageView gambar = new ImageView(poster);
-            gambar.setFitHeight(200);
-            gambar.setFitWidth(200);
-            gambar.setPreserveRatio(true);
-            inisialLabel.setGraphic(gambar);
-            inisialLabel.setText("");
-        } else {
-            inisialLabel.setGraphic(null);
-            inisialLabel.setText(film.getJudul().substring(0, 1).toUpperCase());
-        }
+        gambarPoster.setImage(poster);
+        inisialLabel.setVisible(poster == null);
+        inisialLabel.setText(poster == null ? film.getJudul().substring(0, 1).toUpperCase() : "");
         detailJudul.setText(film.getJudul());
         detailMeta.setText(film.getGenre() + " · " + film.getDurasi() + " menit");
         detailSinopsis.setText(film.getSinopsis());
