@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="650.0" prefWidth="1018.0" spacing="20" style="-fx-background-color: #F3F5F8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tiketin.controller.kasir.KasirProfilController">
+
+    <children>
+              <HBox alignment="CENTER_LEFT" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" spacing="10.0" style="-fx-background-color: #1A2C50;">
+            <children>
+            <VBox prefHeight="90.0" prefWidth="340.0" spacing="4.0">
+               <children>
+                      <Label text="tiketin" textFill="#fbc436">
+                     <font>
+                        <Font name="Inter 28pt Bold" size="32.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="18.0" prefWidth="335.0" text="Cinema Ticket Booking System" textFill="WHITE">
+                     <font>
+                        <Font name="Inter 18pt Regular" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="14.0" left="32.0" right="32.0" top="14.0" />
+               </padding>
+            </VBox>
+            <Region prefHeight="90.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/Minimalist%20White%20Profile%20Avatar%20Icon.png" />
+                     </image>
+                  </ImageView>
+                  <VBox alignment="CENTER_LEFT" spacing="4.0">
+                     <children>
+                        <Label text="Kasir" textFill="WHITE">
+                           <font>
+                              <Font name="Inter 18pt SemiBold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblIdKasir" text="KS001" textFill="WHITE">
+                           <font>
+                              <Font name="Inter 28pt Regular" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Separator maxHeight="36.0" maxWidth="36.0" minHeight="36.0" orientation="VERTICAL" prefHeight="36.0" prefWidth="1.0" style="-fx-border-color: #FFFFFF; -fx-border-width: 0,0,0,1;">
+               <effect>
+                  <Blend />
+               </effect>
+            </Separator>
+            <Button fx:id="btnKeluar" mnemonicParsing="false" prefHeight="45.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: #FFFFFF; -fx-border-width: 1.5; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8, 18, 8, 18;" text="Keluar" textFill="WHITE">
+               <font>
+                  <Font name="Inter 28pt SemiBold" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" opacity="0.79" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/Rounded%20Exit%20Arrow%20Icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            </children>
+         <padding>
+            <Insets bottom="20.0" left="32.0" right="32.0" top="20.0" />
+         </padding>
+        </HBox>
+
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: #F3F5F8;" VBox.vgrow="ALWAYS">
+         <content>
+        <VBox spacing="12.0">
+            <children>
+            <Button fx:id="btnKembali" mnemonicParsing="false" onAction="#kembali" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-cursor: hand;" text="Kembali" textFill="#1a2c50">
+               <font>
+                  <Font name="Inter 28pt Regular" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                     <image>
+                        <Image url="@../../images/Bold%20Right-Pointing%20Arrow-1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="-15.0" />
+               </VBox.margin>
+            </Button>
+            <Label text="Profil Kasir" textFill="#1a2c50"><font><Font name="Inter 28pt Bold" size="22.0" /></font></Label>
+            <Label text="Identitas akun kasir yang sedang masuk." textFill="#64748b"><font><Font name="Inter 28pt Regular" size="12.0" /></font></Label>
+            <HBox spacing="24.0">
+               <children>
+                  <!-- Kartu identitas -->
+                  <VBox alignment="TOP_CENTER" minWidth="240.0" prefWidth="260.0" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 10, 0, 0, 3);">
+                     <padding>
+                        <Insets bottom="24.0" left="24.0" right="24.0" top="28.0" />
+                     </padding>
+                     <children>
+                        <StackPane maxHeight="96.0" maxWidth="96.0" minHeight="96.0" minWidth="96.0" prefHeight="96.0" prefWidth="96.0" style="-fx-background-color: #FBC436; -fx-background-radius: 48;">
+                           <children>
+                              <Label fx:id="lblInisial" text="K" textFill="#1a2c50"><font><Font name="Inter 28pt Bold" size="30.0" /></font></Label>
+                           </children>
+                        </StackPane>
+                        <Label fx:id="lblNamaBesar" text="-" textFill="#1a2c50" wrapText="true" alignment="CENTER"><font><Font name="Inter 28pt Bold" size="18.0" /></font></Label>
+                        <Label fx:id="lblUsernameKecil" text="-" textFill="#64748b"><font><Font name="Inter 28pt Regular" size="13.0" /></font></Label>
+                        <Label style="-fx-background-color: #1A2C50; -fx-background-radius: 20; -fx-padding: 4 14 4 14; -fx-text-fill: #FFFFFF;" text="Kasir" textFill="WHITE"><font><Font name="Inter 28pt SemiBold" size="12.0" /></font></Label>
+                     </children>
+                  </VBox>
+                  <!-- Form -->
+                  <VBox spacing="18.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 10, 0, 0, 3);">
+                           <padding>
+                              <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                           </padding>
+                           <children>
+                              <Label text="Data Akun" textFill="#1a2c50"><font><Font name="Inter 28pt Bold" size="18.0" /></font></Label>
+                              <Label text="Nama" textFill="#1a2c50"><font><Font name="Inter 28pt SemiBold" size="13.0" /></font></Label>
+                              <TextField fx:id="txtNama" promptText="Nama yang tampil di header" style="-fx-background-color: #F3F5F8; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-radius: 10; -fx-padding: 8 12 8 12; -fx-font-size: 14px;" />
+                              <Label text="Username" textFill="#1a2c50"><font><Font name="Inter 28pt SemiBold" size="13.0" /></font></Label>
+                              <TextField fx:id="txtUsername" editable="false" focusTraversable="false" style="-fx-background-color: #E8EDF3; -fx-background-radius: 10; -fx-border-color: #E8EDF3; -fx-border-radius: 10; -fx-padding: 8 12 8 12; -fx-font-size: 14px; -fx-text-fill: #475569;" />
+                              <Label text="Role" textFill="#1a2c50"><font><Font name="Inter 28pt SemiBold" size="13.0" /></font></Label>
+                              <TextField editable="false" focusTraversable="false" style="-fx-background-color: #E8EDF3; -fx-background-radius: 10; -fx-border-color: #E8EDF3; -fx-border-radius: 10; -fx-padding: 8 12 8 12; -fx-font-size: 14px; -fx-text-fill: #475569;" text="Kasir" />
+                              <Label text="Username dan role hanya bisa diubah oleh Admin." textFill="#64748b"><font><Font name="Inter 28pt Regular" size="12.0" /></font></Label>
+                              <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                 <children>
+                                    <Button fx:id="btnSimpanNama" mnemonicParsing="false" onAction="#simpanNama" prefHeight="40.0" style="-fx-background-color: #FBC436; -fx-background-radius: 10; -fx-text-fill: #1a2c50; -fx-cursor: hand; -fx-padding: 0 20 0 20;" text="Simpan Nama"><font><Font name="Inter 28pt SemiBold" size="14.0" /></font></Button>
+                                    <Label fx:id="lblPesanNama" text="" textFill="#16a34a" wrapText="true"><font><Font name="Inter 28pt Regular" size="13.0" /></font></Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-effect: dropshadow(gaussian, rgba(26,44,80,0.08), 10, 0, 0, 3);">
+                           <padding>
+                              <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                           </padding>
+                           <children>
+                              <Label text="Ubah Password" textFill="#1a2c50"><font><Font name="Inter 28pt Bold" size="18.0" /></font></Label>
+                              <Label text="Password lama" textFill="#1a2c50"><font><Font name="Inter 28pt SemiBold" size="13.0" /></font></Label>
+                              <PasswordField fx:id="txtPasswordLama" promptText="Password saat ini" style="-fx-background-color: #F3F5F8; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-radius: 10; -fx-padding: 8 12 8 12; -fx-font-size: 14px;" />
+                              <Label text="Password baru" textFill="#1a2c50"><font><Font name="Inter 28pt SemiBold" size="13.0" /></font></Label>
+                              <PasswordField fx:id="txtPasswordBaru" promptText="Minimal 6 karakter" style="-fx-background-color: #F3F5F8; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-radius: 10; -fx-padding: 8 12 8 12; -fx-font-size: 14px;" />
+                              <Label text="Ulangi password baru" textFill="#1a2c50"><font><Font name="Inter 28pt SemiBold" size="13.0" /></font></Label>
+                              <PasswordField fx:id="txtPasswordUlang" promptText="Ketik ulang password baru" style="-fx-background-color: #F3F5F8; -fx-background-radius: 10; -fx-border-color: #CBD5E1; -fx-border-radius: 10; -fx-padding: 8 12 8 12; -fx-font-size: 14px;" />
+                              <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                 <children>
+                                    <Button fx:id="btnUbahPassword" mnemonicParsing="false" onAction="#ubahPassword" prefHeight="40.0" style="-fx-background-color: #1A2C50; -fx-background-radius: 10; -fx-text-fill: #FFFFFF; -fx-cursor: hand; -fx-padding: 0 20 0 20;" text="Ubah Password"><font><Font name="Inter 28pt SemiBold" size="14.0" /></font></Button>
+                                    <Label fx:id="lblPesanPassword" text="" textFill="#16a34a" wrapText="true"><font><Font name="Inter 28pt Regular" size="13.0" /></font></Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            </children>
+         <padding>
+            <Insets bottom="20.0" left="40.0" right="40.0" top="10.0" />
+         </padding>
+        </VBox>
+         </content>
+        </ScrollPane>
+
+    </children>
+</VBox>
