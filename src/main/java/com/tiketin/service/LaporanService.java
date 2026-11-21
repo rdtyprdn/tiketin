@@ -28,7 +28,7 @@ public class LaporanService {
                 .count();
         List<BarisTransaksi> semua = transaksiService.semua();
         int pendapatan = semua.stream()
-                .filter(baris -> baris.getStatus() == StatusPemesanan.BERHASIL)
+                .filter(baris -> baris.getStatus() == StatusPemesanan.LUNAS)
                 .mapToInt(BarisTransaksi::getTotalBayar)
                 .sum();
         return new RingkasanDashboard(film, jadwalAktif, semua.size(), pendapatan, grafikTujuhHari(semua));
@@ -53,7 +53,7 @@ public class LaporanService {
         int kiosk = 0;
         int loket = 0;
         for (BarisTransaksi baris : rekap) {
-            if (baris.getStatus() != StatusPemesanan.BERHASIL) {
+            if (baris.getStatus() != StatusPemesanan.LUNAS) {
                 continue;
             }
             berhasil++;
@@ -74,7 +74,7 @@ public class LaporanService {
         for (int mundur = 6; mundur >= 0; mundur--) {
             LocalDate hari = hariIni.minusDays(mundur);
             List<BarisTransaksi> berhasil = semua.stream()
-                    .filter(baris -> baris.getStatus() == StatusPemesanan.BERHASIL)
+                    .filter(baris -> baris.getStatus() == StatusPemesanan.LUNAS)
                     .filter(baris -> baris.getWaktu().toLocalDate().equals(hari))
                     .toList();
             int nilai = berhasil.stream().mapToInt(BarisTransaksi::getTotalBayar).sum();

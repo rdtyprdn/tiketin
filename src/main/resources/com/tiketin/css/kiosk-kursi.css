@@ -1,0 +1,62 @@
+/* Denah kursi halaman kiosk.
+   Selector diawali .denah-kiosk supaya menang dari aturan .button di kiosk.css */
+.denah-kiosk .kursi {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #1A2C50;
+    -fx-font-family: "Inter SemiBold";
+    -fx-font-size: 13px;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.denah-kiosk .kursi:hover {
+    -fx-border-color: #1A2C50;
+}
+
+.denah-kiosk .kursi-dipilih {
+    -fx-background-color: #FBC436;
+    -fx-border-color: #FBC436;
+}
+
+.denah-kiosk .kursi-terisi,
+.denah-kiosk .kursi-terisi:disabled {
+    -fx-background-color: #CBD5E1;
+    -fx-border-color: #CBD5E1;
+    -fx-text-fill: #64748B;
+    -fx-opacity: 1;
+    -fx-cursor: default;
+}
+
+.denah-kiosk .layar {
+    -fx-background-color: #1A2C50;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 6;
+    -fx-padding: 6;
+    -fx-font-family: "Inter SemiBold";
+}
+
+.denah-kiosk .legenda-kosong,
+.denah-kiosk .legenda-dipilih,
+.denah-kiosk .legenda-terisi {
+    -fx-padding: 4 12 4 12;
+    -fx-background-radius: 6;
+    -fx-text-fill: #1A2C50;
+}
+
+.denah-kiosk .legenda-kosong {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 6;
+}
+
+.denah-kiosk .legenda-dipilih {
+    -fx-background-color: #FBC436;
+}
+
+.denah-kiosk .legenda-terisi {
+    -fx-background-color: #CBD5E1;
+    -fx-text-fill: #64748B;
+}

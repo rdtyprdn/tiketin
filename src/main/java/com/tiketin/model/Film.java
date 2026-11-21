@@ -7,19 +7,28 @@ public class Film {
     private int durasi;
     private String sinopsis;
     private int idAdmin;
+    private String poster;
+    public Film(){
 
-    public Film() {
     }
 
-    public Film(int idFilm, String judul, String genre, int durasi, String sinopsis, int idAdmin) {
+    public Film(int idFilm, String judul, String genre, int durasi, String sinopsis, int idAdmin, String poster){
         this.idFilm = idFilm;
         this.judul = judul;
         this.genre = genre;
         this.durasi = durasi;
         this.sinopsis = sinopsis;
         this.idAdmin = idAdmin;
+        this.poster = poster;
     }
 
+    public Film(int idFilm, String judul, String genre, int durasi, String sinopsis, int idAdmin) {
+        this(idFilm, judul, genre, durasi, sinopsis, idAdmin, null);
+    }
+
+    public Film(String judul, String genre, int durasi, String sinopsis, String poster) {
+        this(0, judul, genre, durasi, sinopsis, 0, poster);
+    }
     public int getIdFilm() {
         return idFilm;
     }
@@ -56,7 +65,12 @@ public class Film {
     public void setIdAdmin(int idAdmin) {
         this.idAdmin = idAdmin;
     }
-
+    public String getPoster() {
+        return poster;
+    }
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
     @Override 
     public String toString(){
         return judul;
