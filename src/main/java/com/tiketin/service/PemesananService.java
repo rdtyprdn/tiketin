@@ -100,11 +100,17 @@ public class PemesananService {
 
     private double ambilHarga(Connection conn, int idJadwal) throws SQLException {
         try (PreparedStatement ps = conn.prepareStatement(
-                "SELECT harga_tiket FROM jadwal_tayang WHERE id_jadwal = ?")) {
+                "SELECT harga_tiket, status_jadwal, waktu_mulai < NOW() AS sudah_mulai FROM jadwal_tayang WHERE id_jadwal = ?")) {
             ps.setInt(1, idJadwal);
             try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next()) {
                     throw new SQLException("Jadwal tidak ditemukan.");
+                }
+                if (!"AKTIF".equals(rs.getString("status_jadwal"))) {
+                    throw new SQLException("Jadwal ini sudah dibatalkan. Silakan pilih jadwal lain.");
+                }
+                if (rs.getBoolean("sudah_mulai")) {
+                    throw new SQLException("Jadwal ini sudah mulai tayang. Silakan pilih jadwal lain.");
                 }
                 return rs.getDouble("harga_tiket");
             }

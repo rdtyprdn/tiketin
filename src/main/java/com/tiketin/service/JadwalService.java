@@ -8,10 +8,13 @@ import com.tiketin.model.Studio;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
 public class JadwalService {
+    private static final DateTimeFormatter JAM = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+
     private final PenyimpananSementara data = PenyimpananSementara.get();
 
     public List<JadwalTayang> cari(String kata) {
@@ -79,7 +82,46 @@ public class JadwalService {
         if (harga <= 0) {
             throw new IllegalArgumentException("Harga tiket harus lebih dari 0.");
         }
-        return new JadwalTayang(idJadwal, idFilm, idStudio, LocalDateTime.of(tanggal, jam), harga, status, idAdmin);
+        LocalDateTime mulai = LocalDateTime.of(tanggal, jam);
+        JadwalTayang lama = idJadwal == 0 ? null : data.cariJadwal(idJadwal);
+        boolean waktuBerubah = lama == null || !lama.getWaktuMulai().equals(mulai);
+        if (waktuBerubah && mulai.isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Waktu tayang tidak boleh di masa lalu.");
+        }
+        if (lama != null && (lama.getIdFilm() != idFilm || lama.getIdStudio() != idStudio || waktuBerubah)) {
+            boolean adaPesanan = data.pemesanan().stream().anyMatch(pesanan -> pesanan.getIdJadwal() == idJadwal);
+            if (adaPesanan) {
+                throw new IllegalArgumentException(
+                        "Jadwal ini sudah punya pemesanan, jadi film, studio, dan waktunya tidak bisa diubah. Ubah harga atau status saja.");
+            }
+        }
+        if (status == StatusJadwal.AKTIF) {
+            cekBentrok(idJadwal, idFilm, idStudio, mulai);
+        }
+        return new JadwalTayang(idJadwal, idFilm, idStudio, mulai, harga, status, idAdmin);
+    }
+
+    // satu studio tidak boleh memutar dua jadwal aktif yang waktunya bertabrakan
+    private void cekBentrok(int idJadwal, int idFilm, int idStudio, LocalDateTime mulai) {
+        LocalDateTime selesai = mulai.plusMinutes(durasi(idFilm));
+        for (JadwalTayang lain : data.jadwal()) {
+            if (lain.getIdJadwal() == idJadwal || lain.getIdStudio() != idStudio
+                    || lain.getStatusJadwal() != StatusJadwal.AKTIF) {
+                continue;
+            }
+            LocalDateTime mulaiLain = lain.getWaktuMulai();
+            LocalDateTime selesaiLain = mulaiLain.plusMinutes(durasi(lain.getIdFilm()));
+            if (mulai.isBefore(selesaiLain) && mulaiLain.isBefore(selesai)) {
+                throw new IllegalArgumentException("Studio ini sudah dipakai " + judul(lain.getIdFilm()) + " pada "
+                        + mulaiLain.format(JAM) + " - " + selesaiLain.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))
+                        + ". Pilih jam atau studio lain.");
+            }
+        }
+    }
+
+    private int durasi(int idFilm) {
+        Film film = data.cariFilm(idFilm);
+        return film == null ? 0 : film.getDurasi();
     }
 
     private JadwalTayang wajibAda(int idJadwal) {
