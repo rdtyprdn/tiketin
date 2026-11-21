@@ -167,7 +167,8 @@ public class JadwalController implements HalamanAdmin {
         tanggalField.setValue(jadwal.getWaktuMulai().toLocalDate());
         isiJam(jadwal.getWaktuMulai().toLocalTime());
         jamField.getSelectionModel().select(jadwal.getWaktuMulai().toLocalTime());
-        hargaField.setText(String.valueOf(jadwal.getHargaTiket()));
+        // angka polos tanpa ".0" / notasi E (dulu String.valueOf(double) menghasilkan 5.0E7)
+        hargaField.setText(String.valueOf(Math.round(jadwal.getHargaTiket())));
         statusField.getSelectionModel().select(jadwal.getStatusJadwal());
         errorForm.setText("");
         tampilkanForm();
