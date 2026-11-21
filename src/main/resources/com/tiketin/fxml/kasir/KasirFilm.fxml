@@ -8,10 +8,9 @@
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -82,7 +81,7 @@
          </padding>
         </HBox>
 
-              <VBox prefHeight="733.0" prefWidth="995.0" spacing="15">
+              <VBox minHeight="0.0" prefWidth="995.0" spacing="15" VBox.vgrow="ALWAYS">
             <children>
             <Button fx:id="btnKembali" mnemonicParsing="false" onAction="#kembali" prefHeight="32.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-cursor: hand;" text="Kembali" textFill="#1a2c50">
                <font>
@@ -112,137 +111,10 @@
                   <Font name="Inter 28pt Regular" size="14.0" />
                </font>
             </Label>
-            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minHeight="550.0" prefHeight="550.0" prefWidth="1015.0" style="-fx-background-color: transparent; -fx-border-radius: transparent; -fx-background: #F3F5F8;" VBox.vgrow="ALWAYS">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" minHeight="0.0" prefHeight="550.0" prefWidth="1015.0" style="-fx-background-color: transparent; -fx-background: #F3F5F8;" VBox.vgrow="ALWAYS">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <TilePane hgap="30.0" layoutX="10.0" layoutY="10.0" prefColumns="3" prefHeight="200.0" prefWidth="1500.0" style="-fx-padding: 10; -fx-background-color: #F3F5F8;" tileAlignment="TOP_CENTER" vgap="20.0" />
-                        <HBox fx:id="containerFilm" alignment="CENTER" minWidth="-Infinity" prefWidth="1100.0" spacing="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <children>
-                              <VBox maxWidth="250.0" prefWidth="250.0" spacing="8.0" style="-fx-padding: 12; -fx-background-color: #FFFFFF; -fx-background-radius: 12;">
-                                 <children>
-                                    <ImageView fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../images/Zootopia.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Label text="Zootopia 2" textFill="#1a2c50">
-                                       <font>
-                                          <Font name="Inter 18pt SemiBold" size="16.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Animation · 108 menit" textFill="#64748b">
-                                       <font>
-                                          <Font name="Inter 28pt Regular" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Button fx:id="btnZootopia" mnemonicParsing="false" onAction="#pilihFilm" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
-                                       <font>
-                                          <Font name="Inter 28pt SemiBold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </VBox>
-                              <VBox maxWidth="250.0" prefWidth="250.0" spacing="8.0" style="-fx-padding: 12; -fx-background-color: #FFFFFF; -fx-background-radius: 12;">
-                                 <children>
-                                    <ImageView fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../images/Rangga%20dan%20Cinta.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Label text="Rangga &amp; Cinta" textFill="#1a2c50">
-                                       <font>
-                                          <Font name="Inter 18pt SemiBold" size="16.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Romance · 112 menit" textFill="#64748b">
-                                       <font>
-                                          <Font name="Inter 28pt Regular" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Button fx:id="btnRanggaCinta" mnemonicParsing="false" onAction="#pilihFilm" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
-                                       <font>
-                                          <Font name="Inter 28pt SemiBold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </VBox>
-                              <VBox maxWidth="250.0" prefWidth="250.0" spacing="8.0" style="-fx-padding: 12; -fx-background-color: #FFFFFF; -fx-background-radius: 12;">
-                                 <children>
-                                    <ImageView fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../images/ghost.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Label text="Ghost In The Cell" textFill="#1a2c50">
-                                       <font>
-                                          <Font name="Inter 18pt SemiBold" size="16.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Horror · 155 menit" textFill="#64748b">
-                                       <font>
-                                          <Font name="Inter 28pt Regular" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Button fx:id="btnGhost" mnemonicParsing="false" onAction="#pilihFilm" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
-                                       <font>
-                                          <Font name="Inter 28pt SemiBold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </VBox>
-                              <VBox maxWidth="250.0" prefWidth="250.0" spacing="8.0" style="-fx-padding: 12; -fx-background-color: #FFFFFF; -fx-background-radius: 12;">
-                                 <children>
-                                    <ImageView fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../images/Wicked.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Label text="Wicked" textFill="#1a2c50">
-                                       <font>
-                                          <Font name="Inter 18pt SemiBold" size="16.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Fantasy · 160 menit" textFill="#64748b">
-                                       <font>
-                                          <Font name="Inter 28pt Regular" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Button fx:id="btnWicked" mnemonicParsing="false" onAction="#pilihFilm" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
-                                       <font>
-                                          <Font name="Inter 28pt SemiBold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </VBox>
-                              <VBox maxWidth="250.0" prefWidth="250.0" spacing="8.0" style="-fx-padding: 12; -fx-background-color: #FFFFFF; -fx-background-radius: 12;">
-                                 <children>
-                                    <ImageView fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../images/Action.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Label text="Mission: Impossible Fallout" textFill="#1a2c50">
-                                       <font>
-                                          <Font name="Inter 18pt SemiBold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Action · 155 menit" textFill="#64748b">
-                                       <font>
-                                          <Font name="Inter 28pt Regular" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Button fx:id="btnMissionImpossible" mnemonicParsing="false" onAction="#pilihFilm" prefHeight="34.0" prefWidth="206.0" style="-fx-background-color: #FBC436; -fx-background-radius: 9; -fx-cursor: hand;" text="Pilih Film" textFill="#1a2c50">
-                                       <font>
-                                          <Font name="Inter 28pt SemiBold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
+                <!-- Kartu film diisi dari KasirFilmController; FlowPane membungkus ke baris baru dan ScrollPane menggulir ke bawah -->
+                <FlowPane fx:id="containerFilm" alignment="TOP_CENTER" hgap="24.0" prefWrapLength="1000.0" style="-fx-background-color: #F3F5F8;" vgap="20.0" />
               </content>
                <padding>
                   <Insets bottom="50.0" right="50.0" top="30.0" />
