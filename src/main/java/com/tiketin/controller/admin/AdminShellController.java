@@ -158,9 +158,6 @@ public class AdminShellController {
     }
 
     private Parent tampilan(String file, Parent view) {
-        if (!"dashboard.fxml".equals(file)) {
-            return view;
-        }
         ScrollPane gulir = new ScrollPane(view);
         gulir.setFitToWidth(true);
         gulir.setFitToHeight(true);

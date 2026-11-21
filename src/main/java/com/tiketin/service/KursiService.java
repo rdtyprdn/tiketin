@@ -43,8 +43,9 @@ public class KursiService {
         }
         String nomorBersih = Validasi.wajib(nomor, "Nomor kursi wajib diisi.").toUpperCase(Locale.ROOT);
         String tipeBersih = Validasi.wajib(tipe, "Tipe kursi wajib diisi.");
-        if (nomorBersih.length() > 10) {
-            throw new IllegalArgumentException("Nomor kursi maksimal 10 karakter.");
+        // format harus huruf baris + nomor (contoh A1, B12) agar muncul di denah kursi
+        if (!nomorBersih.matches("[A-Z][0-9]{1,3}")) {
+            throw new IllegalArgumentException("Nomor kursi harus huruf baris diikuti angka, contoh A1 atau B12.");
         }
         boolean bentrok = data.kursi().stream().anyMatch(kursi ->
                 kursi.getIdKursi() != idKursi

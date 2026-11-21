@@ -102,6 +102,18 @@ public class PenggunaDAO {
         }
     }
 
+    // dipakai halaman Profil admin: nama dan username disimpan ke database
+    public void ubahIdentitas(int idPengguna, String nama, String username) throws SQLException {
+        String sql = "UPDATE pengguna SET nama = ?, username = ? WHERE id_pengguna = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nama);
+            ps.setString(2, username);
+            ps.setInt(3, idPengguna);
+            ps.executeUpdate();
+        }
+    }
+
     public void hapusKasir(int idKasir) throws SQLException {
         try (Connection conn = DatabaseConnection.getConnection()) {
             conn.setAutoCommit(false);
