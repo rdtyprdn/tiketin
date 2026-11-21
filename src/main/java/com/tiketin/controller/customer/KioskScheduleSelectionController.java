@@ -10,6 +10,7 @@ import java.util.Locale;
 import com.tiketin.App;
 import com.tiketin.model.Film;
 import com.tiketin.model.JadwalTayang;
+import com.tiketin.service.FilmService;
 import com.tiketin.service.KasirTransaksiService;
 import com.tiketin.util.KasirUtil;
 import com.tiketin.util.KioskSession;
@@ -30,6 +31,7 @@ public class KioskScheduleSelectionController {
     @FXML private Label lblGenre;
     @FXML private Label lblDurasi;
     @FXML private Label lblRatingUsia;
+    @FXML private Label lblRating;
     @FXML private Label lblHargaTiket;
 
     // PILIHAN TANGGAL (5 kartu dari desain Alia, diisi hari ini s.d. 4 hari ke depan)
@@ -140,6 +142,7 @@ public class KioskScheduleSelectionController {
         lblJudulFilm.setText(film.getJudul());
         lblGenre.setText(film.getGenre() == null || film.getGenre().isBlank() ? "-" : film.getGenre());
         lblDurasi.setText(film.getDurasi() + " min");
+        lblRating.setText(FilmService.formatRating(film.getRating()));
         lblRatingUsia.setText(film.getRatingUsia() == null || film.getRatingUsia().isBlank() ? "-" : film.getRatingUsia());
         lblHargaTiket.setText("-");
         imgPosterFilm.setImage(KasirUtil.poster(film));
