@@ -323,6 +323,17 @@
     -fx-background-color: transparent;
 }
 
+.denah-gulir {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.denah-gulir > .viewport {
+    -fx-background-color: transparent;
+}
+
 .kartu-stat, .kartu-grafik {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 12;
