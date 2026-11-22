@@ -22,7 +22,7 @@ Dibuat dengan Java 21, JavaFX 21.0.9 (FXML), Maven, dan MySQL.
   2. I Putu Aditya Widiantara Putra     (2508561006)
   3. Putu Alia Devi Junita Lestari      (2508561009)
   4. I Gusti Agung Gde Raditya Pradana  (2508561011)
-Dosen: I Made Satria Bimantara, S.Kom., M.Kom.
+
 
 3. KEBUTUHAN
 ------------
