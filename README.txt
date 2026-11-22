@@ -99,34 +99,7 @@ dijalankan:
 Syarat: user database di db.properties punya izin ALTER. Jika tidak,
 aplikasi menampilkan pesan error; solusinya import ulang tiketin.sql.
 
-7. STRUKTUR FOLDER
-------------------
-  pom.xml                         konfigurasi Maven (Java 21, JavaFX)
-  database/tiketin.sql            skema + data contoh
-  src/main/java/com/tiketin/
-    App.java                      class utama (main)
-    config/                       koneksi database (DatabaseConnection)
-    model/                        class data (Pengguna, Admin, Kasir,
-                                  Film, JadwalTayang, Pemesanan, dll.)
-    enums/                        KanalPemesanan, StatusJadwal,
-                                  StatusPemesanan, StatusPembayaran
-    payment/                      interface Pembayaran, PembayaranTunai,
-                                  PembayaranQRIS
-    dao/                          query SQL (CRUD) ke database
-    service/                      logika & validasi aplikasi
-    controller/admin|kasir|customer/   controller tiap halaman
-    component/                    DenahKursi (denah kursi)
-    util/                         helper (sesi, password, poster, dll.)
-  src/main/resources/com/tiketin/
-    fxml/                         tampilan (FXML)
-    css/                          gaya tampilan
-    images/                       gambar & poster film (nama file =
-                                  judul film)
-  src/main/resources/db.properties.example   contoh pengaturan DB
-  data/                           dibuat otomatis untuk foto profil
-                                  admin (tidak ikut repository)
-
-8. TROUBLESHOOTING
+7. TROUBLESHOOTING
 ------------------
 - "db properties tidak ditemukan di src/main/resources"
     -> File db.properties belum dibuat. Lakukan langkah 4c.
