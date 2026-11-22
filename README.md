@@ -1,11 +1,9 @@
-==============================================================
  TIKETIN - Sistem Pemesanan Tiket Bioskop
  PBO - Tugas Kelompok II - Kelas A - Kelompok 1
-==============================================================
 
 1. DESKRIPSI SINGKAT
 --------------------
-Tiketin adalah aplikasi desktop pemesanan tiket bioskop dengan konsep
+tiketin adalah aplikasi desktop pemesanan tiket bioskop dengan konsep
 Hybrid Self-Service Cinema. Ada tiga jenis pengguna:
   - Admin    : kelola film (termasuk poster, sutradara, tahun rilis,
                rating usia, rating 1-5), studio, kursi, jadwal tayang
@@ -16,7 +14,7 @@ Hybrid Self-Service Cinema. Ada tiga jenis pengguna:
                transaksi, dan profil kasir.
   - Customer : memesan sendiri lewat Mode Kiosk tanpa login (pilih film,
                jadwal, kursi, ringkasan, pembayaran QRIS simulasi, tiket).
-Dibuat dengan Java 21, JavaFX 21.0.9 (FXML), Maven, dan MySQL/MariaDB.
+Dibuat dengan Java 21, JavaFX 21.0.9 (FXML), Maven, dan MySQL.
 
 2. ANGGOTA KELOMPOK
 -------------------
@@ -30,7 +28,7 @@ Dosen: I Made Satria Bimantara, S.Kom., M.Kom.
 ------------
   - JDK 21 (cek: java -version)
   - Apache Maven 3.8 atau lebih baru (cek: mvn -v)
-  - MySQL 8 atau MariaDB 10.x (bisa lewat XAMPP/Laragon)
+  - MySQL 8, bisa menggunakan XAMPP atau LARAGON
   - Koneksi internet saat pertama kali build, karena Maven akan
     mengunduh JavaFX 21.0.9 dan MySQL Connector/J 9.1.0 secara otomatis.
     JavaFX TIDAK perlu di-install manual.
@@ -60,7 +58,7 @@ c) Atur koneksi database
    Lalu isi sesuai MySQL di komputer masing-masing, contoh:
      db.url=jdbc:mysql://localhost:3306/tiketin
      db.user=root
-     db.password=isi_password_mysql_anda
+     db.password=(password sql anda)
    (Kalau root tidak memakai password, kosongkan saja: db.password=)
 
 d) Jalankan aplikasi (dari folder proyek):
